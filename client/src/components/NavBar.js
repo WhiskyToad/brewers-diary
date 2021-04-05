@@ -1,5 +1,13 @@
 import React from "react";
-import { Link, Box, VStack, Text, Stack, Button } from "@chakra-ui/react";
+import {
+  Link,
+  Box,
+  VStack,
+  Text,
+  Stack,
+  Button,
+  HStack,
+} from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 
 import Logo from "./Logo";
@@ -11,9 +19,11 @@ const NavBar = (props) => {
 
   return (
     <NavBarContainer {...props}>
-      <Logo />
-      <MenuToggle toggle={toggle} isOpen={isOpen} />
-      <MenuLinks isOpen={isOpen} />
+      <HStack>
+        <Logo />
+        <MenuToggle toggle={toggle} isOpen={isOpen} />
+        <MenuLinks isOpen={isOpen} />
+      </HStack>
     </NavBarContainer>
   );
 };
@@ -22,7 +32,7 @@ const CloseIcon = () => (
   <svg width="38px" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
     <title>Close</title>
     <path
-      fill="yellow"
+      fill="orange"
       d="M9.00023 7.58599L13.9502 2.63599L15.3642 4.04999L10.4142 8.99999L15.3642 13.95L13.9502 15.364L9.00023 10.414L4.05023 15.364L2.63623 13.95L7.58623 8.99999L2.63623 4.04999L4.05023 2.63599L9.00023 7.58599Z"
     />
   </svg>
@@ -71,22 +81,15 @@ const MenuLinks = ({ isOpen }) => {
         justify={["center", "center", "flex-end", "flex-end"]}
         direction={["column", "column", "row", "row"]}
         pt={[4, 4, 0, 0]}
-        color="#e63312;"
       >
-        <Button color="orange" variant="ghost" fontSize="25px">
+        <Button textStyle="navbar" variant="ghost">
           <Search2Icon mr="15px" size="sm" />
           Search
         </Button>
-        <MenuItem to="/recipes">IPA</MenuItem>
-        <MenuItem to="/recipes">DIPA</MenuItem>
-        <MenuItem to="/recipes">NEIPA</MenuItem>
-        <MenuItem to="/recipes" fontSize={["28px", "28px", "50px", "50px"]}>
-          RECIPES
-        </MenuItem>
-        <MenuItem to="/recipes">PORTER</MenuItem>
-        <MenuItem to="/recipes">STOUT</MenuItem>
-        <MenuItem to="/recipes">SOUR</MenuItem>
-        <Button color="orange" variant="ghost" fontSize="25px">
+
+        <MenuItem to="/recipes">RECIPES</MenuItem>
+
+        <Button textStyle="navbar" variant="ghost">
           Sign In
         </Button>
       </Stack>

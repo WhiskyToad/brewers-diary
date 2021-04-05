@@ -12,6 +12,8 @@ npm install axios moment react-file-base64 redux redux-thunk react-router-dom
 
 npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion
 
+npm install react-icons --save
+
 ---
 
 Server

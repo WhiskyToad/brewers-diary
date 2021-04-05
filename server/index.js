@@ -15,8 +15,8 @@ app.use(cors());
 
 app.use("/recipes", recipeRoutes);
 
-const CONNECTION_URL = process.env.CONNECTION_URL;
-const PORT = process.env.PORT;
+const CONNECTION_URL = "process.env.CONNECTION_URL";
+const PORT = process.env.PORT || 5000;
 
 mongoose
   .connect(CONNECTION_URL, {

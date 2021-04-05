@@ -22,7 +22,8 @@ const theme = extendTheme({
   textStyles: {
     navbar: {
       fontFamily: ["BebasNeue"],
-      fontSize: ["28px", "28px", "34px", "34px"],
+      fontSize: ["20px", "20px", "30px", "30px"],
+      color: "orange",
     },
     descriptive: {
       fontSize: ["18px", "18px", "26px", "26px"],
@@ -30,17 +31,12 @@ const theme = extendTheme({
     },
     heading: {
       fontFamily: ["BebasNeue"],
-      fontSize: ["28px", "28px", "34px", "34px"],
+      fontSize: ["28px", "28px", "40px", "40px"],
       color: "orange",
     },
     title: {
       fontFamily: ["BebasNeue"],
       fontSize: ["45px", "45px", "60px", "80px"],
-      color: "aqua",
-    },
-    headingLarge: {
-      fontFamily: ["BebasNeue"],
-      fontSize: ["35px", "35px", "55px", "55px"],
       color: "aqua",
     },
     headingMedium: {
