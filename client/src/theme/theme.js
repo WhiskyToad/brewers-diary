@@ -5,13 +5,13 @@ const theme = extendTheme({
     orange: "#e63312",
     blue: "#002638",
     pink: "#fff0f5",
-    aqua: "#04AEC4",
+    selected: "#ebf6f7",
   },
   styles: {
     global: {
       body: {
         fontFamily: "Open Sans",
-        bg: "pink",
+        bg: "#eaf4fc",
       },
       button: {
         loadingText: "Submitting",
@@ -24,30 +24,24 @@ const theme = extendTheme({
       fontFamily: ["BebasNeue"],
       fontSize: ["20px", "20px", "30px", "30px"],
       color: "orange",
+      fontWeight: "bold",
     },
     descriptive: {
-      fontSize: ["18px", "18px", "26px", "26px"],
+      fontSize: ["18px", "18px", "20px", "20px"],
       fontWeight: "bold",
+    },
+    descriptiveSmall: {
+      fontSize: ["10px", "10px", "15px", "15px"],
     },
     heading: {
       fontFamily: ["BebasNeue"],
-      fontSize: ["28px", "28px", "40px", "40px"],
+      fontSize: ["25px", "250px", "35px", "35px"],
       color: "orange",
-    },
-    title: {
-      fontFamily: ["BebasNeue"],
-      fontSize: ["45px", "45px", "60px", "80px"],
-      color: "aqua",
-    },
-    headingMedium: {
-      fontFamily: ["BebasNeue"],
-      fontSize: ["30px", "30px", "45px", "45px"],
-      color: "orange",
+      fontWeight: "bold",
     },
     headingSmall: {
       fontFamily: ["BebasNeue"],
-      fontSize: ["25px", "25px", "30px", "30px"],
-      color: "orange",
+      fontSize: ["18px", "18px", "25px", "25px"],
     },
   },
 });

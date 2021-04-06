@@ -5,7 +5,7 @@ export default function Logo(props) {
   return (
     <a href="/">
       <Box minW="300px" {...props}>
-        <Text fontSize="40px" color="orange" fontFamily="Neoneon">
+        <Text fontSize="40px" color="white" fontFamily="Neoneon">
           BREWERS DIARY
         </Text>
       </Box>
