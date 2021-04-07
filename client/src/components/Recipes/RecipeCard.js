@@ -1,5 +1,13 @@
 import React from "react";
-import { Image, Text, HStack, VStack, Divider, Spacer } from "@chakra-ui/react";
+import {
+  Image,
+  Text,
+  HStack,
+  VStack,
+  Divider,
+  Spacer,
+  Flex,
+} from "@chakra-ui/react";
 import { FaRegComments, FaRegLightbulb, FaRegStar } from "react-icons/fa";
 import { FiBookOpen } from "react-icons/fi";
 
@@ -7,26 +15,27 @@ const RecipeCard = ({ recipe }) => {
   return (
     <>
       <HStack
-        minW="100%"
+        w="940px"
         h="350px"
         alignSelf="center"
         borderRadius="lg"
         overflow="hidden"
         textStyle="descriptiveSmall"
       >
-        <Image
-          src={recipe.selectedFile}
-          h="275px"
-          w="410px"
-          borderRadius="10px"
-        />
-
-        <VStack w="100%" h="275px" m="10px" textAlign="center" spacing={4}>
+        <Flex w="50%" h="275px" justify="center">
+          <Image
+            h="250px"
+            borderRadius="10px"
+            fit="cover"
+            src={recipe.selectedFile}
+          />
+        </Flex>
+        <VStack w="50%" h="275px" m="10px" textAlign="center" spacing={4}>
           <Text textStyle="heading">{recipe.title}</Text>
-          <HStack w="50%" justify="space-evenly">
-            <Text textStyle="headingSmall">{recipe.method}</Text>
-            <Text textStyle="headingSmall">{recipe.style}</Text>
-            <Text textStyle="headingSmall">{recipe.targetABV}%</Text>
+          <HStack w="50%" justify="space-evenly" textStyle="headingSmall">
+            <Text>{recipe.method}</Text>
+            <Text>{recipe.style}</Text>
+            <Text>{recipe.targetABV}%</Text>
           </HStack>
           <Text px="15px" textStyle="descriptive">
             {recipe.description}

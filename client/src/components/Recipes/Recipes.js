@@ -40,8 +40,8 @@ const SortSegment = ({ recipes, sort, setSort }) => {
       bg="white"
       border="1px solid black"
       borderRadius="4px"
-      textStyle="headingSmall"
       textAlign="center"
+      textStyle="headingSmall"
     >
       <Select
         variant="unstyled"
@@ -112,7 +112,7 @@ const RecipeList = ({ recipes }) => {
     <VStack
       maxW="950px"
       mx="auto"
-      p="10px"
+      p="20px"
       spacing={1}
       bg="white"
       border="1px solid black"

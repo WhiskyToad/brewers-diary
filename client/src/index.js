@@ -9,6 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import App from "./App";
 
 import reducers from "./reducers";
+
 const persistConfig = {
   key: "root",
   storage,
@@ -22,9 +23,8 @@ const persistor = persistStore(store);
 
 ReactDom.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <App />
-    </PersistGate>
+    <PersistGate loading={null} persistor={persistor}></PersistGate>
+    <App />
   </Provider>,
   document.getElementById("root")
 );
