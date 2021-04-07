@@ -34,8 +34,8 @@ export const updateRecipe = async (req, res) => {
 
 export const deleteRecipe = async (req, res) => {
   const { id } = req.params;
-
   if (!mongoose.Types.ObjectId.isValid(id))
-    await recipeSheet.findByIdAndRemove(id);
+    return res.status(404).send(`No post with id: ${id}`);
+  await recipeSheet.findByIdAndRemove(id);
   res.json({ message: "Recipe deleted successfuly" });
 };
