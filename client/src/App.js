@@ -6,7 +6,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import { getRecipes } from "./actions/recipes";
 import Recipes from "./components/Recipes/Recipes";
-import RecipeForm from "./components/Recipes/RecipeForm";
+import RecipeForm from "./components/Recipes/new";
 import RecipeView from "./components/Recipes/RecipeView";
 
 import theme from "./theme/theme";

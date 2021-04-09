@@ -5,6 +5,9 @@ import { useSelector } from "react-redux";
 import { DeleteIcon } from "@chakra-ui/icons";
 import {
   Stack,
+  VStack,
+  Image,
+  Spacer,
   Input,
   Select,
   Textarea,
@@ -15,6 +18,9 @@ import {
   HStack,
   Button,
   Text,
+  Editable,
+  EditableInput,
+  EditablePreview,
 } from "@chakra-ui/react";
 
 import { useDispatch } from "react-redux";
@@ -29,6 +35,11 @@ const RecipeForm = () => {
   const recipe = useSelector((state) =>
     state.recipes.find((r) => r._id === recipeId)
   );
+
+  //populate for edit
+  useEffect(() => {
+    setRecipeData(recipe);
+  }, [recipe]);
 
   //saving inputs to push to recipeData
   const [malt, setMalt] = useState({ name: "", grams: 0 });
@@ -67,11 +78,6 @@ const RecipeForm = () => {
     otherDirections: "",
     //creator: '',
   });
-
-  //populate for edit
-  useEffect(() => {
-    if (recipe) setRecipeData(recipe);
-  }, [recipe]);
 
   //submits the form
   const handleSubmit = (e) => {
@@ -119,6 +125,7 @@ const RecipeForm = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
+        <Title recipeData={recipeData} setRecipeData={setRecipeData} />
         <Stack
           maxW="600px"
           mx="auto"
@@ -129,23 +136,6 @@ const RecipeForm = () => {
           bg="white"
           fontSize="30px"
         >
-          <FileBase
-            mb="20px"
-            type="file"
-            multiple={false}
-            onDone={({ base64 }) =>
-              setRecipeData({ ...recipeData, selectedFile: base64 })
-            }
-          />
-
-          <Input
-            placeholder="Title"
-            value={recipeData.title}
-            onChange={(e) =>
-              setRecipeData({ ...recipeData, title: e.target.value })
-            }
-          />
-
           <HStack minW="75%">
             <Select
               placeholder="Method"
@@ -168,16 +158,16 @@ const RecipeForm = () => {
             </Select>
           </HStack>
 
-          <Textarea
+          {/* <Textarea
             placeholder="Enter a description"
             value={recipeData.description}
             onChange={(e) =>
               setRecipeData({ ...recipeData, description: e.target.value })
             }
-          ></Textarea>
+          ></Textarea> */}
 
           <HStack>
-            <NumberInput>
+            <NumberInput value={recipeData.batchSize}>
               <InputGroup>
                 <NumberInputField
                   value={recipeData.batchSize}
@@ -192,7 +182,7 @@ const RecipeForm = () => {
           </HStack>
 
           <HStack>
-            <NumberInput>
+            <NumberInput value={recipeData.mashTemp}>
               <InputGroup>
                 <NumberInputField
                   value={recipeData.mashTemp}
@@ -220,7 +210,7 @@ const RecipeForm = () => {
           </HStack>
 
           <HStack>
-            <NumberInput precision={2}>
+            <NumberInput precision={2} value={recipeData.targetOG}>
               <InputGroup>
                 <NumberInputField
                   value={recipeData.targetOG}
@@ -261,7 +251,7 @@ const RecipeForm = () => {
               </InputGroup>
             </NumberInput>
 
-            <NumberInput>
+            {/* <NumberInput>
               <InputGroup>
                 <NumberInputField
                   value={recipeData.targetABV}
@@ -272,7 +262,7 @@ const RecipeForm = () => {
                 />
                 <InputRightAddon children="%" />
               </InputGroup>
-            </NumberInput>
+            </NumberInput> */}
           </HStack>
 
           <Text fontWeight="bold">Malts</Text>
@@ -388,6 +378,90 @@ const RecipeForm = () => {
         </Stack>
       </form>
     </>
+  );
+};
+
+const Title = ({ recipeData, setRecipeData }) => {
+  return (
+    <VStack
+      maxW="950px"
+      mx="auto"
+      my="20px"
+      p="20px"
+      spacing={1}
+      bg="white"
+      border="1px solid black"
+      borderRadius="4px"
+    >
+      <Editable textStyle="heading" value={recipeData.title}>
+        <EditablePreview />
+        <EditableInput
+          onChange={(e) =>
+            setRecipeData({ ...recipeData, title: e.target.value })
+          }
+        />
+      </Editable>
+      <HStack
+        w="940px"
+        h="350px"
+        alignSelf="center"
+        borderRadius="lg"
+        overflow="hidden"
+        textStyle="descriptiveSmall"
+      >
+        <HStack mx="auto" align="flex-start">
+          <VStack>
+            <Image
+              h="250px"
+              borderRadius="10px"
+              fit="cover"
+              src={recipeData.selectedFile}
+            />
+            <FileBase
+              mb="20px"
+              type="file"
+              multiple={false}
+              onDone={({ base64 }) =>
+                setRecipeData({ ...recipeData, selectedFile: base64 })
+              }
+            />
+          </VStack>
+
+          <VStack w="50%" h="275px" m="10px" textAlign="center" spacing={4}>
+            <HStack w="50%" justify="space-evenly" textStyle="headingSmall">
+              <NumberInput>
+                <InputGroup>
+                  <NumberInputField
+                    value={recipeData.targetABV}
+                    onChange={(e) =>
+                      setRecipeData({
+                        ...recipeData,
+                        targetABV: e.target.value,
+                      })
+                    }
+                    placeholder="ABV"
+                  />
+                  <InputRightAddon children="%" />
+                </InputGroup>
+              </NumberInput>
+
+              <Text>{recipeData.style}</Text>
+              <Text>{recipeData.method}</Text>
+            </HStack>
+
+            <Editable
+              px="15px"
+              textStyle="descriptive"
+              value={recipeData.description}
+            >
+              <EditableInput />
+              <EditablePreview />
+            </Editable>
+            <Spacer />
+          </VStack>
+        </HStack>
+      </HStack>
+    </VStack>
   );
 };
 
