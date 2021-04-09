@@ -4,13 +4,11 @@ import { useSelector } from "react-redux";
 
 import { DeleteIcon } from "@chakra-ui/icons";
 import {
-  Stack,
   VStack,
   Image,
   Spacer,
   Input,
   Select,
-  Textarea,
   NumberInput,
   NumberInputField,
   InputRightAddon,
@@ -36,12 +34,8 @@ const RecipeForm = () => {
     state.recipes.find((r) => r._id === recipeId)
   );
 
-  //populate for edit
-  useEffect(() => {
-    setRecipeData(recipe);
-  }, [recipe]);
-
   //saving inputs to push to recipeData
+  const [others, setOthers] = useState("");
   const [malt, setMalt] = useState({ name: "", grams: 0 });
   const [hop, setHop] = useState({
     name: "",
@@ -54,10 +48,11 @@ const RecipeForm = () => {
   // full recipe data
   const [recipeData, setRecipeData] = useState({
     selectedFile: defaultRecipe,
-    title: "",
-    method: "",
-    style: "",
-    description: "",
+    title: "Recipe Title",
+    method: "All Grain",
+    style: "IPA",
+    description: "Enter description",
+    efficiency: 0,
     batchSize: 0,
     targetOG: 0,
     targetFG: 0,
@@ -66,18 +61,22 @@ const RecipeForm = () => {
     malts: [],
     hops: [],
     others: [],
-    yeast: "",
-    strikeTemp: 0,
+    yeast: "Yeast Strain",
+    mashLength: 0,
     mashTemp: 0,
-    mashDirections: "",
+    mashDirections: "Enter mash directions",
     boilLength: 0,
-    boilDirections: "",
+    boilDirections: "Enter boil directions",
     fermentTemp: 0,
     fermentLength: 0,
-    fermentDirections: "",
-    otherDirections: "",
-    //creator: '',
+    fermentDirections: "Enter fermentation directions",
+    otherDirections: "Enter other directions",
   });
+
+  //populate for edit
+  useEffect(() => {
+    if (recipe !== undefined) setRecipeData(recipe);
+  }, [recipe]);
 
   //submits the form
   const handleSubmit = (e) => {
@@ -96,6 +95,16 @@ const RecipeForm = () => {
       malts: [...recipeData.malts, { name: malt.name, grams: malt.grams }],
     });
     setMalt({ name: "", grams: 0 });
+  };
+
+  const deleteMalt = (index) => {
+    setRecipeData({
+      ...recipeData,
+      malts: [
+        ...recipeData.malts.slice(0, index),
+        ...recipeData.malts.slice(index + 1),
+      ],
+    });
   };
 
   //adds hops to schema and clears input
@@ -122,261 +131,68 @@ const RecipeForm = () => {
     });
   };
 
+  const deleteHop = (index) => {
+    setRecipeData({
+      ...recipeData,
+      hops: [
+        ...recipeData.hops.slice(0, index),
+        ...recipeData.hops.slice(index + 1),
+      ],
+    });
+  };
+
+  // adds others to the schema and clears input
+  const addOthers = (e) => {
+    setRecipeData({
+      ...recipeData,
+      others: [...recipeData.others, others],
+    });
+    setOthers("");
+  };
+
+  const deleteOthers = (index) => {
+    setRecipeData({
+      ...recipeData,
+      others: [
+        ...recipeData.others.slice(0, index),
+        ...recipeData.others.slice(index + 1),
+      ],
+    });
+  };
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <Title recipeData={recipeData} setRecipeData={setRecipeData} />
-        <Stack
-          maxW="600px"
-          mx="auto"
-          my="60px"
-          alignItems="center"
-          spacing={3}
-          p="80px"
+      <Title recipeData={recipeData} setRecipeData={setRecipeData} />
+      <Stats recipeData={recipeData} setRecipeData={setRecipeData} />
+      <Ingredients
+        recipeData={recipeData}
+        malt={malt}
+        setMalt={setMalt}
+        addMalt={addMalt}
+        deleteMalt={deleteMalt}
+        hop={hop}
+        setHop={setHop}
+        addHop={addHop}
+        deleteHop={deleteHop}
+        others={others}
+        setOthers={setOthers}
+        addOthers={addOthers}
+        deleteOthers={deleteOthers}
+      />
+      <Mash recipeData={recipeData} setRecipeData={setRecipeData} />
+      <Boil recipeData={recipeData} setRecipeData={setRecipeData} />
+      <Ferment recipeData={recipeData} setRecipeData={setRecipeData} />
+      <HStack justify="center">
+        <Button
+          onClick={handleSubmit}
+          variant="outline"
           bg="white"
-          fontSize="30px"
+          textStyle="heading"
+          h="50px"
         >
-          <HStack minW="75%">
-            <Select
-              placeholder="Method"
-              onChange={(e) =>
-                setRecipeData({ ...recipeData, method: e.target.value })
-              }
-            >
-              <option value="All Grain">All Grain</option>
-              <option value="Extract">Extract</option>
-            </Select>
-
-            <Select
-              placeholder="Style"
-              onChange={(e) =>
-                setRecipeData({ ...recipeData, style: e.target.value })
-              }
-            >
-              <option value="IPA">IPA</option>
-              <option value="DIPA">DIPA</option>
-            </Select>
-          </HStack>
-
-          {/* <Textarea
-            placeholder="Enter a description"
-            value={recipeData.description}
-            onChange={(e) =>
-              setRecipeData({ ...recipeData, description: e.target.value })
-            }
-          ></Textarea> */}
-
-          <HStack>
-            <NumberInput value={recipeData.batchSize}>
-              <InputGroup>
-                <NumberInputField
-                  value={recipeData.batchSize}
-                  onChange={(e) =>
-                    setRecipeData({ ...recipeData, batchSize: e.target.value })
-                  }
-                  placeholder="Batch Size"
-                />
-                <InputRightAddon children="Litres" />
-              </InputGroup>
-            </NumberInput>
-          </HStack>
-
-          <HStack>
-            <NumberInput value={recipeData.mashTemp}>
-              <InputGroup>
-                <NumberInputField
-                  value={recipeData.mashTemp}
-                  onChange={(e) =>
-                    setRecipeData({ ...recipeData, mashTemp: e.target.value })
-                  }
-                  placeholder="Mash Temp"
-                />
-                <InputRightAddon children="°C" />
-              </InputGroup>
-            </NumberInput>
-
-            <NumberInput>
-              <InputGroup>
-                <NumberInputField
-                  value={recipeData.strikeTemp}
-                  onChange={(e) =>
-                    setRecipeData({ ...recipeData, strikeTemp: e.target.value })
-                  }
-                  placeholder="Strike Temp"
-                />
-                <InputRightAddon children="°C" />
-              </InputGroup>
-            </NumberInput>
-          </HStack>
-
-          <HStack>
-            <NumberInput precision={2} value={recipeData.targetOG}>
-              <InputGroup>
-                <NumberInputField
-                  value={recipeData.targetOG}
-                  onChange={(e) =>
-                    setRecipeData({ ...recipeData, targetOG: e.target.value })
-                  }
-                  placeholder="OG"
-                />
-                <InputRightAddon children="%" />
-              </InputGroup>
-            </NumberInput>
-
-            <NumberInput precision={2}>
-              <InputGroup>
-                <NumberInputField
-                  value={recipeData.targetFG}
-                  onChange={(e) =>
-                    setRecipeData({ ...recipeData, targetFG: e.target.value })
-                  }
-                  placeholder="FG"
-                />
-                <InputRightAddon children="%" />
-              </InputGroup>
-            </NumberInput>
-          </HStack>
-
-          <HStack>
-            <NumberInput>
-              <InputGroup>
-                <NumberInputField
-                  value={recipeData.IBUs}
-                  onChange={(e) =>
-                    setRecipeData({ ...recipeData, IBUs: e.target.value })
-                  }
-                  placeholder="0"
-                />
-                <InputRightAddon children="IBUs" />
-              </InputGroup>
-            </NumberInput>
-
-            {/* <NumberInput>
-              <InputGroup>
-                <NumberInputField
-                  value={recipeData.targetABV}
-                  onChange={(e) =>
-                    setRecipeData({ ...recipeData, targetABV: e.target.value })
-                  }
-                  placeholder="ABV"
-                />
-                <InputRightAddon children="%" />
-              </InputGroup>
-            </NumberInput> */}
-          </HStack>
-
-          <Text fontWeight="bold">Malts</Text>
-          {recipeData.malts.map((item, index) => (
-            <HStack key={index}>
-              <Text>
-                {item.name} - {item.grams} grams
-              </Text>
-              <DeleteIcon />
-            </HStack>
-          ))}
-
-          <HStack>
-            <Input
-              value={malt.name}
-              onChange={(e) => setMalt({ ...malt, name: e.target.value })}
-              placeholder="Malt"
-            />
-
-            <NumberInput>
-              <InputGroup>
-                <NumberInputField
-                  value={malt.grams}
-                  onChange={(e) => setMalt({ ...malt, grams: e.target.value })}
-                  placeholder="Grams"
-                />
-                <InputRightAddon children="g" />
-              </InputGroup>
-            </NumberInput>
-          </HStack>
-
-          <Button onClick={addMalt} variant="outline">
-            Add Malt
-          </Button>
-
-          <Text fontWeight="bold">Hops</Text>
-          {recipeData.hops.map((item, index) => (
-            <HStack key={index}>
-              <Text>
-                {item.name} - {item.grams} grams
-              </Text>
-              <DeleteIcon />
-            </HStack>
-          ))}
-
-          <HStack>
-            <Input
-              value={hop.name}
-              onChange={(e) => setHop({ ...hop, name: e.target.value })}
-              placeholder="Hop"
-            />
-
-            <NumberInput>
-              <InputGroup>
-                <NumberInputField
-                  value={hop.grams}
-                  onChange={(e) => setHop({ ...hop, grams: e.target.value })}
-                  placeholder="Grams"
-                />
-                <InputRightAddon children="g" />
-              </InputGroup>
-            </NumberInput>
-          </HStack>
-
-          <Button onClick={addHop} variant="outline">
-            Add Hop
-          </Button>
-
-          <Input
-            value={recipeData.yeast}
-            onChange={(e) =>
-              setRecipeData({ ...recipeData, yeast: e.target.value })
-            }
-            placeholder="Yeast Strain"
-          />
-
-          <Textarea
-            value={recipeData.mashingDirections}
-            onChange={(e) =>
-              setRecipeData({
-                ...recipeData,
-                mashDirections: e.target.value,
-              })
-            }
-            placeholder="Mashing Instruction"
-          ></Textarea>
-
-          <Textarea
-            value={recipeData.boilingDirections}
-            onChange={(e) =>
-              setRecipeData({
-                ...recipeData,
-                boilDirections: e.target.value,
-              })
-            }
-            placeholder="Boiling Instructions"
-          ></Textarea>
-
-          <Textarea
-            value={recipeData.fermentDirections}
-            onChange={(e) =>
-              setRecipeData({
-                ...recipeData,
-                fermentingDirections: e.target.value,
-              })
-            }
-            placeholder="Fermenting Instructions"
-          ></Textarea>
-
-          <Button type="submit" variant="outline">
-            SUBMIT
-          </Button>
-        </Stack>
-      </form>
+          SUBMIT
+        </Button>
+      </HStack>
     </>
   );
 };
@@ -384,7 +200,7 @@ const RecipeForm = () => {
 const Title = ({ recipeData, setRecipeData }) => {
   return (
     <VStack
-      maxW="950px"
+      w={["100%", "100%", "100%", "940px"]}
       mx="auto"
       my="20px"
       p="20px"
@@ -402,17 +218,21 @@ const Title = ({ recipeData, setRecipeData }) => {
         />
       </Editable>
       <HStack
-        w="940px"
+        w="100%"
         h="350px"
         alignSelf="center"
         borderRadius="lg"
         overflow="hidden"
-        textStyle="descriptiveSmall"
       >
-        <HStack mx="auto" align="flex-start">
+        <HStack
+          w={["100%", "100%", "90%", "90%"]}
+          mx="auto"
+          align="flex-start"
+          justify="space-between"
+        >
           <VStack>
             <Image
-              h="250px"
+              h={["150px", "150px", "250px", "250px"]}
               borderRadius="10px"
               fit="cover"
               src={recipeData.selectedFile}
@@ -428,10 +248,11 @@ const Title = ({ recipeData, setRecipeData }) => {
           </VStack>
 
           <VStack w="50%" h="275px" m="10px" textAlign="center" spacing={4}>
-            <HStack w="50%" justify="space-evenly" textStyle="headingSmall">
-              <NumberInput>
+            <HStack justify="space-evenly" textStyle="headingSmall" wrap="wrap">
+              <NumberInput value={recipeData.targetABV}>
                 <InputGroup>
                   <NumberInputField
+                    w={["50px", "50px", "100px", "100px"]}
                     value={recipeData.targetABV}
                     onChange={(e) =>
                       setRecipeData({
@@ -439,14 +260,30 @@ const Title = ({ recipeData, setRecipeData }) => {
                         targetABV: e.target.value,
                       })
                     }
-                    placeholder="ABV"
                   />
-                  <InputRightAddon children="%" />
+                  <InputRightAddon children="% ABV" />
                 </InputGroup>
               </NumberInput>
 
-              <Text>{recipeData.style}</Text>
-              <Text>{recipeData.method}</Text>
+              <Select
+                w="100px"
+                onChange={(e) =>
+                  setRecipeData({ ...recipeData, style: e.target.value })
+                }
+              >
+                <option value="IPA">IPA</option>
+                <option value="DIPA">DIPA</option>
+              </Select>
+
+              <Select
+                w="100px"
+                onChange={(e) =>
+                  setRecipeData({ ...recipeData, method: e.target.value })
+                }
+              >
+                <option value="All Grain">All Grain</option>
+                <option value="Extract">Extract</option>
+              </Select>
             </HStack>
 
             <Editable
@@ -454,13 +291,389 @@ const Title = ({ recipeData, setRecipeData }) => {
               textStyle="descriptive"
               value={recipeData.description}
             >
-              <EditableInput />
+              <EditableInput
+                onChange={(e) =>
+                  setRecipeData({ ...recipeData, description: e.target.value })
+                }
+              />
               <EditablePreview />
             </Editable>
             <Spacer />
           </VStack>
         </HStack>
       </HStack>
+    </VStack>
+  );
+};
+
+const Stats = ({ recipeData, setRecipeData }) => {
+  return (
+    <VStack
+      maxW="950px"
+      mx="auto"
+      my="20px"
+      p="20px"
+      bg="white"
+      border="1px solid black"
+      borderRadius="4px"
+    >
+      <Text textStyle="heading">Stats</Text>
+      <HStack w="100%" justify="space-evenly" textStyle="descriptive">
+        <VStack>
+          <Text textStyle="headingSmall">Efficiency</Text>
+          <NumberInput value={recipeData.efficiency}>
+            <InputGroup>
+              <NumberInputField
+                w="70px"
+                value={recipeData.efficiency}
+                onChange={(e) =>
+                  setRecipeData({
+                    ...recipeData,
+                    efficency: e.target.value,
+                  })
+                }
+              />
+              <InputRightAddon children="%" />
+            </InputGroup>
+          </NumberInput>
+        </VStack>
+
+        <VStack>
+          <Text textStyle="headingSmall">Batch Size</Text>
+          <NumberInput value={recipeData.batchSize}>
+            <InputGroup>
+              <NumberInputField
+                w="60px"
+                value={recipeData.batchSize}
+                onChange={(e) =>
+                  setRecipeData({ ...recipeData, batchSize: e.target.value })
+                }
+                placeholder="Batch Size"
+              />
+              <InputRightAddon children="Litres" />
+            </InputGroup>
+          </NumberInput>
+        </VStack>
+
+        <VStack>
+          <Text textStyle="headingSmall">OG</Text>
+          <NumberInput w="70px" precision={2} value={recipeData.targetOG}>
+            <InputGroup>
+              <NumberInputField
+                value={recipeData.targetOG}
+                onChange={(e) =>
+                  setRecipeData({ ...recipeData, targetOG: e.target.value })
+                }
+              />
+            </InputGroup>
+          </NumberInput>
+        </VStack>
+
+        <VStack>
+          <Text textStyle="headingSmall">FG</Text>
+          <NumberInput w="70px" precision={2} value={recipeData.targetFG}>
+            <InputGroup>
+              <NumberInputField
+                value={recipeData.targetFG}
+                onChange={(e) =>
+                  setRecipeData({ ...recipeData, targetFG: e.target.value })
+                }
+              />
+            </InputGroup>
+          </NumberInput>
+        </VStack>
+
+        <VStack>
+          <Text textStyle="headingSmall">IBUs</Text>
+          <NumberInput w="70px" value={recipeData.IBUs}>
+            <InputGroup>
+              <NumberInputField
+                value={recipeData.IBUs}
+                onChange={(e) =>
+                  setRecipeData({ ...recipeData, IBUs: e.target.value })
+                }
+                placeholder="0"
+              />
+            </InputGroup>
+          </NumberInput>
+        </VStack>
+      </HStack>
+    </VStack>
+  );
+};
+
+const Ingredients = ({
+  recipeData,
+  malt,
+  setMalt,
+  addMalt,
+  deleteMalt,
+  hop,
+  setHop,
+  deleteHop,
+  addHop,
+  others,
+  setOthers,
+  addOthers,
+  deleteOthers,
+}) => {
+  return (
+    <VStack
+      my="20px"
+      p="20px"
+      maxW="950px"
+      mx="auto"
+      bg="white"
+      border="1px solid black"
+      borderRadius="4px"
+    >
+      <Text textStyle="heading">Ingredients</Text>
+
+      <HStack w="100%" justify="space-between" align="flex-start">
+        <VStack h="100%" w="33%">
+          <Text textStyle="headingSmall">Hops</Text>
+          {recipeData.hops.map((item, index) => (
+            <HStack key={index}>
+              <Text textStyle="descriptive">
+                {item.name} - {item.grams} grams
+              </Text>
+              <DeleteIcon cursor="pointer" onClick={() => deleteHop(index)} />
+            </HStack>
+          ))}
+          <HStack>
+            <Input
+              value={hop.name}
+              onChange={(e) => setHop({ ...hop, name: e.target.value })}
+              placeholder="Hop"
+            />
+
+            <NumberInput value={hop.grams}>
+              <InputGroup>
+                <NumberInputField
+                  value={hop.grams}
+                  onChange={(e) => setHop({ ...hop, grams: e.target.value })}
+                  placeholder="Grams"
+                />
+                <InputRightAddon children="g" />
+              </InputGroup>
+            </NumberInput>
+          </HStack>
+
+          <Button onClick={addHop} variant="outline">
+            Add Hop
+          </Button>
+        </VStack>
+
+        <VStack w="33%">
+          <Text textStyle="headingSmall">Malts / Grains</Text>
+          {recipeData.malts.map((item, index) => (
+            <HStack key={index}>
+              <Text textStyle="descriptive">
+                {item.name} - {item.grams} grams
+              </Text>
+              <DeleteIcon cursor="pointer" onClick={() => deleteMalt(index)} />
+            </HStack>
+          ))}
+          <HStack>
+            <Input
+              value={malt.name}
+              onChange={(e) => setMalt({ ...malt, name: e.target.value })}
+              placeholder="Malt"
+            />
+
+            <NumberInput value={malt.grams}>
+              <InputGroup>
+                <NumberInputField
+                  value={malt.grams}
+                  onChange={(e) => setMalt({ ...malt, grams: e.target.value })}
+                  placeholder="Grams"
+                />
+                <InputRightAddon children="g" />
+              </InputGroup>
+            </NumberInput>
+          </HStack>
+
+          <Button onClick={addMalt} variant="outline">
+            Add Malt
+          </Button>
+        </VStack>
+
+        <VStack w="33%">
+          <Text textStyle="headingSmall">Others</Text>
+          <Editable textStyle="descriptive" defaultValue={recipeData.yeast}>
+            <EditableInput />
+            <EditablePreview />
+          </Editable>
+          {recipeData.others.map((item, index) => (
+            <HStack key={index}>
+              <Text textStyle="descriptive">{item}</Text>
+              <DeleteIcon
+                cursor="pointer"
+                onClick={() => deleteOthers(index)}
+              />
+            </HStack>
+          ))}
+          <Input value={others} onChange={(e) => setOthers(e.target.value)} />
+          <Button onClick={addOthers} variant="outline">
+            Add
+          </Button>
+        </VStack>
+      </HStack>
+    </VStack>
+  );
+};
+
+const Mash = ({ recipeData, setRecipeData }) => {
+  return (
+    <VStack
+      my="20px"
+      p="20px"
+      maxW="950px"
+      mx="auto"
+      bg="white"
+      border="1px solid black"
+      borderRadius="4px"
+      textStyle="descriptive"
+    >
+      <Text textStyle="heading">The Mash</Text>
+
+      <HStack w="40%" justify="space-evenly" mb="20px">
+        <VStack>
+          <Text textStyle="headingSmall">Temp</Text>
+          <NumberInput value={recipeData.mashTemp}>
+            <InputGroup>
+              <NumberInputField
+                value={recipeData.mashTemp}
+                onChange={(e) =>
+                  setRecipeData({ ...recipeData, mashTemp: e.target.value })
+                }
+              />
+              <InputRightAddon children="°C" />
+            </InputGroup>
+          </NumberInput>
+        </VStack>
+        <VStack>
+          <Text textStyle="headingSmall">Length</Text>
+          <NumberInput value={recipeData.mashLength}>
+            <InputGroup>
+              <NumberInputField
+                value={recipeData.mashLength}
+                onChange={(e) =>
+                  setRecipeData({ ...recipeData, mashLength: e.target.value })
+                }
+              />
+              <InputRightAddon children="mins" />
+            </InputGroup>
+          </NumberInput>
+        </VStack>
+      </HStack>
+      <Text textStyle="headingSmall">Mash Directions</Text>
+      <Editable
+        textStyle="descriptive"
+        defaultValue={recipeData.mashDirections}
+      >
+        <EditableInput />
+        <EditablePreview />
+      </Editable>
+    </VStack>
+  );
+};
+
+const Boil = ({ recipeData, setRecipeData }) => {
+  return (
+    <VStack
+      my="20px"
+      p="20px"
+      maxW="950px"
+      mx="auto"
+      bg="white"
+      border="1px solid black"
+      borderRadius="4px"
+      textStyle="descriptive"
+    >
+      <Text textStyle="heading">The Boil</Text>
+
+      <VStack w="40%" justify="space-evenly" mb="20px">
+        <Text textStyle="headingSmall">Length</Text>
+        <NumberInput value={recipeData.boilLength}>
+          <InputGroup>
+            <NumberInputField
+              value={recipeData.boilLength}
+              onChange={(e) =>
+                setRecipeData({ ...recipeData, boilLength: e.target.value })
+              }
+            />
+            <InputRightAddon children="mins" />
+          </InputGroup>
+        </NumberInput>
+      </VStack>
+      <Text textStyle="headingSmall">Boil Directions</Text>
+      <Editable
+        textStyle="descriptive"
+        defaultValue={recipeData.boilDirections}
+      >
+        <EditableInput />
+        <EditablePreview />
+      </Editable>
+    </VStack>
+  );
+};
+
+const Ferment = ({ recipeData, setRecipeData }) => {
+  return (
+    <VStack
+      my="20px"
+      p="20px"
+      maxW="950px"
+      mx="auto"
+      bg="white"
+      border="1px solid black"
+      borderRadius="4px"
+      textStyle="descriptive"
+    >
+      <Text textStyle="heading">The Ferment</Text>
+
+      <HStack w="40%" justify="space-evenly" mb="20px">
+        <VStack>
+          <Text textStyle="headingSmall">Temp</Text>
+          <NumberInput value={recipeData.fermentTemp}>
+            <InputGroup>
+              <NumberInputField
+                value={recipeData.fermentTemp}
+                onChange={(e) =>
+                  setRecipeData({ ...recipeData, fermentTemp: e.target.value })
+                }
+              />
+              <InputRightAddon children="°C" />
+            </InputGroup>
+          </NumberInput>
+        </VStack>
+        <VStack>
+          <Text textStyle="headingSmall">Length</Text>
+          <NumberInput value={recipeData.fermentLength}>
+            <InputGroup>
+              <NumberInputField
+                value={recipeData.fermentLength}
+                onChange={(e) =>
+                  setRecipeData({
+                    ...recipeData,
+                    fermentLength: e.target.value,
+                  })
+                }
+              />
+              <InputRightAddon children="mins" />
+            </InputGroup>
+          </NumberInput>
+        </VStack>
+      </HStack>
+      <Text textStyle="headingSmall">Fermenting Directions</Text>
+      <Editable
+        textStyle="descriptive"
+        defaultValue={recipeData.fermentDirections}
+      >
+        <EditableInput />
+        <EditablePreview />
+      </Editable>
     </VStack>
   );
 };

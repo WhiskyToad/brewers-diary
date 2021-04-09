@@ -15,7 +15,7 @@ const RecipeCard = ({ recipe }) => {
   return (
     <>
       <HStack
-        w="940px"
+        w={["100%", "100%", "940px", "940px"]}
         h="350px"
         alignSelf="center"
         borderRadius="lg"

@@ -1,7 +1,15 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Box, Image, Text, HStack, VStack, Spacer } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Text,
+  HStack,
+  VStack,
+  Spacer,
+  Flex,
+} from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
   FaPinterest,
@@ -45,7 +53,7 @@ const RecipeView = () => {
 const Title = ({ recipe, dispatch }) => {
   return (
     <VStack
-      maxW="950px"
+      w={["100%", "100%", "940px", "940px"]}
       mx="auto"
       my="20px"
       p="20px"
@@ -56,23 +64,28 @@ const Title = ({ recipe, dispatch }) => {
     >
       <Text textStyle="heading">{recipe.title}</Text>
       <HStack
-        w="940px"
+        w="100%"
         h="350px"
         alignSelf="center"
         borderRadius="lg"
         overflow="hidden"
         textStyle="descriptiveSmall"
       >
-        <HStack mx="auto" align="flex-start">
-          <Image
-            h="250px"
-            borderRadius="10px"
-            fit="cover"
-            src={recipe.selectedFile}
-          />
-
+        <HStack w="90%" mx="auto" align="flex-start" justify="space-between">
+          <Flex w="50%" h="275px" justify="center">
+            <Image
+              h="250px"
+              borderRadius="10px"
+              fit="cover"
+              src={recipe.selectedFile}
+            />
+          </Flex>
           <VStack w="50%" h="275px" m="10px" textAlign="center" spacing={4}>
-            <HStack w="20%" justify="space-between" fontSize="20px">
+            <HStack
+              w={["40%", "40%", "20%", "20%"]}
+              justify="space-between"
+              fontSize="20px"
+            >
               <a href={`../recipe/create?update#${recipe._id}`}>
                 <EditIcon />
               </a>
@@ -81,7 +94,11 @@ const Title = ({ recipe, dispatch }) => {
                 onClick={() => dispatch(deleteRecipe(recipe._id))}
               />
             </HStack>
-            <HStack w="50%" justify="space-evenly" textStyle="headingSmall">
+            <HStack
+              w={["100%", "100%", "50%", "50%"]}
+              justify="space-evenly"
+              textStyle="headingSmall"
+            >
               <Text>{recipe.targetABV}%</Text>
               <Text>{recipe.style}</Text>
               <Text>{recipe.method}</Text>
@@ -91,11 +108,15 @@ const Title = ({ recipe, dispatch }) => {
               {recipe.description}
             </Text>
             <Spacer />
-            <HStack w="60%" justify="space-between" fontSize="30px">
-              <FaPinterest cursor="pointer" />
-              <FaFacebook cursor="pointer" />
-              <FaTwitter cursor="pointer" />
-              <FaRegBookmark cursor="pointer" />
+            <HStack
+              w={["80%", "80%", "60%", "60%"]}
+              justify="space-between"
+              fontSize="30px"
+            >
+              <FaPinterest color="#e60023" cursor="pointer" />
+              <FaFacebook color="#4495d4" cursor="pointer" />
+              <FaTwitter color="#1da1f2" cursor="pointer" />
+              <FaRegBookmark color="gold" cursor="pointer" />
             </HStack>
           </VStack>
         </HStack>

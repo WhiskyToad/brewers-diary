@@ -27,7 +27,7 @@ const theme = extendTheme({
       fontWeight: "bold",
     },
     descriptive: {
-      fontSize: ["18px", "18px", "20px", "20px"],
+      fontSize: ["16px", "16px", "20px", "20px"],
       fontWeight: "bold",
     },
     descriptiveSmall: {
@@ -35,7 +35,7 @@ const theme = extendTheme({
     },
     heading: {
       fontFamily: ["BebasNeue"],
-      fontSize: ["25px", "250px", "35px", "35px"],
+      fontSize: ["25px", "25px", "35px", "35px"],
       color: "orange",
       fontWeight: "bold",
     },

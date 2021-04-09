@@ -1,14 +1,14 @@
 import React from "react";
 import { Text } from "@chakra-ui/react";
 
-const Home = () => {
+const FourOhFour = () => {
   return (
     <>
       <Text color="black" fontSize="60px">
-        Home Page is not complete, check out recipes!
+        No beer here, Oh dear
       </Text>
     </>
   );
 };
 
-export default Home;
+export default FourOhFour;

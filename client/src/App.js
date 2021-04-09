@@ -5,9 +5,11 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 import NavBar from "./components/NavBar";
 import { getRecipes } from "./actions/recipes";
+import Home from "./components/Home";
 import Recipes from "./components/Recipes/Recipes";
-import RecipeForm from "./components/Recipes/new";
+import RecipeForm from "./components/Recipes/RecipeForm";
 import RecipeView from "./components/Recipes/RecipeView";
+import FourOhFour from "./components/FourOhFour";
 
 import theme from "./theme/theme";
 import Fonts from "./theme/font-face";
@@ -24,9 +26,11 @@ const App = () => {
         <NavBar />
         <BrowserRouter>
           <Switch>
+            <Route exact path="/" component={Home} />
             <Route exact path="/recipes" component={Recipes} />
             <Route exact path="/recipe/create" component={RecipeForm} />
             <Route exact path="/recipes/view" component={RecipeView} />
+            <Route component={FourOhFour} />
           </Switch>
         </BrowserRouter>
       </ChakraProvider>
