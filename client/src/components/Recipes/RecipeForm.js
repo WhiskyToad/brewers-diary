@@ -81,6 +81,9 @@ const RecipeForm = () => {
   //submits the form
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (recipeData.title.length > 30) {
+      return alert("Title can only be 30 chars max");
+    }
     if (recipe !== undefined) {
       dispatch(updateRecipe(recipeId, recipeData));
     } else {
@@ -162,38 +165,40 @@ const RecipeForm = () => {
 
   return (
     <>
-      <Title recipeData={recipeData} setRecipeData={setRecipeData} />
-      <Stats recipeData={recipeData} setRecipeData={setRecipeData} />
-      <Ingredients
-        recipeData={recipeData}
-        malt={malt}
-        setMalt={setMalt}
-        addMalt={addMalt}
-        deleteMalt={deleteMalt}
-        hop={hop}
-        setHop={setHop}
-        addHop={addHop}
-        deleteHop={deleteHop}
-        others={others}
-        setOthers={setOthers}
-        addOthers={addOthers}
-        deleteOthers={deleteOthers}
-      />
-      <Mash recipeData={recipeData} setRecipeData={setRecipeData} />
-      <Boil recipeData={recipeData} setRecipeData={setRecipeData} />
-      <Ferment recipeData={recipeData} setRecipeData={setRecipeData} />
-      <Other recipeData={recipeData} setRecipeData={setRecipeData} />
-      <HStack justify="center">
-        <Button
-          onClick={handleSubmit}
-          variant="outline"
-          bg="white"
-          textStyle="heading"
-          h="50px"
-        >
-          SUBMIT
-        </Button>
-      </HStack>
+      <form onSubmit={handleSubmit}>
+        <Title recipeData={recipeData} setRecipeData={setRecipeData} />
+        <Stats recipeData={recipeData} setRecipeData={setRecipeData} />
+        <Ingredients
+          recipeData={recipeData}
+          malt={malt}
+          setMalt={setMalt}
+          addMalt={addMalt}
+          deleteMalt={deleteMalt}
+          hop={hop}
+          setHop={setHop}
+          addHop={addHop}
+          deleteHop={deleteHop}
+          others={others}
+          setOthers={setOthers}
+          addOthers={addOthers}
+          deleteOthers={deleteOthers}
+        />
+        <Mash recipeData={recipeData} setRecipeData={setRecipeData} />
+        <Boil recipeData={recipeData} setRecipeData={setRecipeData} />
+        <Ferment recipeData={recipeData} setRecipeData={setRecipeData} />
+        <Other recipeData={recipeData} setRecipeData={setRecipeData} />
+        <HStack justify="center">
+          <Button
+            type="submit"
+            variant="outline"
+            bg="white"
+            textStyle="heading"
+            h="50px"
+          >
+            SUBMIT
+          </Button>
+        </HStack>
+      </form>
     </>
   );
 };
@@ -665,7 +670,7 @@ const Ferment = ({ recipeData, setRecipeData }) => {
                   })
                 }
               />
-              <InputRightAddon children="mins" />
+              <InputRightAddon children="days" />
             </InputGroup>
           </NumberInput>
         </VStack>

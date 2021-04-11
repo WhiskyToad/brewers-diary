@@ -65,7 +65,6 @@ const Title = ({ recipe, dispatch }) => {
       <Text textStyle="heading">{recipe.title}</Text>
       <HStack
         w="100%"
-        h="350px"
         alignSelf="center"
         borderRadius="lg"
         overflow="hidden"
@@ -80,7 +79,7 @@ const Title = ({ recipe, dispatch }) => {
               src={recipe.selectedFile}
             />
           </Flex>
-          <VStack w="50%" h="275px" m="10px" textAlign="center" spacing={4}>
+          <VStack w="50%" m="10px" textAlign="center" spacing={4}>
             <HStack
               w={["40%", "40%", "20%", "20%"]}
               justify="space-between"
@@ -288,7 +287,7 @@ const Ferment = ({ recipe }) => {
         </VStack>
         <VStack>
           <Text textStyle="headingSmall">length</Text>
-          <Text>{recipe.fermentLength} mins</Text>
+          <Text>{recipe.fermentLength} days</Text>
         </VStack>
       </HStack>
       <Text textStyle="headingSmall">Fermenting Directions</Text>
