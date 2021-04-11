@@ -22,9 +22,6 @@ const recipeSchema = mongoose.Schema({
     {
       name: String,
       grams: Number,
-      minutes: Number,
-      alphaAcids: Number,
-      additionalInfo: String,
     },
   ],
   others: [],
@@ -34,6 +31,7 @@ const recipeSchema = mongoose.Schema({
   mashDirections: String,
   boilLength: Number,
   boilDirections: String,
+  fermentTemp: Number,
   fermentLength: Number,
   fermentDirections: String,
   otherDirections: String,

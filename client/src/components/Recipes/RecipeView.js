@@ -140,7 +140,7 @@ const Stats = ({ recipe }) => {
       <HStack w="100%" justify="space-evenly" textStyle="descriptive">
         <VStack>
           <Text textStyle="headingSmall">Efficency</Text>
-          <Text> %</Text>
+          <Text>{recipe.efficiency} %</Text>
         </VStack>
 
         <VStack>
@@ -231,8 +231,8 @@ const Mash = ({ recipe }) => {
           <Text>{recipe.mashTemp} °C</Text>
         </VStack>
         <VStack>
-          <Text textStyle="headingSmall">Strike Temp</Text>
-          <Text>{recipe.strikeTemp} °C</Text>
+          <Text textStyle="headingSmall">Length</Text>
+          <Text>{recipe.mashLength} mins</Text>
         </VStack>
       </HStack>
       <Text textStyle="headingSmall">Mash Directions</Text>
@@ -288,7 +288,7 @@ const Ferment = ({ recipe }) => {
         </VStack>
         <VStack>
           <Text textStyle="headingSmall">length</Text>
-          <Text>{recipe.fermentLength} °C</Text>
+          <Text>{recipe.fermentLength} mins</Text>
         </VStack>
       </HStack>
       <Text textStyle="headingSmall">Fermenting Directions</Text>

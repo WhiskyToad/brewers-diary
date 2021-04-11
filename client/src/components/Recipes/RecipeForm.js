@@ -54,8 +54,8 @@ const RecipeForm = () => {
     description: "Enter description",
     efficiency: 0,
     batchSize: 0,
-    targetOG: 0,
-    targetFG: 0,
+    targetOG: 1.23,
+    targetFG: 1.23,
     IBUs: 0,
     targetABV: 0,
     malts: [],
@@ -182,6 +182,7 @@ const RecipeForm = () => {
       <Mash recipeData={recipeData} setRecipeData={setRecipeData} />
       <Boil recipeData={recipeData} setRecipeData={setRecipeData} />
       <Ferment recipeData={recipeData} setRecipeData={setRecipeData} />
+      <Other recipeData={recipeData} setRecipeData={setRecipeData} />
       <HStack justify="center">
         <Button
           onClick={handleSubmit}
@@ -329,7 +330,7 @@ const Stats = ({ recipeData, setRecipeData }) => {
                 onChange={(e) =>
                   setRecipeData({
                     ...recipeData,
-                    efficency: e.target.value,
+                    efficiency: e.target.value,
                   })
                 }
               />
@@ -374,6 +375,7 @@ const Stats = ({ recipeData, setRecipeData }) => {
           <NumberInput w="70px" precision={2} value={recipeData.targetFG}>
             <InputGroup>
               <NumberInputField
+                precision={2}
                 value={recipeData.targetFG}
                 onChange={(e) =>
                   setRecipeData({ ...recipeData, targetFG: e.target.value })
@@ -500,7 +502,7 @@ const Ingredients = ({
 
         <VStack w="33%">
           <Text textStyle="headingSmall">Others</Text>
-          <Editable textStyle="descriptive" defaultValue={recipeData.yeast}>
+          <Editable textStyle="descriptive" value={recipeData.yeast}>
             <EditableInput />
             <EditablePreview />
           </Editable>
@@ -568,11 +570,12 @@ const Mash = ({ recipeData, setRecipeData }) => {
         </VStack>
       </HStack>
       <Text textStyle="headingSmall">Mash Directions</Text>
-      <Editable
-        textStyle="descriptive"
-        defaultValue={recipeData.mashDirections}
-      >
-        <EditableInput />
+      <Editable textStyle="descriptive" value={recipeData.mashDirections}>
+        <EditableInput
+          onChange={(e) =>
+            setRecipeData({ ...recipeData, mashDirections: e.target.value })
+          }
+        />
         <EditablePreview />
       </Editable>
     </VStack>
@@ -608,11 +611,12 @@ const Boil = ({ recipeData, setRecipeData }) => {
         </NumberInput>
       </VStack>
       <Text textStyle="headingSmall">Boil Directions</Text>
-      <Editable
-        textStyle="descriptive"
-        defaultValue={recipeData.boilDirections}
-      >
-        <EditableInput />
+      <Editable textStyle="descriptive" value={recipeData.boilDirections}>
+        <EditableInput
+          onChange={(e) =>
+            setRecipeData({ ...recipeData, boilDirections: e.target.value })
+          }
+        />
         <EditablePreview />
       </Editable>
     </VStack>
@@ -667,11 +671,37 @@ const Ferment = ({ recipeData, setRecipeData }) => {
         </VStack>
       </HStack>
       <Text textStyle="headingSmall">Fermenting Directions</Text>
-      <Editable
-        textStyle="descriptive"
-        defaultValue={recipeData.fermentDirections}
-      >
-        <EditableInput />
+      <Editable textStyle="descriptive" value={recipeData.fermentDirections}>
+        <EditableInput
+          onChange={(e) =>
+            setRecipeData({ ...recipeData, fermentDirections: e.target.value })
+          }
+        />
+        <EditablePreview />
+      </Editable>
+    </VStack>
+  );
+};
+
+const Other = ({ recipeData, setRecipeData }) => {
+  return (
+    <VStack
+      my="20px"
+      p="20px"
+      maxW="950px"
+      mx="auto"
+      bg="white"
+      border="1px solid black"
+      borderRadius="4px"
+      textStyle="descriptive"
+    >
+      <Text textStyle="heading">Other Directions</Text>
+      <Editable textStyle="descriptive" value={recipeData.otherDirections}>
+        <EditableInput
+          onChange={(e) =>
+            setRecipeData({ ...recipeData, otherDirections: e.target.value })
+          }
+        />
         <EditablePreview />
       </Editable>
     </VStack>
