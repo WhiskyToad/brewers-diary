@@ -436,7 +436,7 @@ const Ingredients = ({
     >
       <Text textStyle="heading">Ingredients</Text>
 
-      <HStack w="100%" justify="space-between" align="flex-start">
+      <HStack w="100%" justify="space-between" align="flex-start" wrap="wrap">
         <VStack h="100%" w="33%">
           <Text textStyle="headingSmall">Hops</Text>
           {recipeData.hops.map((item, index) => (
@@ -544,7 +544,7 @@ const Mash = ({ recipeData, setRecipeData }) => {
     >
       <Text textStyle="heading">The Mash</Text>
 
-      <HStack w="40%" justify="space-evenly" mb="20px">
+      <HStack w={{ base: "60%", md: "40%" }} justify="space-evenly" mb="20px">
         <VStack>
           <Text textStyle="headingSmall">Temp</Text>
           <NumberInput value={recipeData.mashTemp}>
@@ -601,7 +601,7 @@ const Boil = ({ recipeData, setRecipeData }) => {
     >
       <Text textStyle="heading">The Boil</Text>
 
-      <VStack w="40%" justify="space-evenly" mb="20px">
+      <VStack w={{ base: "60%", md: "40%" }} justify="space-evenly" mb="20px">
         <Text textStyle="headingSmall">Length</Text>
         <NumberInput value={recipeData.boilLength}>
           <InputGroup>
@@ -642,7 +642,7 @@ const Ferment = ({ recipeData, setRecipeData }) => {
     >
       <Text textStyle="heading">The Ferment</Text>
 
-      <HStack w="40%" justify="space-evenly" mb="20px">
+      <HStack w={{ base: "60%", md: "40%" }} justify="space-evenly" mb="20px">
         <VStack>
           <Text textStyle="headingSmall">Temp</Text>
           <NumberInput value={recipeData.fermentTemp}>

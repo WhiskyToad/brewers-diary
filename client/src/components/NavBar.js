@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Link,
-  Box,
-  VStack,
-  Text,
-  Stack,
-  Button,
-  HStack,
-} from "@chakra-ui/react";
+import { Link, Box, VStack, Text, Stack, Button, Flex } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 
 import Logo from "./Logo";
@@ -19,11 +11,11 @@ const NavBar = (props) => {
 
   return (
     <NavBarContainer {...props}>
-      <HStack>
+      <Flex direction={{ base: "column", md: "row" }}>
         <Logo />
         <MenuToggle toggle={toggle} isOpen={isOpen} />
         <MenuLinks isOpen={isOpen} />
-      </HStack>
+      </Flex>
     </NavBarContainer>
   );
 };
@@ -32,7 +24,7 @@ const CloseIcon = () => (
   <svg width="38px" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
     <title>Close</title>
     <path
-      fill="orange"
+      fill="#e63312"
       d="M9.00023 7.58599L13.9502 2.63599L15.3642 4.04999L10.4142 8.99999L15.3642 13.95L13.9502 15.364L9.00023 10.414L4.05023 15.364L2.63623 13.95L7.58623 8.99999L2.63623 4.04999L4.05023 2.63599L9.00023 7.58599Z"
     />
   </svg>
@@ -52,7 +44,11 @@ const MenuIcon = () => (
 
 const MenuToggle = ({ toggle, isOpen }) => {
   return (
-    <Box display={{ base: "block", md: "none" }} onClick={toggle}>
+    <Box
+      display={{ base: "block", md: "none" }}
+      onClick={toggle}
+      align="center"
+    >
       {isOpen ? <CloseIcon /> : <MenuIcon />}
     </Box>
   );

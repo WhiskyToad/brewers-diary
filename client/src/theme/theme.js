@@ -12,6 +12,7 @@ const theme = extendTheme({
       body: {
         fontFamily: "Open Sans",
         bg: "#eaf4fc",
+        overflowX: "hidden",
       },
       button: {
         loadingText: "Submitting",
@@ -27,7 +28,7 @@ const theme = extendTheme({
       fontWeight: "bold",
     },
     descriptive: {
-      fontSize: ["16px", "16px", "20px", "20px"],
+      fontSize: ["14px", "14px", "20px", "20px"],
       fontWeight: "bold",
     },
     descriptiveSmall: {

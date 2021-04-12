@@ -34,7 +34,7 @@ const SortSegment = ({ recipes, sort, setSort }) => {
   return (
     <HStack
       my="20px"
-      p="10px"
+      p="20px"
       maxW="950px"
       mx="auto"
       bg="white"
@@ -43,6 +43,7 @@ const SortSegment = ({ recipes, sort, setSort }) => {
       textAlign="center"
       textStyle="headingSmall"
       justify="space-between"
+      wrap="wrap"
     >
       <HStack>
         <Select

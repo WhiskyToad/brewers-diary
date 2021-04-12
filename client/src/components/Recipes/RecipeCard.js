@@ -41,7 +41,11 @@ const RecipeCard = ({ recipe }) => {
             {recipe.description}
           </Text>
           <Spacer />
-          <HStack minW="90%" justify="space-between">
+          <HStack
+            minW="90%"
+            justify="space-between"
+            display={{ base: "none", md: "flex" }}
+          >
             <VStack>
               <FaRegStar />
               <Text>42 ratings</Text>
@@ -52,11 +56,11 @@ const RecipeCard = ({ recipe }) => {
             </VStack>
             <VStack>
               <FaRegLightbulb />
-              <Text>0 suggestions</Text>
+              <Text>4 suggestions</Text>
             </VStack>
             <VStack>
               <FiBookOpen />
-              <Text>690 diaries</Text>
+              <Text>14 diaries</Text>
             </VStack>
           </HStack>
         </VStack>
