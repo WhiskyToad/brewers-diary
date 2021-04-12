@@ -204,6 +204,11 @@ const Ingredients = ({ recipe }) => {
         <VStack w="33%">
           <Text textStyle="headingSmall">Others</Text>
           <Text textStyle="descriptive">{recipe.yeast}</Text>
+          {recipe.others.map((item, index) => (
+            <Text textStyle="descriptive" key={index}>
+              {item}
+            </Text>
+          ))}
         </VStack>
       </HStack>
     </VStack>
