@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar";
 import { getRecipes } from "./actions/recipes";
 import Home from "./components/Home";
 import Recipes from "./components/Recipes/Recipes";
-import RecipeForm from "./components/Recipes/RecipeForm";
+import RecipeForm from "./components/Recipes/Form/RecipeForm";
 import RecipeView from "./components/Recipes/RecipeView";
 import FourOhFour from "./components/FourOhFour";
 

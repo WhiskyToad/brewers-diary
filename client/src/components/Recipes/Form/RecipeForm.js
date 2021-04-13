@@ -22,8 +22,8 @@ import {
 } from "@chakra-ui/react";
 
 import { useDispatch } from "react-redux";
-import { createRecipe, updateRecipe } from "../../actions/recipes";
-import defaultRecipe from "../Images/defaultRecipe.jpg";
+import { createRecipe, updateRecipe } from "../../../actions/recipes";
+import defaultRecipe from "../../Images/defaultRecipe.jpg";
 
 const RecipeForm = () => {
   const dispatch = useDispatch();
