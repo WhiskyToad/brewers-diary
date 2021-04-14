@@ -92,6 +92,9 @@ const Title = ({ recipeData, setRecipeData }) => {
               >
                 <option value="IPA">IPA</option>
                 <option value="DIPA">DIPA</option>
+                <option value="PORTER">PORTER</option>
+                <option value="STOUT">STOUT</option>
+                <option value="SOUR">SOUR</option>
               </Select>
 
               <Select

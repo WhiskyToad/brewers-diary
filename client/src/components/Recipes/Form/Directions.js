@@ -13,7 +13,7 @@ import {
   EditablePreview,
 } from "@chakra-ui/react";
 
-const Directions = (recipeData, setRecipeData) => {
+const Directions = ({ recipeData, setRecipeData }) => {
   return (
     <>
       <Mash recipeData={recipeData} setRecipeData={setRecipeData} />

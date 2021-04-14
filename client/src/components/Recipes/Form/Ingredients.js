@@ -113,7 +113,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
       <Text textStyle="heading">Ingredients</Text>
 
       <HStack w="100%" justify="space-between" align="flex-start" wrap="wrap">
-        <VStack h="100%" w="33%">
+        <VStack h="100%" w="32%">
           <Text textStyle="headingSmall">Hops</Text>
           {recipeData.hops.map((item, index) => (
             <HStack key={index}>
@@ -147,7 +147,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
           </Button>
         </VStack>
 
-        <VStack w="33%">
+        <VStack w="32%">
           <Text textStyle="headingSmall">Malts / Grains</Text>
           {recipeData.malts.map((item, index) => (
             <HStack key={index}>
@@ -181,7 +181,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
           </Button>
         </VStack>
 
-        <VStack w="33%">
+        <VStack w="32%">
           <Text textStyle="headingSmall">Others</Text>
           <Editable textStyle="descriptive" value={recipeData.yeast}>
             <EditableInput />
