@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import Recipes from "./components/Recipes/Recipes";
 import RecipeForm from "./components/Recipes/Form/RecipeForm";
 import RecipeView from "./components/Recipes/RecipeView";
+import Auth from "./components/Auth/Auth";
 import FourOhFour from "./components/FourOhFour";
 
 import theme from "./theme/theme";
@@ -30,6 +31,7 @@ const App = () => {
             <Route exact path="/recipes" component={Recipes} />
             <Route exact path="/recipe/create" component={RecipeForm} />
             <Route exact path="/recipes/view" component={RecipeView} />
+            <Route exact path="/signin" component={Auth} />
             <Route component={FourOhFour} />
           </Switch>
         </BrowserRouter>
