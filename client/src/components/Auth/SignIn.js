@@ -13,20 +13,15 @@ import GoogleAuth from "./GoogleAuth";
 
 const SignIn = () => {
   return (
-    <VStack spacing={6}>
+    <VStack spacing={7}>
       <Text textStyle="heading">Sign In</Text>
-      <GoogleAuth />
+
       <Input placeholder="Username" />
       <PasswordInput />
-      <Button
-        type="submit"
-        variant="outline"
-        bg="white"
-        textStyle="heading"
-        h="50px"
-      >
+      <Button textStyle="headingSmall" w="70%">
         Sign In
       </Button>
+      <GoogleAuth />
     </VStack>
   );
 };

@@ -1,11 +1,29 @@
-import React from "react";
-import { Link, Box, VStack, Text, Stack, Button, Flex } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import {
+  Link,
+  Box,
+  VStack,
+  Text,
+  Stack,
+  Button,
+  Flex,
+  HStack,
+  Image,
+} from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 
 import Logo from "./Logo";
 
 const NavBar = (props) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+
+  useEffect(() => {
+    const token = user?.token;
+
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, []);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -14,7 +32,7 @@ const NavBar = (props) => {
       <Flex direction={{ base: "column", md: "row" }}>
         <Logo />
         <MenuToggle toggle={toggle} isOpen={isOpen} />
-        <MenuLinks isOpen={isOpen} />
+        <MenuLinks isOpen={isOpen} user={user} />
       </Flex>
     </NavBarContainer>
   );
@@ -64,7 +82,7 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
   );
 };
 
-const MenuLinks = ({ isOpen }) => {
+const MenuLinks = ({ isOpen, user }) => {
   return (
     <Box
       display={{ base: isOpen ? "block" : "none", md: "block" }}
@@ -85,9 +103,16 @@ const MenuLinks = ({ isOpen }) => {
 
         <MenuItem to="/recipes">RECIPES</MenuItem>
 
-        <Button textStyle="navbar" variant="ghost">
-          Sign In
-        </Button>
+        {user?.result ? (
+          <HStack>
+            <Text>{user?.result.name}</Text>
+            <Button variant="ghost" textStyle="heading">
+              Logout
+            </Button>
+          </HStack>
+        ) : (
+          <MenuItem to="/signin">Sign In</MenuItem>
+        )}
       </Stack>
     </Box>
   );
