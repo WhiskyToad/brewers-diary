@@ -13,6 +13,7 @@ const GoogleAuth = () => {
     const token = res?.tokenId;
     try {
       dispatch({ type: "AUTH", data: { result, token } });
+      window.location.href = `../`;
     } catch (error) {
       console.log(error);
     }

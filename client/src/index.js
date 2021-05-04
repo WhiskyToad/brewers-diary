@@ -1,29 +1,16 @@
 import React from "react";
-import ReactDom from "react-dom";
+import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import { PersistGate } from "redux-persist/integration/react";
-import App from "./App";
 
 import reducers from "./reducers";
+import App from "./App";
 
-const persistConfig = {
-  key: "root",
-  storage,
-};
+const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
-const persistedReducer = persistReducer(persistConfig, reducers);
-
-const store = createStore(persistedReducer, compose(applyMiddleware(thunk)));
-
-const persistor = persistStore(store);
-
-ReactDom.render(
+ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}></PersistGate>
     <App />
   </Provider>,
   document.getElementById("root")

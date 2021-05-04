@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import {
   Link,
   Box,
@@ -8,23 +10,31 @@ import {
   Button,
   Flex,
   HStack,
-  Image,
 } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 
 import Logo from "./Logo";
 
 const NavBar = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const location = window.location.href;
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+
+  const logout = () => {
+    dispatch({ type: "LOGOUT" });
+    window.location.href = `../`;
+    setUser(null);
+  };
 
   useEffect(() => {
     const token = user?.token;
 
     setUser(JSON.parse(localStorage.getItem("profile")));
-  }, []);
+  }, [location]);
 
+  // toggle for mobile menu
+  const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   return (
@@ -32,7 +42,7 @@ const NavBar = (props) => {
       <Flex direction={{ base: "column", md: "row" }}>
         <Logo />
         <MenuToggle toggle={toggle} isOpen={isOpen} />
-        <MenuLinks isOpen={isOpen} user={user} />
+        <MenuLinks isOpen={isOpen} user={user} logout={logout} />
       </Flex>
     </NavBarContainer>
   );
@@ -82,7 +92,7 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
   );
 };
 
-const MenuLinks = ({ isOpen, user }) => {
+const MenuLinks = ({ isOpen, user, logout }) => {
   return (
     <Box
       display={{ base: isOpen ? "block" : "none", md: "block" }}
@@ -106,7 +116,7 @@ const MenuLinks = ({ isOpen, user }) => {
         {user?.result ? (
           <HStack>
             <Text>{user?.result.name}</Text>
-            <Button variant="ghost" textStyle="heading">
+            <Button variant="ghost" textStyle="heading" onClick={logout}>
               Logout
             </Button>
           </HStack>
