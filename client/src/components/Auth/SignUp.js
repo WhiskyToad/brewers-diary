@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import {
   Text,
@@ -11,6 +12,8 @@ import {
 
 import GoogleAuth from "./GoogleAuth";
 
+import { signup } from "../../actions/auth";
+
 const initialState = {
   firstName: "",
   lastName: "",
@@ -20,6 +23,7 @@ const initialState = {
 };
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
 
   const handleChange = (e) => {
@@ -28,7 +32,7 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
+    dispatch(signup(form));
   };
 
   return (
