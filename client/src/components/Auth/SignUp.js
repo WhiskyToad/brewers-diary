@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Text,
@@ -11,23 +11,63 @@ import {
 
 import GoogleAuth from "./GoogleAuth";
 
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
 const SignUp = () => {
+  const [form, setForm] = useState(initialState);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(form);
+  };
+
   return (
-    <VStack spacing={7}>
-      <Text textStyle="heading">Sign Up</Text>
-      <Input placeholder="Username" />
-      <Input placeholder="Email" />
-      <PasswordInput placeholder={"Enter Password"} />
-      <PasswordInput placeholder={"Confirm Password"} />
-      <Button textStyle="headingSmall" w="70%">
-        Sign Up
-      </Button>
-      <GoogleAuth />
-    </VStack>
+    <form onSubmit={handleSubmit}>
+      <VStack spacing={7}>
+        <Text textStyle="heading">Sign Up</Text>
+        <Input
+          name="firstName"
+          label="First Name"
+          onChange={handleChange}
+          placeholder="First Name"
+        />
+        <Input
+          name="lastName"
+          label="Last Name"
+          onChange={handleChange}
+          placeholder="Last Name"
+        />
+        <Input name="email" placeholder="Email" onChange={handleChange} />
+        <PasswordInput
+          name={"password"}
+          placeholder={"Enter Password"}
+          handleChange={handleChange}
+        />
+        <PasswordInput
+          name={"confirmPassword"}
+          placeholder={"Confirm Password"}
+          handleChange={handleChange}
+        />
+        <Button type="submit" textStyle="headingSmall" w="70%">
+          Sign Up
+        </Button>
+        <GoogleAuth />
+      </VStack>
+    </form>
   );
 };
 
-function PasswordInput({ placeholder }) {
+const PasswordInput = ({ placeholder, name, handleChange }) => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
@@ -37,6 +77,8 @@ function PasswordInput({ placeholder }) {
         pr="4.5rem"
         type={show ? "text" : "password"}
         placeholder={placeholder}
+        name={name}
+        onChange={handleChange}
       />
       <InputRightElement width="4.5rem">
         <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -45,6 +87,6 @@ function PasswordInput({ placeholder }) {
       </InputRightElement>
     </InputGroup>
   );
-}
+};
 
 export default SignUp;

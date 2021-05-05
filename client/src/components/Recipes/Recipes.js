@@ -21,10 +21,10 @@ const Recipes = () => {
 
   return (
     <>
+      <SortSegment recipes={recipes} sort={sort} setSort={setSort} />
       <Box textAlign="center" display={!recipes.length ? "block" : "none"}>
         <Spinner size="xl" />
       </Box>
-      <SortSegment recipes={recipes} sort={sort} setSort={setSort} />
       <RecipeList recipes={recipes} />
     </>
   );
