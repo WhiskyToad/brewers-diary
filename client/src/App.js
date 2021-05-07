@@ -4,11 +4,11 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import NavBar from "./components/NavBar";
-import { getRecipes } from "./actions/recipes";
+import { getRecipes } from "./actions/beer/recipes";
 import Home from "./components/Home";
-import Recipes from "./components/Recipes/Recipes";
-import RecipeForm from "./components/Recipes/Form/RecipeForm";
-import RecipeView from "./components/Recipes/RecipeView";
+import Recipes from "./components/Beer/Recipes/List";
+import RecipeForm from "./components/Beer/Recipes/Form/Index";
+import RecipeView from "./components/Beer/Recipes/View";
 import Auth from "./components/Auth/Auth";
 import FourOhFour from "./components/FourOhFour";
 
@@ -31,7 +31,7 @@ const App = () => {
             <Route exact path="/recipes" component={Recipes} />
             <Route exact path="/recipe/create" component={RecipeForm} />
             <Route exact path="/recipes/view" component={RecipeView} />
-            <Route exact path="/signin" component={Auth} />
+            <Route exact path="/auth" component={Auth} />
             <Route component={FourOhFour} />
           </Switch>
         </BrowserRouter>

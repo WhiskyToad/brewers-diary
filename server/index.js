@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import recipeRoutes from "./routes/recipes.js";
+import beerRecipeRoutes from "./routes/beer/recipes.js";
 import userRoutes from "./routes/users.js";
 
 const app = express();
@@ -14,7 +14,7 @@ app.use(bodyParser.json({ limit: "30mb", extender: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extender: true }));
 app.use(cors());
 
-app.use("/recipes", recipeRoutes);
+app.use("/recipes", beerRecipeRoutes);
 app.use("/users", userRoutes);
 
 const CONNECTION_URL = process.env.CONNECTION_URL;

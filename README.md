@@ -5,12 +5,12 @@ is full stack React and Node, using axios and redux in the front end and express
 
 So far it has full CRUD functionality for adding recipes, the priority todo list currently looks like:
 
-Add login /google auth to site
-switch from REST API to GraphQL
-base64 converting and compressing of user uploaded images.
-study about switching from Redux to React Query
-clean up my Chakra UI styling, and improve my UI in general
-build out more features
+Add login /google auth to site<br>
+switch from REST API to GraphQL<br>
+base64 converting and compressing of user uploaded images.<br>
+study about switching from Redux to React Query<br>
+clean up my Chakra UI styling, and improve my UI in general<br>
+build out more features<br>
 
 ---
 
@@ -18,13 +18,13 @@ Client
 
 Dependencies:
 
-npm install axios moment react-file-base64 redux redux-thunk react-router-dom
+npm install axios moment react-file-base64 redux redux-thunk react-router-dom react-google-login
 
 npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion
 
 npm install react-icons --save
 
-npm install react-google-login
+npm install react-rating-stars-component --save
 
 ---
 
@@ -32,4 +32,7 @@ Server
 
 Dependencies:
 
-npm install body-parser cors express mongoose nodemon dotenv
+npm install body-parser cors express mongoose nodemon dotenv bcrypt jsonwebtoken
+
+todo for me<br>
+find what I need to hide in dotenv<br>

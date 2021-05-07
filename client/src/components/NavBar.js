@@ -121,7 +121,7 @@ const MenuLinks = ({ isOpen, user, logout }) => {
             </Button>
           </HStack>
         ) : (
-          <MenuItem to="/signin">Sign In</MenuItem>
+          <MenuItem to="/auth">Sign In</MenuItem>
         )}
       </Stack>
     </Box>
