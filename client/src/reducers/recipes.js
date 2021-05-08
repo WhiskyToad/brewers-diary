@@ -3,6 +3,7 @@ import {
   CREATE_RECIPE,
   UPDATE_RECIPE,
   DELETE_RECIPE,
+  LIKE_RECIPE,
 } from "../constants/actionTypes";
 
 const reducer = (recipes = [], action) => {
@@ -12,6 +13,7 @@ const reducer = (recipes = [], action) => {
     case CREATE_RECIPE:
       return [...recipes, action.payload];
     case UPDATE_RECIPE:
+    case LIKE_RECIPE:
       return recipes.map((recipe) =>
         recipe._id === action.payload._id ? action.payload : recipe
       );

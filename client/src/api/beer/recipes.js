@@ -8,3 +8,5 @@ export const createRecipe = (newRecipe) => axios.post(url, newRecipe);
 export const updateRecipe = (id, updatedRecipe) =>
   axios.patch(`${url}/${id}`, updatedRecipe);
 export const deleteRecipe = (id) => axios.delete(`${url}/${id}`);
+export const likeRecipe = (id, value) =>
+  axios.patch(`${url}/${id}/like`, value);

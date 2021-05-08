@@ -35,7 +35,8 @@ const recipeSchema = mongoose.Schema({
   fermentLength: Number,
   fermentDirections: String,
   otherDirections: String,
-  rating: { total: Number, votes: Number },
+  rating: Number,
+  votes: Number,
   createdAt: {
     type: Date,
     default: new Date(),

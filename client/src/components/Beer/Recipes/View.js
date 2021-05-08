@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import ReactStars from "react-rating-stars-component";
 import {
   Box,
   Image,
@@ -10,6 +11,7 @@ import {
   Spacer,
   Flex,
 } from "@chakra-ui/react";
+
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
   FaPinterest,
@@ -18,7 +20,7 @@ import {
   FaRegBookmark,
 } from "react-icons/fa";
 
-import { deleteRecipe } from "../../../actions/beer/recipes";
+import { deleteRecipe, likeRecipe } from "../../../actions/beer/recipes";
 
 const RecipeView = () => {
   const dispatch = useDispatch();
@@ -51,6 +53,12 @@ const RecipeView = () => {
 };
 
 const Title = ({ recipe, dispatch }) => {
+  const id = recipe._id;
+
+  // sending rating
+  const ratingChanged = (newRating) => {
+    dispatch(likeRecipe(id, newRating));
+  };
   return (
     <VStack
       w={["100%", "100%", "940px", "940px"]}
@@ -117,6 +125,12 @@ const Title = ({ recipe, dispatch }) => {
               <FaTwitter color="#1da1f2" cursor="pointer" />
               <FaRegBookmark color="gold" cursor="pointer" />
             </HStack>
+            <ReactStars
+              count={5}
+              onChange={ratingChanged}
+              size={40}
+              activeColor="#ffd700"
+            />
           </VStack>
         </HStack>
       </HStack>

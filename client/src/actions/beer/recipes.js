@@ -3,6 +3,7 @@ import {
   CREATE_RECIPE,
   UPDATE_RECIPE,
   DELETE_RECIPE,
+  LIKE_RECIPE,
 } from "../../constants/actionTypes";
 import * as api from "../../api/beer/recipes";
 
@@ -42,6 +43,15 @@ export const deleteRecipe = (id) => async (dispatch) => {
     await api.deleteRecipe(id);
     dispatch({ type: DELETE_RECIPE, payload: id });
     window.location.href = `../../recipes`;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const likeRecipe = (id, value) => async (dispatch) => {
+  try {
+    const { data } = await api.likeRecipe(id, { value: value });
+    dispatch({ type: LIKE_RECIPE, payload: data });
   } catch (error) {
     console.log(error);
   }

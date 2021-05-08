@@ -22,7 +22,7 @@ export const createRecipe = async (req, res) => {
 };
 
 export const updateRecipe = async (req, res) => {
-  const { id: _id } = req.params;
+  const { id } = req.params;
   const recipe = req.body;
   if (!mongoose.Types.ObjectId.isValid(_id))
     return res.status(404).send("error: recipe not found");
@@ -38,4 +38,23 @@ export const deleteRecipe = async (req, res) => {
     return res.status(404).send(`No post with id: ${id}`);
   await recipeSheet.findByIdAndRemove(id);
   res.json({ message: "Recipe deleted successfuly" });
+};
+
+export const likeRecipe = async (req, res) => {
+  const { id } = req.params;
+  const value = req.body.value;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with id: ${id}`);
+
+  const recipe = await recipeSheet.findById(id);
+  if (recipe.rating === undefined) {
+    recipe.rating = 0;
+    recipe.votes = 0;
+  }
+  const updatedRecipe = await recipeSheet.findByIdAndUpdate(
+    id,
+    { rating: recipe.rating + value, votes: recipe.votes + 1 },
+    { new: true }
+  );
+  res.json(updatedRecipe);
 };
