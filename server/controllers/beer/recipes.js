@@ -24,9 +24,9 @@ export const createRecipe = async (req, res) => {
 export const updateRecipe = async (req, res) => {
   const { id } = req.params;
   const recipe = req.body;
-  if (!mongoose.Types.ObjectId.isValid(_id))
+  if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send("error: recipe not found");
-  const updatedRecipe = await recipeSheet.findByIdAndUpdate(_id, recipe, {
+  const updatedRecipe = await recipeSheet.findByIdAndUpdate(id, recipe, {
     new: true,
   });
   res.json(updatedRecipe);
@@ -43,18 +43,23 @@ export const deleteRecipe = async (req, res) => {
 export const likeRecipe = async (req, res) => {
   const { id } = req.params;
   const value = req.body.value;
+  if (!req.userId) return res.json({ message: "Unauthenticated" });
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No post with id: ${id}`);
 
   const recipe = await recipeSheet.findById(id);
-  if (recipe.rating === undefined) {
-    recipe.rating = 0;
-    recipe.votes = 0;
+
+  const index = recipe.votes.findIndex((id) => id === String(req.userId));
+
+  if (index === -1) {
+    recipe.votes.push(req.userId);
+    recipe.rating = recipe.rating + value;
+  } else {
+    return res.json({ message: "You have already rated this recipe." });
   }
-  const updatedRecipe = await recipeSheet.findByIdAndUpdate(
-    id,
-    { rating: recipe.rating + value, votes: recipe.votes + 1 },
-    { new: true }
-  );
+
+  const updatedRecipe = await recipeSheet.findByIdAndUpdate(id, recipe, {
+    new: true,
+  });
   res.json(updatedRecipe);
 };

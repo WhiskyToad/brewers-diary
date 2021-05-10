@@ -13,9 +13,9 @@ import auth from "../../middleware/auth.js";
 const router = express.Router();
 
 router.get("/", recipeList);
-router.post("/", createRecipe);
-router.patch("/:id", updateRecipe);
-router.delete("/:id", deleteRecipe);
-router.patch("/:id/like", likeRecipe);
+router.post("/", auth, createRecipe);
+router.patch("/:id", auth, updateRecipe);
+router.delete("/:id", auth, deleteRecipe);
+router.patch("/:id/like", auth, likeRecipe);
 
 export default router;
