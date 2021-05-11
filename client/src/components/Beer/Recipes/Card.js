@@ -49,9 +49,11 @@ const RecipeCard = ({ recipe }) => {
             <VStack>
               <HStack>
                 <FaRegStar />
-                <Text>({(recipe.rating / recipe.votes).toFixed(1)})</Text>
+                <Text>
+                  ({(recipe.rating / recipe.votes.length).toFixed(1)})
+                </Text>
               </HStack>
-              <Text>{recipe.votes} votes</Text>
+              <Text>{recipe.votes.length} votes</Text>
             </VStack>
             <VStack>
               <FaRegComments />

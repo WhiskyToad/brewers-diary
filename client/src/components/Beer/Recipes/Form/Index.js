@@ -19,6 +19,7 @@ const RecipeForm = () => {
   const recipe = useSelector((state) =>
     state.recipes.find((r) => r._id === recipeId)
   );
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   // full recipe data
   const [recipeData, setRecipeData] = useState({
@@ -62,9 +63,11 @@ const RecipeForm = () => {
       return alert("Title can only be 30 chars max");
     }
     if (recipe !== undefined) {
-      dispatch(updateRecipe(recipeId, recipeData));
+      dispatch(
+        updateRecipe(recipeId, { ...recipeData, name: user?.result?.name })
+      );
     } else {
-      dispatch(createRecipe(recipeData));
+      dispatch(createRecipe({ ...recipeData, name: user?.result?.name }));
     }
   };
 

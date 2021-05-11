@@ -1,18 +1,20 @@
 import { AUTH } from "../constants/actionTypes";
 import * as api from "../api/beer/recipes";
 
-export const signup = (form) => async (dispatch) => {
+export const signin = (form) => async (dispatch) => {
   try {
-    //sign up the user
+    const { data } = await api.signin(form);
+    dispatch({ type: AUTH, data });
     window.location.href = `../`;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const signin = (form) => async (dispatch) => {
+export const signup = (form) => async (dispatch) => {
   try {
-    //sign in the user
+    const { data } = await api.signup(form);
+    dispatch({ type: AUTH, data });
     window.location.href = `../`;
   } catch (error) {
     console.log(error);

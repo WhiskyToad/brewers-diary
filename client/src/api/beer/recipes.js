@@ -1,12 +1,25 @@
 import axios from "axios";
 
-const url = "http://localhost:5000/recipes";
+const API = axios.create({ baseURL: "http://localhost:5000" });
 // const url = "https://brewers-diary.herokuapp.com/recipes";
 
-export const fetchRecipes = () => axios.get(url);
-export const createRecipe = (newRecipe) => axios.post(url, newRecipe);
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem("profile")) {
+    req.headers.Authorization = `Bearer ${
+      JSON.parse(localStorage.getItem("profile")).token
+    }`;
+  }
+
+  return req;
+});
+
+export const fetchRecipes = () => API.get("/recipes");
+export const createRecipe = (newRecipe) => API.post("/recipes", newRecipe);
 export const updateRecipe = (id, updatedRecipe) =>
-  axios.patch(`${url}/${id}`, updatedRecipe);
-export const deleteRecipe = (id) => axios.delete(`${url}/${id}`);
+  API.patch(`/recipes/${id}`, updatedRecipe);
+export const deleteRecipe = (id) => API.delete(`/recipes/${id}`);
 export const likeRecipe = (id, value) =>
-  axios.patch(`${url}/${id}/like`, value);
+  API.patch(`/recipes/${id}/like`, value);
+
+export const signin = (formData) => API.post("/users/signin", formData);
+export const signup = (formData) => API.post("/users/signup", formData);
