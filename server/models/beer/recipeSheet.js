@@ -38,6 +38,7 @@ const recipeSchema = mongoose.Schema({
   rating: { type: Number, default: 0 },
   votes: { type: [String], default: [] },
   creator: String,
+  name: String,
   createdAt: {
     type: Date,
     default: new Date(),

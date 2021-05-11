@@ -47,8 +47,6 @@ const RecipeForm = () => {
     fermentLength: 0,
     fermentDirections: "Enter fermentation directions",
     otherDirections: "Enter other directions",
-    rating: 0,
-    votes: 0,
   });
 
   //populate for edit
