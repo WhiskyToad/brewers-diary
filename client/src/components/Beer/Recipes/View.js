@@ -10,6 +10,7 @@ import {
   VStack,
   Spacer,
   Flex,
+  Spinner,
 } from "@chakra-ui/react";
 
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -24,6 +25,7 @@ import { deleteRecipe, likeRecipe } from "../../../actions/beer/recipes";
 
 const RecipeView = () => {
   const dispatch = useDispatch();
+
   //get recipe id from url and load recipe
   const recipeId = window.location.hash.substr(1);
   const recipe = useSelector((state) =>
@@ -33,10 +35,8 @@ const RecipeView = () => {
   //ensure recipe is found
   return recipe === undefined ? (
     <>
-      <Box>
-        <Text color="black" fontSize="80px" textAlign="center">
-          No Recipe Found
-        </Text>
+      <Box mt="50%" textAlign="center">
+        <Spinner size="xl" />
       </Box>
     </>
   ) : (
@@ -54,6 +54,7 @@ const RecipeView = () => {
 
 const Title = ({ recipe, dispatch }) => {
   const id = recipe._id;
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   // sending rating
   const ratingChanged = (newRating) => {
@@ -88,19 +89,22 @@ const Title = ({ recipe, dispatch }) => {
             />
           </Flex>
           <VStack w="50%" m="10px" textAlign="center" spacing={4}>
-            <HStack
-              w={["40%", "40%", "20%", "20%"]}
-              justify="space-between"
-              fontSize="20px"
-            >
-              <a href={`../recipe/create?update#${recipe._id}`}>
-                <EditIcon />
-              </a>
-              <DeleteIcon
-                cursor="pointer"
-                onClick={() => dispatch(deleteRecipe(recipe._id))}
-              />
-            </HStack>
+            {(user?.result?.googleId === recipe?.creator ||
+              user?.result?._id === recipe?.creator) && (
+              <HStack
+                w={["40%", "40%", "20%", "20%"]}
+                justify="space-between"
+                fontSize="20px"
+              >
+                <a href={`../recipe/create?update#${recipe._id}`}>
+                  <EditIcon />
+                </a>
+                <DeleteIcon
+                  cursor="pointer"
+                  onClick={() => dispatch(deleteRecipe(recipe._id))}
+                />
+              </HStack>
+            )}
             <HStack
               w={["100%", "100%", "50%", "50%"]}
               justify="space-evenly"

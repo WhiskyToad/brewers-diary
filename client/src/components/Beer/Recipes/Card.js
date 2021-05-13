@@ -53,7 +53,10 @@ const RecipeCard = ({ recipe }) => {
                   ({(recipe.rating / recipe.votes.length).toFixed(1)})
                 </Text>
               </HStack>
-              <Text>{recipe.votes.length} votes</Text>
+              <Text>
+                {recipe.votes.length}
+                {recipe.votes.length === 1 ? " vote" : " votes"}
+              </Text>
             </VStack>
             <VStack>
               <FaRegComments />
