@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import decode from "jwt-decode";
 
 import {
   Link,
@@ -17,20 +19,26 @@ import Logo from "./Logo";
 
 const NavBar = (props) => {
   const dispatch = useDispatch();
-  const location = window.location.href;
+  const location = useLocation();
+  const history = useHistory();
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
-    window.location.href = `../`;
+    history.push("/auth");
     setUser(null);
   };
 
   useEffect(() => {
     const token = user?.token;
+    if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
 
     setUser(JSON.parse(localStorage.getItem("profile")));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   // toggle for mobile menu

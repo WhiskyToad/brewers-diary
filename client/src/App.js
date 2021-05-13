@@ -22,10 +22,10 @@ const App = () => {
   }, [dispatch]);
   return (
     <>
-      <ChakraProvider theme={theme}>
-        <Fonts />
-        <NavBar />
-        <BrowserRouter>
+      <BrowserRouter>
+        <ChakraProvider theme={theme}>
+          <Fonts />
+          <NavBar />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/recipes" component={Recipes} />
@@ -34,8 +34,8 @@ const App = () => {
             <Route exact path="/auth" component={Auth} />
             <Route component={FourOhFour} />
           </Switch>
-        </BrowserRouter>
-      </ChakraProvider>
+        </ChakraProvider>
+      </BrowserRouter>
     </>
   );
 };
