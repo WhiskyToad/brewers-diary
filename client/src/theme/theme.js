@@ -16,6 +16,8 @@ const theme = extendTheme({
         lineHeight: "1.64",
         bg: "#eaf4fc",
         overflowX: "hidden",
+        fontSize: ["14px", "14px", "16px", "16px"],
+        fontWeight: "bold",
       },
       button: {
         loadingText: "Submitting",
@@ -29,7 +31,7 @@ const theme = extendTheme({
       fontWeight: "bold",
     },
     descriptiveSmall: {
-      fontSize: ["10px", "10px", "12px", "12px"],
+      fontSize: ["10px", "10px", "10px", "10px"],
     },
     heading: {
       fontFamily: ["BebasNeue"],

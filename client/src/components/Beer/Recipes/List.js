@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as Router } from "react-router-dom";
 
 import {
   Link,
@@ -45,7 +45,7 @@ const SortSegment = ({ sort, setSort }) => {
         <Select
           variant="unstyled"
           size="lg"
-          w={["100px", "100px", "150px", "150px"]}
+          w={["100px", "100px", "100px", "110px"]}
           textStyle="headingSmall"
           cursor="pointer"
         >
@@ -56,7 +56,7 @@ const SortSegment = ({ sort, setSort }) => {
         <Select
           variant="unstyled"
           size="lg"
-          w={["100px", "100px", "150px", "150px"]}
+          w={["100px", "100px", "100px", "110px"]}
           textStyle="headingSmall"
           cursor="pointer"
         >
@@ -67,13 +67,13 @@ const SortSegment = ({ sort, setSort }) => {
         </Select>
       </HStack>
       {user != null && (
-        <Link as={RouterLink} to="/recipe/create">
+        <Link as={Router} to="/recipe/create">
           <Button textStyle="headingSmall">Create New</Button>
         </Link>
       )}
       <HStack>
         <HStack
-          w={["60px", "60px", "90px", "90px"]}
+          w={["60px", "60px", "90px", "70px"]}
           cursor="pointer"
           justify="center"
           borderRadius="20px"
@@ -85,7 +85,7 @@ const SortSegment = ({ sort, setSort }) => {
           <Text>New</Text>
         </HStack>
         <HStack
-          w={["60px", "60px", "90px", "90px"]}
+          w={["60px", "60px", "90px", "70px"]}
           cursor="pointer"
           justify="center"
           borderRadius="20px"
@@ -97,7 +97,7 @@ const SortSegment = ({ sort, setSort }) => {
           <Text>Hot</Text>
         </HStack>
         <HStack
-          w={["60px", "60px", "90px", "90px"]}
+          w={["60px", "60px", "90px", "70px"]}
           cursor="pointer"
           justify="center"
           borderRadius="20px"
@@ -115,11 +115,11 @@ const SortSegment = ({ sort, setSort }) => {
 
 const RecipeList = ({ recipes }) => {
   return (
-    <VStack className="center-card" display={!recipes.length ? "none" : "flex"}>
+    <VStack display={!recipes.length ? "none" : "flex"}>
       {recipes.map((recipe) => (
-        <a key={recipe._id} href={`recipes/view#${recipe._id}`}>
+        <Link as={Router} key={recipe._id} to={`/recipes/view#${recipe._id}`}>
           <RecipeCard recipe={recipe} />
-        </a>
+        </Link>
       ))}
     </VStack>
   );
