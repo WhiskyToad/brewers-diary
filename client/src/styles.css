@@ -1,0 +1,8 @@
+.center-card {
+  margin: 20px auto;
+  padding: 10px;
+  max-width: 900px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+}

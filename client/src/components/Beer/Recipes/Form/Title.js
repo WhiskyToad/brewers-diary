@@ -18,16 +18,7 @@ import {
 
 const Title = ({ recipeData, setRecipeData }) => {
   return (
-    <VStack
-      w={["100%", "100%", "100%", "940px"]}
-      mx="auto"
-      my="20px"
-      p="20px"
-      spacing={1}
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-    >
+    <VStack className="center-card">
       <Editable textStyle="heading" value={recipeData.title}>
         <EditablePreview />
         <EditableInput

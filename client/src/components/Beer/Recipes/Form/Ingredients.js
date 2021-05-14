@@ -101,15 +101,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
   };
 
   return (
-    <VStack
-      my="20px"
-      p="20px"
-      maxW="950px"
-      mx="auto"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-    >
+    <VStack className="center-card">
       <Text textStyle="heading">Ingredients</Text>
 
       <HStack w="100%" justify="space-between" align="flex-start" wrap="wrap">

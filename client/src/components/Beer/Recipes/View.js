@@ -61,16 +61,7 @@ const Title = ({ recipe, dispatch }) => {
     dispatch(likeRecipe(id, newRating));
   };
   return (
-    <VStack
-      w={["100%", "100%", "940px", "940px"]}
-      mx="auto"
-      my="20px"
-      p="20px"
-      spacing={1}
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-    >
+    <VStack className="center-card">
       <Text textStyle="heading">{recipe.title}</Text>
       <HStack
         w="100%"
@@ -144,15 +135,7 @@ const Title = ({ recipe, dispatch }) => {
 
 const Stats = ({ recipe }) => {
   return (
-    <VStack
-      maxW="950px"
-      mx="auto"
-      my="20px"
-      p="20px"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-    >
+    <VStack className="center-card">
       <Text textStyle="heading">Stats</Text>
       <HStack w="100%" justify="space-evenly" textStyle="descriptive">
         <VStack>
@@ -186,15 +169,7 @@ const Stats = ({ recipe }) => {
 
 const Ingredients = ({ recipe }) => {
   return (
-    <VStack
-      my="20px"
-      p="20px"
-      maxW="950px"
-      mx="auto"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-    >
+    <VStack className="center-card">
       <Text textStyle="heading">Ingredients</Text>
       <HStack w="100%" justify="space-between" align="flex-start">
         <VStack h="100%" w="33%">
@@ -235,16 +210,7 @@ const Ingredients = ({ recipe }) => {
 
 const Mash = ({ recipe }) => {
   return (
-    <VStack
-      my="20px"
-      p="20px"
-      maxW="950px"
-      mx="auto"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-      textStyle="descriptive"
-    >
+    <VStack className="center-card" textStyle="descriptive">
       <Text textStyle="heading">The Mash</Text>
 
       <HStack w="40%" justify="space-evenly" mb="20px">
@@ -265,16 +231,7 @@ const Mash = ({ recipe }) => {
 
 const Boil = ({ recipe }) => {
   return (
-    <VStack
-      my="20px"
-      p="20px"
-      maxW="950px"
-      mx="auto"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-      textStyle="descriptive"
-    >
+    <VStack className="center-card" textStyle="descriptive">
       <Text textStyle="heading">The Boil</Text>
 
       <HStack w="40%" justify="space-evenly" mb="20px">
@@ -291,16 +248,7 @@ const Boil = ({ recipe }) => {
 
 const Ferment = ({ recipe }) => {
   return (
-    <VStack
-      my="20px"
-      p="20px"
-      maxW="950px"
-      mx="auto"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-      textStyle="descriptive"
-    >
+    <VStack className="center-card" textStyle="descriptive">
       <Text textStyle="heading">The Ferment</Text>
 
       <HStack w="40%" justify="space-evenly" mb="20px">
@@ -321,16 +269,7 @@ const Ferment = ({ recipe }) => {
 
 const Other = ({ recipe }) => {
   return (
-    <VStack
-      my="20px"
-      p="20px"
-      maxW="950px"
-      mx="auto"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-      textStyle="descriptive"
-    >
+    <VStack className="center-card" textStyle="descriptive">
       <Text textStyle="heading">Other Directions</Text>
       <Text>{recipe.otherDirections}</Text>
     </VStack>

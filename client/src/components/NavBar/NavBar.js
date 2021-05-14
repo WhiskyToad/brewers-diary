@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
+import { Link as Router } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
 
@@ -7,11 +8,17 @@ import {
   Link,
   Box,
   VStack,
-  Text,
   Stack,
   Button,
   Flex,
-  HStack,
+  Spacer,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Input,
+  InputGroup,
+  InputRightAddon,
 } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 
@@ -90,16 +97,6 @@ const MenuToggle = ({ toggle, isOpen }) => {
   );
 };
 
-const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
-  return (
-    <Link href={to}>
-      <Text display="block" {...rest}>
-        {children}
-      </Text>
-    </Link>
-  );
-};
-
 const MenuLinks = ({ isOpen, user, logout }) => {
   return (
     <Box
@@ -107,29 +104,44 @@ const MenuLinks = ({ isOpen, user, logout }) => {
       flexBasis={{ base: "100%", md: "auto" }}
     >
       <Stack
-        textStyle="navbar"
+        textStyle="heading"
         spacing={8}
         align="center"
-        justify={["center", "center", "flex-end", "flex-end"]}
         direction={["column", "column", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        <Button textStyle="navbar" variant="ghost">
-          <Search2Icon mr="15px" size="sm" />
-          Search
-        </Button>
-
-        <MenuItem to="/recipes">RECIPES</MenuItem>
-
+        <Link as={Router} to="/recipes">
+          <Button textStyle="heading" variant="ghost">
+            RECIPES
+          </Button>
+        </Link>
+        <InputGroup>
+          <Input
+            type="tel"
+            placeholder="Search"
+            textStyle="heading"
+            bg="white"
+          />
+          <InputRightAddon
+            children={<Search2Icon size="sm" />}
+            cursor="pointer"
+          />
+        </InputGroup>
         {user?.result ? (
-          <HStack>
-            <Text>{user?.result.name}</Text>
-            <Button variant="ghost" textStyle="heading" onClick={logout}>
-              Logout
-            </Button>
-          </HStack>
+          <Menu>
+            <MenuButton as={Button} textStyle="heading" variant="ghost">
+              Account
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={logout}>Logout</MenuItem>
+            </MenuList>
+          </Menu>
         ) : (
-          <MenuItem to="/auth">Sign In</MenuItem>
+          <Link as={Router} to="/auth">
+            <Button textStyle="heading" variant="ghost">
+              Sign In
+            </Button>
+          </Link>
         )}
       </Stack>
     </Box>

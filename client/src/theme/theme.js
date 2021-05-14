@@ -1,5 +1,7 @@
 import { extendTheme } from "@chakra-ui/react";
 
+import CenterCard from "./CentreCard";
+
 const theme = extendTheme({
   colors: {
     orange: "#e63312",
@@ -11,6 +13,7 @@ const theme = extendTheme({
     global: {
       body: {
         fontFamily: "Open Sans",
+        lineHeight: "1.64",
         bg: "#eaf4fc",
         overflowX: "hidden",
       },
@@ -21,29 +24,26 @@ const theme = extendTheme({
     },
   },
   textStyles: {
-    navbar: {
-      fontFamily: ["BebasNeue"],
-      fontSize: ["20px", "20px", "30px", "30px"],
-      color: "orange",
-      fontWeight: "bold",
-    },
     descriptive: {
-      fontSize: ["14px", "14px", "20px", "20px"],
+      fontSize: ["14px", "14px", "16px", "16px"],
       fontWeight: "bold",
     },
     descriptiveSmall: {
-      fontSize: ["10px", "10px", "15px", "15px"],
+      fontSize: ["10px", "10px", "12px", "12px"],
     },
     heading: {
       fontFamily: ["BebasNeue"],
-      fontSize: ["25px", "25px", "35px", "35px"],
+      fontSize: ["25px", "25px", "25px", "25px"],
       color: "orange",
       fontWeight: "bold",
     },
     headingSmall: {
       fontFamily: ["BebasNeue"],
-      fontSize: ["18px", "18px", "25px", "25px"],
+      fontSize: ["18px", "18px", "20px", "20px"],
     },
+  },
+  components: {
+    CenterCard,
   },
 });
 

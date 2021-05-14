@@ -26,16 +26,7 @@ const Directions = ({ recipeData, setRecipeData }) => {
 
 const Mash = ({ recipeData, setRecipeData }) => {
   return (
-    <VStack
-      my="20px"
-      p="20px"
-      maxW="950px"
-      mx="auto"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-      textStyle="descriptive"
-    >
+    <VStack className="center-card" textStyle="descriptive">
       <Text textStyle="heading">The Mash</Text>
 
       <HStack w={{ base: "60%", md: "40%" }} justify="space-evenly" mb="20px">
@@ -83,16 +74,7 @@ const Mash = ({ recipeData, setRecipeData }) => {
 
 const Boil = ({ recipeData, setRecipeData }) => {
   return (
-    <VStack
-      my="20px"
-      p="20px"
-      maxW="950px"
-      mx="auto"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-      textStyle="descriptive"
-    >
+    <VStack className="center-card" textStyle="descriptive">
       <Text textStyle="heading">The Boil</Text>
 
       <VStack w={{ base: "60%", md: "40%" }} justify="space-evenly" mb="20px">
@@ -124,16 +106,7 @@ const Boil = ({ recipeData, setRecipeData }) => {
 
 const Ferment = ({ recipeData, setRecipeData }) => {
   return (
-    <VStack
-      my="20px"
-      p="20px"
-      maxW="950px"
-      mx="auto"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-      textStyle="descriptive"
-    >
+    <VStack className="center-card" textStyle="descriptive">
       <Text textStyle="heading">The Ferment</Text>
 
       <HStack w={{ base: "60%", md: "40%" }} justify="space-evenly" mb="20px">
@@ -190,16 +163,7 @@ const Ferment = ({ recipeData, setRecipeData }) => {
 
 const Other = ({ recipeData, setRecipeData }) => {
   return (
-    <VStack
-      my="20px"
-      p="20px"
-      maxW="950px"
-      mx="auto"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-      textStyle="descriptive"
-    >
+    <VStack className="center-card" textStyle="descriptive">
       <Text textStyle="heading">Other Directions</Text>
       <Editable textStyle="descriptive" value={recipeData.otherDirections}>
         <EditableInput

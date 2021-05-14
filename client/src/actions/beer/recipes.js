@@ -18,21 +18,21 @@ export const getRecipes = () => async (dispatch) => {
   }
 };
 
-export const createRecipe = (recipe) => async (dispatch) => {
+export const createRecipe = (recipe, router) => async (dispatch) => {
   try {
     const { data } = await api.createRecipe(recipe);
     dispatch({ type: CREATE_RECIPE, payload: data });
-    window.location.href = `../../recipes/view#${data._id}`;
+    router.push(`/recipes/view#${data._id}`);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updateRecipe = (id, recipe) => async (dispatch) => {
+export const updateRecipe = (id, recipe, router) => async (dispatch) => {
   try {
     const { data } = await api.updateRecipe(id, recipe);
     dispatch({ type: UPDATE_RECIPE, payload: data });
-    window.location.href = `../../recipes/view#${id}`;
+    router.push(`/recipes/view#${data._id}`);
   } catch (error) {
     console.log(error);
   }

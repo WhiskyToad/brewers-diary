@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import { HStack, Button } from "@chakra-ui/react";
 
@@ -13,6 +14,7 @@ import Directions from "./Directions";
 
 const RecipeForm = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   //checking to see if we are updating
   const recipeId = window.location.hash.substr(1);
@@ -62,10 +64,16 @@ const RecipeForm = () => {
     }
     if (recipe !== undefined) {
       dispatch(
-        updateRecipe(recipeId, { ...recipeData, name: user?.result?.name })
+        updateRecipe(
+          recipeId,
+          { ...recipeData, name: user?.result?.name },
+          history
+        )
       );
     } else {
-      dispatch(createRecipe({ ...recipeData, name: user?.result?.name }));
+      dispatch(
+        createRecipe({ ...recipeData, name: user?.result?.name }, history)
+      );
     }
   };
 

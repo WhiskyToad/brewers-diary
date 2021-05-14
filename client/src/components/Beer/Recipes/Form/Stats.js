@@ -12,15 +12,7 @@ import {
 
 const Stats = ({ recipeData, setRecipeData }) => {
   return (
-    <VStack
-      maxW="950px"
-      mx="auto"
-      my="20px"
-      p="20px"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-    >
+    <VStack className="center-card">
       <Text textStyle="heading">Stats</Text>
       <HStack
         w="100%"

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link as RouterLink } from "react-router-dom";
 
 import {
+  Link,
   Spinner,
   HStack,
   VStack,
@@ -30,17 +32,11 @@ const Recipes = () => {
   );
 };
 
-const SortSegment = ({ recipes, sort, setSort }) => {
+const SortSegment = ({ sort, setSort }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
   return (
     <HStack
-      my="20px"
-      p="20px"
-      maxW="950px"
-      mx="auto"
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-      textAlign="center"
+      className="center-card"
       textStyle="headingSmall"
       justify="space-between"
       wrap="wrap"
@@ -70,9 +66,11 @@ const SortSegment = ({ recipes, sort, setSort }) => {
           <option value="all">All</option>
         </Select>
       </HStack>
-      <a href="../recipe/create">
-        <Button textStyle="headingSmall">Create New</Button>
-      </a>
+      {user != null && (
+        <Link as={RouterLink} to="/recipe/create">
+          <Button textStyle="headingSmall">Create New</Button>
+        </Link>
+      )}
       <HStack>
         <HStack
           w={["60px", "60px", "90px", "90px"]}
@@ -117,16 +115,7 @@ const SortSegment = ({ recipes, sort, setSort }) => {
 
 const RecipeList = ({ recipes }) => {
   return (
-    <VStack
-      maxW="950px"
-      mx="auto"
-      p="20px"
-      spacing={1}
-      bg="white"
-      border="1px solid black"
-      borderRadius="4px"
-      display={!recipes.length ? "none" : "flex"}
-    >
+    <VStack className="center-card" display={!recipes.length ? "none" : "flex"}>
       {recipes.map((recipe) => (
         <a key={recipe._id} href={`recipes/view#${recipe._id}`}>
           <RecipeCard recipe={recipe} />
