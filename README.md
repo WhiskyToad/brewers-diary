@@ -26,6 +26,8 @@ npm install react-icons --save
 
 npm install react-rating-stars-component --save
 
+npm install react-infinite-scroller --save
+
 ---
 
 Server
