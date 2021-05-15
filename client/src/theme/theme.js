@@ -27,18 +27,18 @@ const theme = extendTheme({
       fontSize: ["14px", "14px", "16px", "16px"],
     },
     descriptiveSmall: {
-      fontSize: ["10px", "10px", "10px", "10px"],
+      fontSize: ["10px", "10px", "13px", "13px"],
       color: "gray",
     },
     heading: {
       fontFamily: ["BebasNeue"],
-      fontSize: ["25px", "25px", "25px", "25px"],
+      fontSize: ["20px", "20px", "25px", "25px"],
       color: "orange",
       fontWeight: "bold",
     },
     headingSmall: {
       fontFamily: ["BebasNeue"],
-      fontSize: ["18px", "18px", "20px", "20px"],
+      fontSize: ["16px", "16px", "20px", "20px"],
     },
   },
 });

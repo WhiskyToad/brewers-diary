@@ -34,12 +34,9 @@ const RecipeCard = ({ recipe }) => {
               <Text>{recipe.style}</Text>
               <Text>{recipe.targetABV}%</Text>
             </HStack>
+            <Text px="15px">{recipe.description}</Text>
             <Spacer />
-            <Text px="15px" textStyle="descriptive">
-              {recipe.description}
-            </Text>
-            <Spacer />
-            <HStack w="200px" textStyle="descriptiveSmall">
+            <HStack w="230px" textStyle="descriptiveSmall">
               <HStack>
                 <Text>
                   {recipe.rating !== 0

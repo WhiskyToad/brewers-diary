@@ -155,7 +155,7 @@ const Title = ({ recipe, dispatch }) => {
         </VStack>
 
         <Spacer />
-        <VStack w="50%" h="280px" justify="space-between" textAlign="center">
+        <VStack w="50%" h="280px" textAlign="center">
           <HStack
             w={["100%", "100%", "50%", "50%"]}
             h="33px"
@@ -168,6 +168,7 @@ const Title = ({ recipe, dispatch }) => {
           </HStack>
 
           <Text px="15px">{recipe.description}</Text>
+          <Spacer />
           <HStack>
             <HStack color="orange">{rating(recipe)}</HStack>
             <Text>{recipe.votes.length} ratings</Text>
