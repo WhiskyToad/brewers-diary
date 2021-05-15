@@ -117,7 +117,12 @@ const RecipeList = ({ recipes }) => {
   return (
     <VStack display={!recipes.length ? "none" : "flex"}>
       {recipes.map((recipe) => (
-        <Link as={Router} key={recipe._id} to={`/recipes/view#${recipe._id}`}>
+        <Link
+          as={Router}
+          key={recipe._id}
+          to={`/recipes/view#${recipe._id}`}
+          id="card-link"
+        >
           <RecipeCard recipe={recipe} />
         </Link>
       ))}

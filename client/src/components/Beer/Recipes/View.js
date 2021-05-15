@@ -140,7 +140,7 @@ const Title = ({ recipe, dispatch }) => {
         <VStack w="50%" h="300px" justify="space-evenly">
           <Flex h="250px" justify="center">
             <Image
-              h="250px"
+              h={["150px", "150px", "250px", "250px"]}
               borderRadius="10px"
               fit="cover"
               src={recipe.selectedFile}
