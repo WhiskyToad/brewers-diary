@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import {
   Tabs,
   TabList,
@@ -29,17 +30,16 @@ const Auth = () => {
   const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
   const [isSignin, setIsSignin] = useState(true);
+  const history = useHistory();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    console.log(form);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
-    if (isSignin) dispatch(signin(form));
-    if (!isSignin) dispatch(signup(form));
+    if (isSignin) dispatch(signin(form, history));
+    if (!isSignin) dispatch(signup(form, history));
   };
 
   return (
@@ -154,7 +154,7 @@ const SignUp = ({ form, handleChange, handleSubmit }) => {
         <Text textStyle="heading">Sign Up</Text>
         {inputCheck.name && (
           <Text textStyle="descriptiveSmall" color="crimson">
-            name's need to be atleast 4 characters
+            Username's need to be atleast 4 characters
           </Text>
         )}
         <Input

@@ -4,16 +4,18 @@ import { GoogleLogin } from "react-google-login";
 
 import { Button, Flex, Text } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
+import { useHistory } from "react-router";
 
 const GoogleAuth = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const googleSuccess = async (res) => {
     const result = res?.profileObj;
     const token = res?.tokenId;
     try {
       dispatch({ type: "AUTH", data: { result, token } });
-      window.location.href = `../`;
+      history.push("/");
     } catch (error) {
       console.log(error);
     }
