@@ -1,8 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link as Router } from "react-router-dom";
+import moment from "moment";
 
 import ReactStars from "react-rating-stars-component";
 import {
+  Link,
   Box,
   Image,
   Text,
@@ -11,6 +14,12 @@ import {
   Spacer,
   Flex,
   Spinner,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Tooltip,
 } from "@chakra-ui/react";
 
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -19,7 +28,11 @@ import {
   FaFacebook,
   FaTwitter,
   FaRegBookmark,
+  FaStar,
+  FaStarHalfAlt,
+  FaRegStar,
 } from "react-icons/fa";
+import { HiDotsHorizontal } from "react-icons/hi";
 
 import { deleteRecipe, likeRecipe } from "../../../actions/beer/recipes";
 
@@ -60,18 +73,72 @@ const Title = ({ recipe, dispatch }) => {
   const ratingChanged = (newRating) => {
     dispatch(likeRecipe(id, newRating));
   };
+
+  const rating = (recipe) => {
+    let value = (recipe.rating / recipe.votes.length).toFixed(1);
+
+    const stars = [];
+    while (value >= 1) {
+      stars.push(<FaStar />);
+      value--;
+    }
+
+    if (value >= 0.5) {
+      stars.push(<FaStarHalfAlt />);
+    }
+
+    while (stars.length < 5) {
+      stars.push(<FaRegStar />);
+    }
+
+    return stars;
+  };
   return (
     <VStack className="center-card">
-      <Text textStyle="heading">{recipe.title}</Text>
-      <HStack
-        w="100%"
-        alignSelf="center"
-        borderRadius="lg"
-        overflow="hidden"
-        textStyle="descriptiveSmall"
-      >
-        <HStack w="90%" mx="auto" align="flex-start" justify="space-between">
-          <Flex w="50%" h="275px" justify="center">
+      <HStack w="97%" justify="space-between">
+        <HStack w="200px">
+          {(user?.result?.googleId === recipe?.creator ||
+            user?.result?._id === recipe?.creator) && (
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="Options"
+                icon={<HiDotsHorizontal fontSize="30px" />}
+                variant="ghost"
+              />
+              <MenuList>
+                <MenuItem>
+                  <Link as={Router} to={`/recipe/create?update#${recipe._id}`}>
+                    <HStack>
+                      <EditIcon />
+                      <Text>Edit</Text>
+                    </HStack>
+                  </Link>
+                </MenuItem>
+                <MenuItem>
+                  <HStack>
+                    <DeleteIcon
+                      cursor="pointer"
+                      onClick={() => dispatch(deleteRecipe(recipe._id))}
+                    />
+                    <Text>Delete</Text>
+                  </HStack>
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          )}
+        </HStack>
+        <Text textStyle="heading">{recipe.title}</Text>
+        <HStack w="200px" justify="flex-end">
+          <Text textStyle="descriptiveSmall">by {recipe.name}</Text>
+          <Text textStyle="descriptiveSmall">
+            {moment(recipe.createdAt).fromNow()}
+          </Text>
+        </HStack>
+      </HStack>
+      <HStack w="97%" mx="auto" justify="space-between">
+        <VStack w="50%" h="300px" justify="space-evenly">
+          <Flex h="250px" justify="center">
             <Image
               h="250px"
               borderRadius="10px"
@@ -79,55 +146,41 @@ const Title = ({ recipe, dispatch }) => {
               src={recipe.selectedFile}
             />
           </Flex>
-          <VStack w="50%" m="10px" textAlign="center" spacing={4}>
-            {(user?.result?.googleId === recipe?.creator ||
-              user?.result?._id === recipe?.creator) && (
-              <HStack
-                w={["40%", "40%", "20%", "20%"]}
-                justify="space-between"
-                fontSize="20px"
-              >
-                <a href={`../recipe/create?update#${recipe._id}`}>
-                  <EditIcon />
-                </a>
-                <DeleteIcon
-                  cursor="pointer"
-                  onClick={() => dispatch(deleteRecipe(recipe._id))}
-                />
-              </HStack>
-            )}
-            <HStack
-              w={["100%", "100%", "50%", "50%"]}
-              justify="space-evenly"
-              textStyle="headingSmall"
-            >
-              <Text>{recipe.targetABV}%</Text>
-              <Text>{recipe.style}</Text>
-              <Text>{recipe.method}</Text>
-            </HStack>
+          <HStack w="200px" justify="space-evenly" fontSize="25px">
+            <FaPinterest color="#e60023" cursor="pointer" />
+            <FaFacebook color="#4495d4" cursor="pointer" />
+            <FaTwitter color="#1da1f2" cursor="pointer" />
+            <FaRegBookmark color="gold" cursor="pointer" />
+          </HStack>
+        </VStack>
 
-            <Text px="15px" textStyle="descriptive">
-              {recipe.description}
-            </Text>
-            <Spacer />
-            <HStack
-              w={["80%", "80%", "60%", "60%"]}
-              justify="space-between"
-              fontSize="30px"
-            >
-              <FaPinterest color="#e60023" cursor="pointer" />
-              <FaFacebook color="#4495d4" cursor="pointer" />
-              <FaTwitter color="#1da1f2" cursor="pointer" />
-              <FaRegBookmark color="gold" cursor="pointer" />
-            </HStack>
-            <ReactStars
-              count={5}
-              onChange={ratingChanged}
-              size={40}
-              activeColor="#ffd700"
-            />
-          </VStack>
-        </HStack>
+        <Spacer />
+        <VStack w="50%" h="280px" justify="space-between" textAlign="center">
+          <HStack
+            w={["100%", "100%", "50%", "50%"]}
+            h="33px"
+            justify="space-evenly"
+            textStyle="headingSmall"
+          >
+            <Text>{recipe.targetABV}%</Text>
+            <Text>{recipe.style}</Text>
+            <Text>{recipe.method}</Text>
+          </HStack>
+
+          <Text px="15px">{recipe.description}</Text>
+          <HStack>
+            <HStack color="orange">{rating(recipe)}</HStack>
+            <Text>{recipe.votes.length} ratings</Text>
+          </HStack>
+
+          {/* <ReactStars
+            maxH="33px"
+            count={5}
+            onChange={ratingChanged}
+            activeColor="#ffd700"
+            size={30}
+          /> */}
+        </VStack>
       </HStack>
     </VStack>
   );
@@ -137,7 +190,7 @@ const Stats = ({ recipe }) => {
   return (
     <VStack className="center-card">
       <Text textStyle="heading">Stats</Text>
-      <HStack w="100%" justify="space-evenly" textStyle="descriptive">
+      <HStack w="100%" justify="space-evenly">
         <VStack>
           <Text textStyle="headingSmall">Efficency</Text>
           <Text>{recipe.efficiency} %</Text>

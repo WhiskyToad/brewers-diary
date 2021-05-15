@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { Image, Text, HStack, VStack, Spacer, Flex } from "@chakra-ui/react";
-import { FaRegComments, FaRegLightbulb, FaRegStar } from "react-icons/fa";
+import { FaRegComments, FaRegLightbulb, FaStar } from "react-icons/fa";
 import { FiBookOpen } from "react-icons/fi";
 
 const RecipeCard = ({ recipe }) => {
@@ -22,7 +22,6 @@ const RecipeCard = ({ recipe }) => {
           <Flex w="300px" justify="center">
             <Image
               w="300px"
-              S
               borderRadius="10px"
               fit="cover"
               src={recipe.selectedFile}
@@ -42,11 +41,12 @@ const RecipeCard = ({ recipe }) => {
             <Spacer />
             <HStack w="200px" textStyle="descriptiveSmall">
               <HStack>
-                <FaRegStar />
                 <Text>
-                  ({(recipe.rating / recipe.votes.length).toFixed(1)})
+                  {recipe.rating !== 0
+                    ? (recipe.rating / recipe.votes.length).toFixed(1)
+                    : 0}
                 </Text>
-
+                <FaStar />
                 <Text>
                   {recipe.votes.length}
                   {recipe.votes.length === 1 ? " vote" : " votes"}

@@ -11,7 +11,6 @@ import {
   Stack,
   Button,
   Flex,
-  Spacer,
   Menu,
   MenuButton,
   MenuList,
@@ -117,12 +116,14 @@ const MenuLinks = ({ isOpen, user, logout }) => {
         </Link>
         <InputGroup>
           <Input
-            type="tel"
+            h="30px"
+            type="search"
             placeholder="Search"
             textStyle="heading"
             bg="white"
           />
           <InputRightAddon
+            h="30px"
             children={<Search2Icon size="sm" />}
             cursor="pointer"
           />
