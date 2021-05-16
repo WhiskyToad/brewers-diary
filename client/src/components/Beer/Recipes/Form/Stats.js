@@ -14,12 +14,7 @@ const Stats = ({ recipeData, setRecipeData }) => {
   return (
     <VStack className="center-card">
       <Text textStyle="heading">Stats</Text>
-      <HStack
-        w="100%"
-        justify="space-evenly"
-        textStyle="descriptive"
-        wrap="wrap"
-      >
+      <HStack w="100%" justify="space-evenly" wrap="wrap">
         <VStack>
           <Text textStyle="headingSmall">Efficiency</Text>
           <NumberInput value={recipeData.efficiency}>

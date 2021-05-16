@@ -8,9 +8,7 @@ import {
   InputGroup,
   HStack,
   Text,
-  Editable,
-  EditableInput,
-  EditablePreview,
+  Textarea,
 } from "@chakra-ui/react";
 
 const Directions = ({ recipeData, setRecipeData }) => {
@@ -26,7 +24,7 @@ const Directions = ({ recipeData, setRecipeData }) => {
 
 const Mash = ({ recipeData, setRecipeData }) => {
   return (
-    <VStack className="center-card" textStyle="descriptive">
+    <VStack className="center-card">
       <Text textStyle="heading">The Mash</Text>
 
       <HStack w={{ base: "60%", md: "40%" }} justify="space-evenly" mb="20px">
@@ -60,21 +58,21 @@ const Mash = ({ recipeData, setRecipeData }) => {
         </VStack>
       </HStack>
       <Text textStyle="headingSmall">Mash Directions</Text>
-      <Editable textStyle="descriptive" value={recipeData.mashDirections}>
-        <EditableInput
-          onChange={(e) =>
-            setRecipeData({ ...recipeData, mashDirections: e.target.value })
-          }
-        />
-        <EditablePreview />
-      </Editable>
+
+      <Textarea
+        placeholder="Mash directions"
+        value={recipeData.mashDirections}
+        onChange={(e) =>
+          setRecipeData({ ...recipeData, mashDirections: e.target.value })
+        }
+      />
     </VStack>
   );
 };
 
 const Boil = ({ recipeData, setRecipeData }) => {
   return (
-    <VStack className="center-card" textStyle="descriptive">
+    <VStack className="center-card">
       <Text textStyle="heading">The Boil</Text>
 
       <VStack w={{ base: "60%", md: "40%" }} justify="space-evenly" mb="20px">
@@ -92,21 +90,21 @@ const Boil = ({ recipeData, setRecipeData }) => {
         </NumberInput>
       </VStack>
       <Text textStyle="headingSmall">Boil Directions</Text>
-      <Editable textStyle="descriptive" value={recipeData.boilDirections}>
-        <EditableInput
-          onChange={(e) =>
-            setRecipeData({ ...recipeData, boilDirections: e.target.value })
-          }
-        />
-        <EditablePreview />
-      </Editable>
+
+      <Textarea
+        placeholder="Boil directions"
+        value={recipeData.boilDirections}
+        onChange={(e) =>
+          setRecipeData({ ...recipeData, boilDirections: e.target.value })
+        }
+      />
     </VStack>
   );
 };
 
 const Ferment = ({ recipeData, setRecipeData }) => {
   return (
-    <VStack className="center-card" textStyle="descriptive">
+    <VStack className="center-card">
       <Text textStyle="heading">The Ferment</Text>
 
       <HStack w={{ base: "60%", md: "40%" }} justify="space-evenly" mb="20px">
@@ -146,33 +144,33 @@ const Ferment = ({ recipeData, setRecipeData }) => {
         </VStack>
       </HStack>
       <Text textStyle="headingSmall">Fermenting Directions</Text>
-      <Editable textStyle="descriptive" value={recipeData.fermentDirections}>
-        <EditableInput
-          onChange={(e) =>
-            setRecipeData({
-              ...recipeData,
-              fermentDirections: e.target.value,
-            })
-          }
-        />
-        <EditablePreview />
-      </Editable>
+
+      <Textarea
+        placeholder="Fermentation directions"
+        value={recipeData.fermentDirections}
+        onChange={(e) =>
+          setRecipeData({
+            ...recipeData,
+            fermentDirections: e.target.value,
+          })
+        }
+      />
     </VStack>
   );
 };
 
 const Other = ({ recipeData, setRecipeData }) => {
   return (
-    <VStack className="center-card" textStyle="descriptive">
+    <VStack className="center-card">
       <Text textStyle="heading">Other Directions</Text>
-      <Editable textStyle="descriptive" value={recipeData.otherDirections}>
-        <EditableInput
-          onChange={(e) =>
-            setRecipeData({ ...recipeData, otherDirections: e.target.value })
-          }
-        />
-        <EditablePreview />
-      </Editable>
+
+      <Textarea
+        placeholder="Other directions"
+        value={recipeData.otherDirections}
+        onChange={(e) =>
+          setRecipeData({ ...recipeData, otherDirections: e.target.value })
+        }
+      />
     </VStack>
   );
 };

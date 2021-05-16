@@ -14,6 +14,7 @@ import {
   Editable,
   EditableInput,
   EditablePreview,
+  Textarea,
 } from "@chakra-ui/react";
 
 const Title = ({ recipeData, setRecipeData }) => {
@@ -95,19 +96,14 @@ const Title = ({ recipeData, setRecipeData }) => {
             </VStack>
           </HStack>
 
-          <Editable
-            px="15px"
-            textStyle="descriptive"
+          <Textarea
+            placeholder="Enter description"
+            h="150px"
             value={recipeData.description}
-          >
-            <EditableInput
-              onChange={(e) =>
-                setRecipeData({ ...recipeData, description: e.target.value })
-              }
-            />
-            <EditablePreview />
-          </Editable>
-          <Spacer />
+            onChange={(e) =>
+              setRecipeData({ ...recipeData, description: e.target.value })
+            }
+          />
         </VStack>
       </HStack>
     </VStack>

@@ -29,7 +29,7 @@ const RecipeForm = () => {
     title: "Recipe Title",
     method: "All Grain",
     style: "IPA",
-    description: "Enter description",
+    description: "",
     efficiency: 0,
     batchSize: 0,
     targetOG: 1.23,
@@ -42,13 +42,13 @@ const RecipeForm = () => {
     yeast: "Yeast Strain",
     mashLength: 0,
     mashTemp: 0,
-    mashDirections: "Enter mash directions",
+    mashDirections: "",
     boilLength: 0,
-    boilDirections: "Enter boil directions",
+    boilDirections: "",
     fermentTemp: 0,
     fermentLength: 0,
-    fermentDirections: "Enter fermentation directions",
-    otherDirections: "Enter other directions",
+    fermentDirections: "",
+    otherDirections: "",
   });
 
   //populate for edit
