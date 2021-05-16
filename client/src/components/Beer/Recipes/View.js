@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link as Router } from "react-router-dom";
 import moment from "moment";
@@ -39,6 +39,10 @@ import { deleteRecipe, likeRecipe } from "../../../actions/beer/recipes";
 const RecipeView = () => {
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   //get recipe id from url and load recipe
   const recipeId = window.location.hash.substr(1);
   const recipe = useSelector((state) =>
@@ -76,19 +80,23 @@ const Title = ({ recipe, dispatch }) => {
 
   const rating = (recipe) => {
     let value = (recipe.rating / recipe.votes.length).toFixed(1);
+    let index = 0;
 
     const stars = [];
     while (value >= 1) {
-      stars.push(<FaStar />);
+      stars.push(<FaStar key={index} />);
       value--;
+      index++;
     }
 
     if (value >= 0.5) {
-      stars.push(<FaStarHalfAlt />);
+      stars.push(<FaStarHalfAlt key={index} />);
+      index++;
     }
 
     while (stars.length < 5) {
-      stars.push(<FaRegStar />);
+      stars.push(<FaRegStar key={index} />);
+      index++;
     }
 
     return stars;
