@@ -73,6 +73,7 @@ const RecipeView = () => {
 };
 
 const Title = ({ recipe, dispatch, user }) => {
+  // creates the stars rating display
   const rating = (recipe) => {
     let value = (recipe.rating / recipe.votes.length).toFixed(1);
     let index = 0;
@@ -150,10 +151,26 @@ const Title = ({ recipe, dispatch, user }) => {
             />
           </Flex>
           <HStack w="200px" justify="space-evenly" fontSize="25px">
-            <FaPinterest color="#e60023" cursor="pointer" />
-            <FaFacebook color="#4495d4" cursor="pointer" />
-            <FaTwitter color="#1da1f2" cursor="pointer" />
-            <FaBookmark color="gold" cursor="pointer" />
+            <Tooltip hasArrow label="Share on Pinterest">
+              <span>
+                <FaPinterest color="#e60023" cursor="pointer" />
+              </span>
+            </Tooltip>
+            <Tooltip hasArrow label="Share on Facebook">
+              <span>
+                <FaFacebook color="#4495d4" cursor="pointer" />
+              </span>
+            </Tooltip>
+            <Tooltip hasArrow label="Share on Twitter">
+              <span>
+                <FaTwitter color="#1da1f2" cursor="pointer" />
+              </span>
+            </Tooltip>
+            <Tooltip hasArrow label="Bookmark this recipe">
+              <span>
+                <FaBookmark color="gold" cursor="pointer" />
+              </span>
+            </Tooltip>
           </HStack>
         </VStack>
 

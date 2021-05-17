@@ -36,6 +36,7 @@ const SortSegment = ({ sort, setSort }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   return (
     <HStack
+      my="40px"
       className="center-card"
       textStyle="headingSmall"
       justify="space-between"

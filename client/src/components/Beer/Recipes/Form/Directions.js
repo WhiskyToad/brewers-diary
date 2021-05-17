@@ -61,6 +61,8 @@ const Mash = ({ recipeData, setRecipeData }) => {
 
       <Textarea
         placeholder="Mash directions"
+        textAlign="center"
+        w="90%"
         value={recipeData.mashDirections}
         onChange={(e) =>
           setRecipeData({ ...recipeData, mashDirections: e.target.value })
@@ -80,6 +82,7 @@ const Boil = ({ recipeData, setRecipeData }) => {
         <NumberInput value={recipeData.boilLength}>
           <InputGroup>
             <NumberInputField
+              w="100px"
               value={recipeData.boilLength}
               onChange={(e) =>
                 setRecipeData({ ...recipeData, boilLength: e.target.value })
@@ -93,6 +96,8 @@ const Boil = ({ recipeData, setRecipeData }) => {
 
       <Textarea
         placeholder="Boil directions"
+        textAlign="center"
+        w="90%"
         value={recipeData.boilDirections}
         onChange={(e) =>
           setRecipeData({ ...recipeData, boilDirections: e.target.value })
@@ -147,6 +152,8 @@ const Ferment = ({ recipeData, setRecipeData }) => {
 
       <Textarea
         placeholder="Fermentation directions"
+        textAlign="center"
+        w="90%"
         value={recipeData.fermentDirections}
         onChange={(e) =>
           setRecipeData({
@@ -166,6 +173,8 @@ const Other = ({ recipeData, setRecipeData }) => {
 
       <Textarea
         placeholder="Other directions"
+        textAlign="center"
+        w="90%"
         value={recipeData.otherDirections}
         onChange={(e) =>
           setRecipeData({ ...recipeData, otherDirections: e.target.value })

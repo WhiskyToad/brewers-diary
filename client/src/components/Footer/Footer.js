@@ -1,6 +1,6 @@
 import React from "react";
 
-import { HStack, Text, Link } from "@chakra-ui/react";
+import { HStack, Text } from "@chakra-ui/react";
 
 const Footer = () => {
   return (

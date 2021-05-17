@@ -98,6 +98,7 @@ const Title = ({ recipeData, setRecipeData }) => {
 
           <Textarea
             placeholder="Enter description"
+            textAlign="center"
             h="150px"
             value={recipeData.description}
             onChange={(e) =>
