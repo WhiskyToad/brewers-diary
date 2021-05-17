@@ -338,7 +338,6 @@ const Rating = ({ recipe, dispatch, user }) => {
         <Text>You have already rated this recipe</Text>
       ) : (
         <ReactStars
-          maxH="33px"
           count={5}
           onChange={ratingChanged}
           activeColor="#ffd700"

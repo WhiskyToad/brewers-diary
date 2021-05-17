@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import NavBar from "./components/NavBar/NavBar";
+import Footer from "./components/Footer/Footer";
 import { getRecipes } from "./actions/beer/recipes";
 // import Home from "./components/Home";
 import Recipes from "./components/Beer/Recipes/List";
@@ -39,6 +40,7 @@ const App = () => {
             <Route exact path="/auth" component={Auth} />
             <Route component={FourOhFour} />
           </Switch>
+          <Footer />
         </ChakraProvider>
       </BrowserRouter>
     </>
