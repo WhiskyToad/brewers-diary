@@ -36,14 +36,14 @@ const RecipeCard = ({ recipe }) => {
             </HStack>
             <Text px="15px">{recipe.description}</Text>
             <Spacer />
-            <HStack w="230px" textStyle="descriptiveSmall">
+            <HStack textStyle="descriptiveSmall">
               <HStack>
                 <Text>
                   {recipe.rating !== 0
                     ? (recipe.rating / recipe.votes.length).toFixed(1)
                     : 0}
                 </Text>
-                <FaStar />
+                <FaStar fontSize="18px" />
                 <Text>
                   {recipe.votes.length}
                   {recipe.votes.length === 1 ? " vote" : " votes"}
@@ -51,7 +51,7 @@ const RecipeCard = ({ recipe }) => {
               </HStack>
               <Spacer />
               <HStack>
-                <FaRegComments />
+                <FaRegComments fontSize="20px" />
                 <Text>20 comments</Text>
               </HStack>
             </HStack>

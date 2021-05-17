@@ -27,7 +27,7 @@ import {
   FaPinterest,
   FaFacebook,
   FaTwitter,
-  FaRegBookmark,
+  FaBookmark,
   FaStar,
   FaStarHalfAlt,
   FaRegStar,
@@ -38,7 +38,9 @@ import { deleteRecipe, likeRecipe } from "../../../actions/beer/recipes";
 
 const RecipeView = () => {
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("profile"));
 
+  // scroll to top on page load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -58,26 +60,19 @@ const RecipeView = () => {
     </>
   ) : (
     <>
-      <Title recipe={recipe} dispatch={dispatch} />
+      <Title recipe={recipe} dispatch={dispatch} user={user} />
       <Stats recipe={recipe} />
       <Ingredients recipe={recipe} />
       <Mash recipe={recipe} />
       <Boil recipe={recipe} />
       <Ferment recipe={recipe} />
       <Other recipe={recipe} />
+      <Rating recipe={recipe} dispatch={dispatch} user={user} />
     </>
   );
 };
 
-const Title = ({ recipe, dispatch }) => {
-  const id = recipe._id;
-  const user = JSON.parse(localStorage.getItem("profile"));
-
-  // sending rating
-  const ratingChanged = (newRating) => {
-    dispatch(likeRecipe(id, newRating));
-  };
-
+const Title = ({ recipe, dispatch, user }) => {
   const rating = (recipe) => {
     let value = (recipe.rating / recipe.votes.length).toFixed(1);
     let index = 0;
@@ -158,7 +153,7 @@ const Title = ({ recipe, dispatch }) => {
             <FaPinterest color="#e60023" cursor="pointer" />
             <FaFacebook color="#4495d4" cursor="pointer" />
             <FaTwitter color="#1da1f2" cursor="pointer" />
-            <FaRegBookmark color="gold" cursor="pointer" />
+            <FaBookmark color="gold" cursor="pointer" />
           </HStack>
         </VStack>
 
@@ -181,14 +176,6 @@ const Title = ({ recipe, dispatch }) => {
             <HStack color="orange">{rating(recipe)}</HStack>
             <Text>{recipe.votes.length} ratings</Text>
           </HStack>
-
-          {/* <ReactStars
-            maxH="33px"
-            count={5}
-            onChange={ratingChanged}
-            activeColor="#ffd700"
-            size={30}
-          /> */}
         </VStack>
       </HStack>
     </VStack>
@@ -272,7 +259,7 @@ const Ingredients = ({ recipe }) => {
 
 const Mash = ({ recipe }) => {
   return (
-    <VStack className="center-card" textStyle="descriptive">
+    <VStack className="center-card">
       <Text textStyle="heading">The Mash</Text>
 
       <HStack w="40%" justify="space-evenly" mb="20px">
@@ -293,7 +280,7 @@ const Mash = ({ recipe }) => {
 
 const Boil = ({ recipe }) => {
   return (
-    <VStack className="center-card" textStyle="descriptive">
+    <VStack className="center-card">
       <Text textStyle="heading">The Boil</Text>
 
       <HStack w="40%" justify="space-evenly" mb="20px">
@@ -310,7 +297,7 @@ const Boil = ({ recipe }) => {
 
 const Ferment = ({ recipe }) => {
   return (
-    <VStack className="center-card" textStyle="descriptive">
+    <VStack className="center-card">
       <Text textStyle="heading">The Ferment</Text>
 
       <HStack w="40%" justify="space-evenly" mb="20px">
@@ -331,9 +318,33 @@ const Ferment = ({ recipe }) => {
 
 const Other = ({ recipe }) => {
   return (
-    <VStack className="center-card" textStyle="descriptive">
+    <VStack className="center-card">
       <Text textStyle="heading">Other Directions</Text>
       <Text>{recipe.otherDirections}</Text>
+    </VStack>
+  );
+};
+
+const Rating = ({ recipe, dispatch, user }) => {
+  // sending rating
+  const ratingChanged = (newRating) => {
+    dispatch(likeRecipe(recipe._id, newRating));
+  };
+  return (
+    <VStack className="center-card" textAlign="center">
+      <Text textStyle="heading">Rate this recipe</Text>
+      {recipe.votes.includes(user?.result?.googleId) ||
+      recipe.votes.includes(user?.result?._id) ? (
+        <Text>You have already rated this recipe</Text>
+      ) : (
+        <ReactStars
+          maxH="33px"
+          count={5}
+          onChange={ratingChanged}
+          activeColor="#ffd700"
+          size={30}
+        />
+      )}
     </VStack>
   );
 };
