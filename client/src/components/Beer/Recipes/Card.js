@@ -8,9 +8,9 @@ const RecipeCard = ({ recipe }) => {
     <>
       <VStack className="center-card">
         <HStack minW="100%" justify="space-between">
-          <Spacer maxW="200px" />
+          <Spacer maxW="200px" display={{ base: "none", md: "flex" }} />
           <Text textStyle="heading">{recipe.title}</Text>
-          <HStack w="200px" justify="flex-end">
+          <HStack w={{ base: "100px", md: "200px" }} justify="flex-end">
             <Text textStyle="descriptiveSmall">by {recipe.name}</Text>
             <Text textStyle="descriptiveSmall">
               {moment(recipe.createdAt).fromNow()}
@@ -19,10 +19,15 @@ const RecipeCard = ({ recipe }) => {
         </HStack>
 
         <HStack justify="space-between">
-          <VStack w={{ base: "200px", md: "300px" }} justify="center">
+          <VStack
+            minH="200px"
+            w={{ base: "200px", md: "300px" }}
+            justify="center"
+          >
             <Image borderRadius="10px" fit="cover" src={recipe.selectedFile} />
             <Spacer />
             <HStack
+              w="80%"
               justify="space-between"
               textStyle="headingSmall"
               display={{ base: "flex", md: "none" }}
@@ -31,9 +36,10 @@ const RecipeCard = ({ recipe }) => {
               <Text>{recipe.style}</Text>
               <Text>{recipe.targetABV}%</Text>
             </HStack>
+            <Spacer />
           </VStack>
           <Spacer />
-          <VStack w="50%" h="200px" m="10px" textAlign="center">
+          <VStack w="50%" minH="200px" m="10px" textAlign="center">
             <HStack
               w="70%"
               justify="space-evenly"

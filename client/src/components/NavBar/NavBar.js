@@ -59,7 +59,12 @@ const NavBar = (props) => {
           <Logo />
           <MenuToggle toggle={toggle} isOpen={isOpen} />
         </HStack>
-        <MenuLinks isOpen={isOpen} user={user} logout={logout} />
+        <MenuLinks
+          isOpen={isOpen}
+          toggle={toggle}
+          user={user}
+          logout={logout}
+        />
       </Flex>
     </NavBarContainer>
   );
@@ -104,7 +109,7 @@ const MenuToggle = ({ toggle, isOpen }) => {
   );
 };
 
-const MenuLinks = ({ isOpen, user, logout }) => {
+const MenuLinks = ({ isOpen, toggle, user, logout }) => {
   return (
     <Box
       display={{ base: isOpen ? "block" : "none", md: "block" }}
@@ -123,11 +128,11 @@ const MenuLinks = ({ isOpen, user, logout }) => {
           </MenuButton>
           <MenuList>
             <Link as={Router} to="/recipes">
-              <MenuItem>View</MenuItem>
+              <MenuItem onClick={toggle}>View</MenuItem>
             </Link>
             {user != null && (
               <Link as={Router} to="/recipe/create">
-                <MenuItem>Create</MenuItem>
+                <MenuItem onClick={toggle}>Create</MenuItem>
               </Link>
             )}
           </MenuList>

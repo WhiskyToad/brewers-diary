@@ -100,7 +100,7 @@ const Title = ({ recipe, dispatch, user }) => {
   return (
     <VStack className="center-card">
       <HStack w="97%" justify="space-between">
-        <HStack w="200px">
+        <HStack w={{ base: "50px", md: "200px" }}>
           {(user?.result?.googleId === recipe?.creator ||
             user?.result?._id === recipe?.creator) && (
             <Menu>
@@ -133,24 +133,38 @@ const Title = ({ recipe, dispatch, user }) => {
           )}
         </HStack>
         <Text textStyle="heading">{recipe.title}</Text>
-        <HStack w="200px" justify="flex-end">
+        <HStack w={{ base: "80px", md: "200px" }} justify="flex-end">
           <Text textStyle="descriptiveSmall">by {recipe.name}</Text>
           <Text textStyle="descriptiveSmall">
             {moment(recipe.createdAt).fromNow()}
           </Text>
         </HStack>
       </HStack>
-      <HStack w="97%" mx="auto" justify="space-between">
-        <VStack w="50%" h="300px" justify="space-evenly">
+      <Flex
+        direction={{ base: "column", md: "row" }}
+        w="97%"
+        mx="auto"
+        justify="space-between"
+      >
+        <VStack
+          w={{ base: "100%", md: "50%" }}
+          minH="300px"
+          justify="space-evenly"
+        >
           <Flex h="250px" justify="center">
             <Image
-              h={["150px", "150px", "250px", "250px"]}
+              h="250px"
               borderRadius="10px"
               fit="cover"
               src={recipe.selectedFile}
             />
           </Flex>
-          <HStack w="200px" justify="space-evenly" fontSize="25px">
+          <HStack
+            w="200px"
+            justify="space-evenly"
+            fontSize="25px"
+            py={{ base: "10px", md: 0 }}
+          >
             <Tooltip hasArrow label="Share on Pinterest">
               <span>
                 <FaPinterest color="#e60023" cursor="pointer" />
@@ -175,9 +189,10 @@ const Title = ({ recipe, dispatch, user }) => {
         </VStack>
 
         <Spacer />
-        <VStack w="50%" h="280px" textAlign="center">
+        <VStack w={{ base: "100%", md: "50%" }} minH="280px" textAlign="center">
           <HStack
-            w={["100%", "100%", "50%", "50%"]}
+            w={{ base: "80%", md: "50%" }}
+            my={{ base: "10px", md: 0 }}
             h="33px"
             justify="space-evenly"
             textStyle="headingSmall"
@@ -189,12 +204,12 @@ const Title = ({ recipe, dispatch, user }) => {
 
           <Text px="15px">{recipe.description}</Text>
           <Spacer />
-          <HStack>
+          <HStack justify="space-between" w="70%">
             <HStack color="orange">{rating(recipe)}</HStack>
             <Text>{recipe.votes.length} ratings</Text>
           </HStack>
         </VStack>
-      </HStack>
+      </Flex>
     </VStack>
   );
 };
@@ -237,8 +252,13 @@ const Ingredients = ({ recipe }) => {
   return (
     <VStack className="center-card">
       <Text textStyle="heading">Ingredients</Text>
-      <HStack w="100%" justify="space-between" align="flex-start">
-        <VStack h="100%" w="33%">
+      <Flex
+        direction={{ base: "column", md: "row" }}
+        w="100%"
+        justify="space-between"
+        align="flex-start"
+      >
+        <VStack w={{ base: "100%", md: "33%" }}>
           <Text textStyle="headingSmall">Hops</Text>
           {recipe.hops.map((item, index) => (
             <HStack key={index}>
@@ -249,7 +269,7 @@ const Ingredients = ({ recipe }) => {
           ))}
         </VStack>
 
-        <VStack w="33%">
+        <VStack my={{ base: "20px", md: 0 }} w={{ base: "100%", md: "33%" }}>
           <Text textStyle="headingSmall">Malts / Grains</Text>
           {recipe.malts.map((item, index) => (
             <HStack key={index}>
@@ -260,7 +280,7 @@ const Ingredients = ({ recipe }) => {
           ))}
         </VStack>
 
-        <VStack w="33%">
+        <VStack w={{ base: "100%", md: "33%" }}>
           <Text textStyle="headingSmall">Others</Text>
           <Text textStyle="descriptive">{recipe.yeast}</Text>
           {recipe.others.map((item, index) => (
@@ -269,7 +289,7 @@ const Ingredients = ({ recipe }) => {
             </Text>
           ))}
         </VStack>
-      </HStack>
+      </Flex>
     </VStack>
   );
 };
@@ -350,16 +370,19 @@ const Rating = ({ recipe, dispatch, user }) => {
   return (
     <VStack className="center-card" textAlign="center">
       <Text textStyle="heading">Rate this recipe</Text>
+
       {recipe.votes.includes(user?.result?.googleId) ||
       recipe.votes.includes(user?.result?._id) ? (
         <Text>You have already rated this recipe</Text>
-      ) : (
+      ) : user != null ? (
         <ReactStars
           count={5}
           onChange={ratingChanged}
           activeColor="#ffd700"
           size={30}
         />
+      ) : (
+        <Text>You must be signed in to rate recipes</Text>
       )}
     </VStack>
   );
