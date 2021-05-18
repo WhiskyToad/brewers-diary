@@ -6,7 +6,7 @@ import {
   NumberInputField,
   InputRightAddon,
   InputGroup,
-  HStack,
+  Flex,
   Text,
 } from "@chakra-ui/react";
 
@@ -14,7 +14,12 @@ const Stats = ({ recipeData, setRecipeData }) => {
   return (
     <VStack className="center-card">
       <Text textStyle="heading">Stats</Text>
-      <HStack w="100%" justify="space-evenly" wrap="wrap">
+      <Flex
+        direction={{ base: "column", md: "row" }}
+        w="100%"
+        justify="space-evenly"
+        wrap="wrap"
+      >
         <VStack>
           <Text textStyle="headingSmall">Efficiency</Text>
           <NumberInput value={recipeData.efficiency}>
@@ -94,7 +99,7 @@ const Stats = ({ recipeData, setRecipeData }) => {
             </InputGroup>
           </NumberInput>
         </VStack>
-      </HStack>
+      </Flex>
     </VStack>
   );
 };

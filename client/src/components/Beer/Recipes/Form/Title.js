@@ -10,10 +10,12 @@ import {
   NumberInputField,
   InputGroup,
   HStack,
+  Flex,
   Editable,
   EditableInput,
   EditablePreview,
   Textarea,
+  Spacer,
 } from "@chakra-ui/react";
 
 const Title = ({ recipeData, setRecipeData }) => {
@@ -27,10 +29,19 @@ const Title = ({ recipeData, setRecipeData }) => {
           }
         />
       </Editable>
-      <HStack w="97%" mx="auto" justify="space-between">
-        <VStack w="50%" h="300px" justify="space-evenly">
+      <Flex
+        direction={{ base: "column", md: "row" }}
+        w="97%"
+        mx="auto"
+        justify="space-between"
+      >
+        <VStack
+          w={{ base: "100%", md: "50%" }}
+          minH="300px"
+          justify="space-evenly"
+        >
           <Image
-            h={["150px", "150px", "250px", "250px"]}
+            h="250px"
             borderRadius="10px"
             fit="cover"
             src={recipeData.selectedFile}
@@ -44,11 +55,17 @@ const Title = ({ recipeData, setRecipeData }) => {
             }
           />
         </VStack>
+        <Spacer />
 
-        <VStack w="50%" h="275px" m="10px" textAlign="center" spacing={4}>
-          <HStack justify="space-evenly" wrap="wrap">
+        <VStack w={{ base: "100%", md: "50%" }} minH="280px" textAlign="center">
+          <HStack
+            w={{ base: "100%", md: "50%" }}
+            my={{ base: "10px", md: 0 }}
+            justify="space-evenly"
+            textStyle="headingSmall"
+          >
             <VStack>
-              <Text textStyle="headingSmall">ABV</Text>
+              <Text>ABV</Text>
               <NumberInput value={recipeData.targetABV}>
                 <InputGroup>
                   <NumberInputField
@@ -66,7 +83,7 @@ const Title = ({ recipeData, setRecipeData }) => {
             </VStack>
 
             <VStack>
-              <Text textStyle="headingSmall">Style</Text>
+              <Text>Style</Text>
               <Select
                 w="100px"
                 onChange={(e) =>
@@ -82,7 +99,7 @@ const Title = ({ recipeData, setRecipeData }) => {
             </VStack>
 
             <VStack>
-              <Text textStyle="headingSmall">Method</Text>
+              <Text>Method</Text>
               <Select
                 w="100px"
                 onChange={(e) =>
@@ -99,13 +116,14 @@ const Title = ({ recipeData, setRecipeData }) => {
             placeholder="Enter description"
             textAlign="center"
             h="150px"
+            w="90%"
             value={recipeData.description}
             onChange={(e) =>
               setRecipeData({ ...recipeData, description: e.target.value })
             }
           />
         </VStack>
-      </HStack>
+      </Flex>
     </VStack>
   );
 };

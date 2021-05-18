@@ -9,6 +9,7 @@ import {
   InputRightAddon,
   InputGroup,
   HStack,
+  Flex,
   Button,
   Text,
   Editable,
@@ -104,8 +105,13 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
     <VStack className="center-card">
       <Text textStyle="heading">Ingredients</Text>
 
-      <HStack w="100%" justify="space-between" align="flex-start" wrap="wrap">
-        <VStack h="100%" w="32%">
+      <Flex
+        direction={{ base: "column", md: "row" }}
+        w="100%"
+        justify="space-between"
+        align="flex-start"
+      >
+        <VStack w={{ base: "100%", md: "32%" }}>
           <Text textStyle="headingSmall">Hops</Text>
           {recipeData.hops.map((item, index) => (
             <HStack key={index}>
@@ -115,7 +121,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
               <DeleteIcon cursor="pointer" onClick={() => deleteHop(index)} />
             </HStack>
           ))}
-          <HStack>
+          <HStack maxW="80%">
             <Input
               value={hop.name}
               onChange={(e) => setHop({ ...hop, name: e.target.value })}
@@ -139,7 +145,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
           </Button>
         </VStack>
 
-        <VStack w="32%">
+        <VStack w={{ base: "100%", md: "32%" }} my={{ base: "20px", md: 0 }}>
           <Text textStyle="headingSmall">Malts / Grains</Text>
           {recipeData.malts.map((item, index) => (
             <HStack key={index}>
@@ -149,7 +155,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
               <DeleteIcon cursor="pointer" onClick={() => deleteMalt(index)} />
             </HStack>
           ))}
-          <HStack>
+          <HStack maxW="80%">
             <Input
               value={malt.name}
               onChange={(e) => setMalt({ ...malt, name: e.target.value })}
@@ -173,7 +179,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
           </Button>
         </VStack>
 
-        <VStack w="32%">
+        <VStack w={{ base: "100%", md: "32%" }}>
           <Text textStyle="headingSmall">Others</Text>
           <Editable textStyle="descriptive" value={recipeData.yeast}>
             <EditableInput />
@@ -188,12 +194,17 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
               />
             </HStack>
           ))}
-          <Input value={others} onChange={(e) => setOthers(e.target.value)} />
+          <Input
+            maxW="80%"
+            placeholder="Others"
+            value={others}
+            onChange={(e) => setOthers(e.target.value)}
+          />
           <Button onClick={addOthers} variant="outline">
             Add
           </Button>
         </VStack>
-      </HStack>
+      </Flex>
     </VStack>
   );
 };

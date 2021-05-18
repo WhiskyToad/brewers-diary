@@ -153,7 +153,7 @@ const Title = ({ recipe, dispatch, user }) => {
         >
           <Flex h="250px" justify="center">
             <Image
-              h="250px"
+              h="100%"
               borderRadius="10px"
               fit="cover"
               src={recipe.selectedFile}
@@ -189,11 +189,11 @@ const Title = ({ recipe, dispatch, user }) => {
         </VStack>
 
         <Spacer />
+
         <VStack w={{ base: "100%", md: "50%" }} minH="280px" textAlign="center">
           <HStack
             w={{ base: "80%", md: "50%" }}
             my={{ base: "10px", md: 0 }}
-            h="33px"
             justify="space-evenly"
             textStyle="headingSmall"
           >

@@ -27,7 +27,7 @@ const Mash = ({ recipeData, setRecipeData }) => {
     <VStack className="center-card">
       <Text textStyle="heading">The Mash</Text>
 
-      <HStack w={{ base: "60%", md: "40%" }} justify="space-evenly" mb="20px">
+      <HStack w={{ base: "80%", md: "40%" }} justify="space-evenly" mb="20px">
         <VStack>
           <Text textStyle="headingSmall">Temp</Text>
           <NumberInput value={recipeData.mashTemp}>
@@ -112,7 +112,7 @@ const Ferment = ({ recipeData, setRecipeData }) => {
     <VStack className="center-card">
       <Text textStyle="heading">The Ferment</Text>
 
-      <HStack w={{ base: "60%", md: "40%" }} justify="space-evenly" mb="20px">
+      <HStack w={{ base: "80%", md: "40%" }} justify="space-evenly" mb="20px">
         <VStack>
           <Text textStyle="headingSmall">Temp</Text>
           <NumberInput value={recipeData.fermentTemp}>
