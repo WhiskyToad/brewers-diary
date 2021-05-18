@@ -5,7 +5,6 @@ import {
   Text,
   VStack,
   Image,
-  Spacer,
   Select,
   NumberInput,
   NumberInputField,

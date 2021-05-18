@@ -10,7 +10,7 @@ import {
   VStack,
   Stack,
   Button,
-  Flex,
+  HStack,
   Menu,
   MenuButton,
   MenuList,
@@ -18,6 +18,7 @@ import {
   Input,
   InputGroup,
   InputRightAddon,
+  Flex,
 } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 
@@ -54,8 +55,10 @@ const NavBar = (props) => {
   return (
     <NavBarContainer {...props}>
       <Flex direction={{ base: "column", md: "row" }}>
-        <Logo />
-        <MenuToggle toggle={toggle} isOpen={isOpen} />
+        <HStack>
+          <Logo />
+          <MenuToggle toggle={toggle} isOpen={isOpen} />
+        </HStack>
         <MenuLinks isOpen={isOpen} user={user} logout={logout} />
       </Flex>
     </NavBarContainer>
@@ -63,7 +66,12 @@ const NavBar = (props) => {
 };
 
 const CloseIcon = () => (
-  <svg width="38px" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="38px"
+    viewBox="0 0 18 18"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="white"
+  >
     <title>Close</title>
     <path
       fill="#e63312"
@@ -109,11 +117,22 @@ const MenuLinks = ({ isOpen, user, logout }) => {
         direction={["column", "column", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        <Link as={Router} to="/recipes">
-          <Button textStyle="heading" variant="ghost">
-            RECIPES
-          </Button>
-        </Link>
+        <Menu>
+          <MenuButton as={Button} textStyle="heading" variant="ghost">
+            Recipes
+          </MenuButton>
+          <MenuList>
+            <Link as={Router} to="/recipes">
+              <MenuItem>View</MenuItem>
+            </Link>
+            {user != null && (
+              <Link as={Router} to="/recipe/create">
+                <MenuItem>Create</MenuItem>
+              </Link>
+            )}
+          </MenuList>
+        </Menu>
+
         <InputGroup>
           <Input
             h="30px"

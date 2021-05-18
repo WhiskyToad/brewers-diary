@@ -9,8 +9,12 @@ import {
   VStack,
   Box,
   Text,
+  Spacer,
   Select,
-  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverBody,
 } from "@chakra-ui/react";
 import { RiFireLine, RiTrophyLine } from "react-icons/ri";
 import { MdFiberNew } from "react-icons/md";
@@ -33,20 +37,40 @@ const Recipes = () => {
 };
 
 const SortSegment = ({ sort, setSort }) => {
-  const user = JSON.parse(localStorage.getItem("profile"));
+  const mobileSortDisplay = () => {
+    if (sort === "new") {
+      return (
+        <>
+          <MdFiberNew />
+          <Text>New</Text>
+        </>
+      );
+    }
+    if (sort === "hot") {
+      return (
+        <>
+          <RiFireLine />
+          <Text>Hot</Text>
+        </>
+      );
+    }
+    if (sort === "best") {
+      return (
+        <>
+          <RiTrophyLine />
+          <Text>Best</Text>
+        </>
+      );
+    }
+  };
+
   return (
-    <HStack
-      my="40px"
-      className="center-card"
-      textStyle="headingSmall"
-      justify="space-between"
-      wrap="wrap"
-    >
+    <HStack my="40px" className="center-card" textStyle="headingSmall">
       <HStack>
         <Select
           variant="unstyled"
           size="lg"
-          w={["100px", "100px", "100px", "110px"]}
+          w="120px"
           textStyle="headingSmall"
           cursor="pointer"
         >
@@ -57,7 +81,7 @@ const SortSegment = ({ sort, setSort }) => {
         <Select
           variant="unstyled"
           size="lg"
-          w={["100px", "100px", "100px", "110px"]}
+          w="120px"
           textStyle="headingSmall"
           cursor="pointer"
         >
@@ -67,14 +91,12 @@ const SortSegment = ({ sort, setSort }) => {
           <option value="all">All</option>
         </Select>
       </HStack>
-      {user != null && (
-        <Link as={Router} to="/recipe/create">
-          <Button textStyle="headingSmall">Create New</Button>
-        </Link>
-      )}
-      <HStack>
+
+      <Spacer />
+
+      <HStack display={{ base: "none", md: "flex" }}>
         <HStack
-          w={["60px", "60px", "90px", "70px"]}
+          w="70px"
           cursor="pointer"
           justify="center"
           borderRadius="20px"
@@ -86,7 +108,7 @@ const SortSegment = ({ sort, setSort }) => {
           <Text>New</Text>
         </HStack>
         <HStack
-          w={["60px", "60px", "90px", "70px"]}
+          w="70px"
           cursor="pointer"
           justify="center"
           borderRadius="20px"
@@ -98,7 +120,7 @@ const SortSegment = ({ sort, setSort }) => {
           <Text>Hot</Text>
         </HStack>
         <HStack
-          w={["60px", "60px", "90px", "70px"]}
+          w="70px"
           cursor="pointer"
           justify="center"
           borderRadius="20px"
@@ -110,6 +132,66 @@ const SortSegment = ({ sort, setSort }) => {
           <Text>Best</Text>
         </HStack>
       </HStack>
+
+      {/* mobile display menu */}
+      <Box display={{ base: "flex", md: "none" }}>
+        <Popover>
+          <PopoverTrigger>
+            <HStack
+              w="70px"
+              cursor="pointer"
+              justify="center"
+              borderRadius="20px"
+              bg="selected"
+              color="orange"
+            >
+              {mobileSortDisplay()}
+            </HStack>
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverBody>
+              <HStack>
+                <HStack
+                  w="70px"
+                  cursor="pointer"
+                  justify="center"
+                  borderRadius="20px"
+                  color={sort === "new" ? "orange" : null}
+                  bg={sort === "new" ? "selected" : null}
+                  onClick={() => setSort("new")}
+                >
+                  <MdFiberNew />
+                  <Text>New</Text>
+                </HStack>
+                <HStack
+                  w="70px"
+                  cursor="pointer"
+                  justify="center"
+                  borderRadius="20px"
+                  color={sort === "hot" ? "orange" : null}
+                  bg={sort === "hot" ? "selected" : null}
+                  onClick={() => setSort("hot")}
+                >
+                  <RiFireLine />
+                  <Text>Hot</Text>
+                </HStack>
+                <HStack
+                  w="70px"
+                  cursor="pointer"
+                  justify="center"
+                  borderRadius="20px"
+                  color={sort === "best" ? "orange" : null}
+                  bg={sort === "best" ? "selected" : null}
+                  onClick={() => setSort("best")}
+                >
+                  <RiTrophyLine />
+                  <Text>Best</Text>
+                </HStack>
+              </HStack>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+      </Box>
     </HStack>
   );
 };
