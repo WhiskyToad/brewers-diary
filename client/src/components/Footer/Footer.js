@@ -10,7 +10,6 @@ const Footer = () => {
       bg="white"
       textStyle="headingSmall"
       borderTop="1px solid black"
-      position="relative"
     >
       <HStack justify="space-between" mx="auto" w="350px">
         <Text>© 2021 Brewers Diary</Text>

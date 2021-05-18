@@ -18,7 +18,7 @@ const RecipeCard = ({ recipe }) => {
           </HStack>
         </HStack>
 
-        <HStack justify="space-between">
+        <HStack minW="100%" justify="space-between">
           <VStack
             minH="200px"
             w={{ base: "200px", md: "300px" }}

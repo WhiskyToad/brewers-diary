@@ -162,7 +162,7 @@ const SignUp = ({ form, handleChange, handleSubmit }) => {
           type="name"
           label="Username"
           onChange={handleChange}
-          placeholder="name"
+          placeholder="Username"
           isInvalid={inputCheck.name}
           errorBorderColor="crimson"
         />
@@ -192,6 +192,11 @@ const SignUp = ({ form, handleChange, handleSubmit }) => {
             </Button>
           </InputRightElement>
         </InputGroup>
+        {form.password !== form.confirmPassword && (
+          <Text textStyle="descriptiveSmall" color="crimson">
+            Passwords do not match
+          </Text>
+        )}
         <InputGroup size="md">
           <Input
             pr="4.5rem"

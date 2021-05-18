@@ -9,10 +9,7 @@ const Fonts = () => (
       src: url(/fonts/BebasNeue-Regular.woff2) format('woff2');
     }
 
-    @font-face {
-      font-family: 'Neoneon';
-      src: url(/fonts/Neoneon.woff2) format('woff2');
-    } `}
+    `}
   />
 );
 

@@ -160,8 +160,8 @@ const Title = ({ recipe, dispatch, user }) => {
             />
           </Flex>
           <HStack
-            w="200px"
-            justify="space-evenly"
+            w="80%"
+            justify="space-between"
             fontSize="25px"
             py={{ base: "10px", md: 0 }}
           >

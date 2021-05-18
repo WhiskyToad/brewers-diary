@@ -163,7 +163,7 @@ const MenuLinks = ({ isOpen, toggle, user, logout }) => {
           </Menu>
         ) : (
           <Link as={Router} to="/auth">
-            <Button textStyle="heading" variant="ghost">
+            <Button textStyle="heading" variant="ghost" onClick={toggle}>
               Sign In
             </Button>
           </Link>

@@ -17,6 +17,8 @@ import theme from "./theme/theme";
 import Fonts from "./theme/font-face";
 import "./styles.css";
 
+import { Box } from "@chakra-ui/react";
+
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -27,19 +29,22 @@ const App = () => {
       <BrowserRouter>
         <ChakraProvider theme={theme}>
           <Fonts />
-          <NavBar />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              component={() => <Redirect to="/recipes" />}
-            />
-            <Route exact path="/recipes" component={Recipes} />
-            <Route exact path="/recipe/create" component={RecipeForm} />
-            <Route exact path="/recipes/view" component={RecipeView} />
-            <Route exact path="/auth" component={Auth} />
-            <Route component={FourOhFour} />
-          </Switch>
+          <div className="wrapper">
+            <NavBar />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                component={() => <Redirect to="/recipes" />}
+              />
+
+              <Route exact path="/recipes" component={Recipes} />
+              <Route exact path="/recipe/create" component={RecipeForm} />
+              <Route exact path="/recipes/view" component={RecipeView} />
+              <Route exact path="/auth" component={Auth} />
+              <Route component={FourOhFour} />
+            </Switch>
+          </div>
           <Footer />
         </ChakraProvider>
       </BrowserRouter>

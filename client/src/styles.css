@@ -1,3 +1,7 @@
+.wrapper {
+  min-height: calc(100vh - 60px);
+}
+
 .center-card {
   margin: 5px auto;
   padding: 10px;
