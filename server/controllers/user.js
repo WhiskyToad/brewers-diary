@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken";
 import user from "../models/user.js";
 
 export const signin = async (req, res) => {
-  const { email, signInPass } = req.body;
+  const { signInEmail, signInPass } = req.body;
+  const email = signInEmail;
 
   try {
     const existingUser = await user.findOne({ email });

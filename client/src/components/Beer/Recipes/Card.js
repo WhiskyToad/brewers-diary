@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { Image, Text, HStack, VStack, Spacer } from "@chakra-ui/react";
+import { Image, Text, HStack, VStack, Spacer, Flex } from "@chakra-ui/react";
 import { FaRegComments, FaStar } from "react-icons/fa";
 
 const RecipeCard = ({ recipe }) => {
@@ -24,7 +24,14 @@ const RecipeCard = ({ recipe }) => {
             w={{ base: "200px", md: "300px" }}
             justify="center"
           >
-            <Image borderRadius="10px" fit="cover" src={recipe.selectedFile} />
+            <Flex justify="center">
+              <Image
+                maxH="200px"
+                borderRadius="10px"
+                fit="cover"
+                src={recipe.selectedFile}
+              />
+            </Flex>
             <Spacer />
             <HStack
               w="80%"
@@ -38,7 +45,9 @@ const RecipeCard = ({ recipe }) => {
             </HStack>
             <Spacer />
           </VStack>
+
           <Spacer />
+
           <VStack w="50%" minH="200px" m="10px" textAlign="center">
             <HStack
               w="70%"

@@ -153,7 +153,7 @@ const Title = ({ recipe, dispatch, user }) => {
         >
           <Flex h="250px" justify="center">
             <Image
-              h="100%"
+              maxH="200px"
               borderRadius="10px"
               fit="cover"
               src={recipe.selectedFile}
@@ -205,7 +205,15 @@ const Title = ({ recipe, dispatch, user }) => {
           <Text px="15px">{recipe.description}</Text>
           <Spacer />
           <HStack justify="space-between" w="70%">
-            <HStack color="orange">{rating(recipe)}</HStack>
+            <Tooltip
+              hasArrow
+              label={(recipe.rating / recipe.votes.length).toFixed(2)}
+            >
+              <span>
+                <HStack color="orange">{rating(recipe)}</HStack>
+              </span>
+            </Tooltip>
+
             <Text>{recipe.votes.length} ratings</Text>
           </HStack>
         </VStack>

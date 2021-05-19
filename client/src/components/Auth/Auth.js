@@ -29,6 +29,7 @@ const initialState = {
   password: "",
   confirmPassword: "",
   signInPass: "",
+  signinEmail: "",
 };
 
 const Auth = () => {
@@ -108,7 +109,7 @@ const SignIn = ({ handleChange, handleSubmit }) => {
       <VStack spacing={7}>
         <Text textStyle="heading">Sign In</Text>
 
-        <Input name="email" placeholder="Email" onChange={handleChange} />
+        <Input name="signInEmail" placeholder="Email" onChange={handleChange} />
         <InputGroup size="md">
           <Input
             pr="4.5rem"
@@ -145,7 +146,7 @@ const SignUp = ({ form, handleChange, handleSubmit, setError }) => {
     confirmPassword: false,
   });
 
-  // checks input values
+  // checks input values and output errors
   const checkValues = (e) => {
     e.preventDefault();
     setInputCheck({
