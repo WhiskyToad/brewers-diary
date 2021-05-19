@@ -121,7 +121,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
               <DeleteIcon cursor="pointer" onClick={() => deleteHop(index)} />
             </HStack>
           ))}
-          <HStack maxW="80%">
+          <HStack maxW={{ base: "80%", md: "100%" }}>
             <Input
               value={hop.name}
               onChange={(e) => setHop({ ...hop, name: e.target.value })}
@@ -155,7 +155,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
               <DeleteIcon cursor="pointer" onClick={() => deleteMalt(index)} />
             </HStack>
           ))}
-          <HStack maxW="80%">
+          <HStack maxW={{ base: "80%", md: "100%" }}>
             <Input
               value={malt.name}
               onChange={(e) => setMalt({ ...malt, name: e.target.value })}

@@ -8,11 +8,16 @@ import {
   Tab,
   TabPanel,
   VStack,
+  HStack,
   Text,
   Input,
   InputGroup,
   InputRightElement,
   Button,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 
 import GoogleAuth from "./GoogleAuth";
@@ -31,6 +36,7 @@ const Auth = () => {
   const [form, setForm] = useState(initialState);
   const [isSignin, setIsSignin] = useState(true);
   const history = useHistory();
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -38,12 +44,21 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isSignin) dispatch(signin(form, history));
-    if (!isSignin) dispatch(signup(form, history));
+    if (isSignin) dispatch(signin(form, history, setError));
+    if (!isSignin) dispatch(signup(form, history, setError));
   };
 
   return (
     <>
+      {error && (
+        <Alert status="error">
+          <HStack mx="auto">
+            <AlertIcon />
+            <AlertTitle mr={2}>Error!</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </HStack>
+        </Alert>
+      )}
       <VStack
         maxW="450px"
         mx="auto"
@@ -73,6 +88,7 @@ const Auth = () => {
                 form={form}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
+                setError={setError}
               />
             </TabPanel>
           </TabPanels>
@@ -116,35 +132,57 @@ const SignIn = ({ handleChange, handleSubmit }) => {
   );
 };
 
-const SignUp = ({ form, handleChange, handleSubmit }) => {
+const SignUp = ({ form, handleChange, handleSubmit, setError }) => {
+  // Shows/Hides password field
   const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
+  const [showTwo, setShowTwo] = useState(false);
 
   // controllers for warning messages
   const [inputCheck, setInputCheck] = useState({
     name: false,
     email: false,
+    password: false,
+    confirmPassword: false,
   });
 
   // checks input values
   const checkValues = (e) => {
     e.preventDefault();
+    setInputCheck({
+      name: false,
+      email: false,
+      password: false,
+      confirmPassword: false,
+    });
     if (form.name.length < 4) {
+      setError("Usernames need to be at least 4 characters.");
       setInputCheck({
         name: true,
       });
       return;
     }
     if (form.email.length < 1) {
+      setError("You need an email address");
       setInputCheck({
         email: true,
       });
       return;
     }
-    setInputCheck({
-      name: false,
-      email: false,
-    });
+    if (form.password.length < 1) {
+      setError("You need a password");
+      setInputCheck({
+        password: true,
+      });
+      return;
+    }
+    if (form.confirmPassword !== form.password) {
+      setError("Passwords do not match");
+      setInputCheck({
+        confirmPassword: true,
+      });
+      return;
+    }
+
     handleSubmit(e);
   };
 
@@ -152,11 +190,6 @@ const SignUp = ({ form, handleChange, handleSubmit }) => {
     <form onSubmit={checkValues}>
       <VStack spacing={7}>
         <Text textStyle="heading">Sign Up</Text>
-        {inputCheck.name && (
-          <Text textStyle="descriptiveSmall" color="crimson">
-            Username's need to be atleast 4 characters
-          </Text>
-        )}
         <Input
           name="name"
           type="name"
@@ -166,11 +199,7 @@ const SignUp = ({ form, handleChange, handleSubmit }) => {
           isInvalid={inputCheck.name}
           errorBorderColor="crimson"
         />
-        {inputCheck.email && (
-          <Text textStyle="descriptiveSmall" color="crimson">
-            Email needs to be atleast 1 character
-          </Text>
-        )}
+
         <Input
           name="email"
           placeholder="Email - doesnt need to be real"
@@ -185,31 +214,29 @@ const SignUp = ({ form, handleChange, handleSubmit }) => {
             placeholder="Enter Password"
             name="password"
             onChange={handleChange}
+            isInvalid={inputCheck.password}
+            errorBorderColor="crimson"
           />
           <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleClick}>
+            <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
               {show ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
         </InputGroup>
-        {form.password !== form.confirmPassword && (
-          <Text textStyle="descriptiveSmall" color="crimson">
-            Passwords do not match
-          </Text>
-        )}
+
         <InputGroup size="md">
           <Input
             pr="4.5rem"
-            type={show ? "text" : "password"}
+            type={showTwo ? "text" : "password"}
             placeholder="Confirm Password"
             name="confirmPassword"
             onChange={handleChange}
-            isInvalid={form.password !== form.confirmPassword}
+            isInvalid={inputCheck.confirmPassword}
             errorBorderColor="crimson"
           />
           <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? "Hide" : "Show"}
+            <Button h="1.75rem" size="sm" onClick={() => setShowTwo(!showTwo)}>
+              {showTwo ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
         </InputGroup>

@@ -18,7 +18,7 @@ app.use("/recipes", beerRecipeRoutes);
 app.use("/users", userRoutes);
 
 const CONNECTION_URL = process.env.CONNECTION_URL;
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 mongoose
   .connect(CONNECTION_URL, {
