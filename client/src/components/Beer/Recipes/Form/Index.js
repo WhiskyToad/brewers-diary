@@ -26,7 +26,7 @@ const RecipeForm = () => {
   // full recipe data
   const [recipeData, setRecipeData] = useState({
     selectedFile: defaultRecipe,
-    title: "Recipe Title",
+    title: "",
     method: "All Grain",
     style: "IPA",
     description: "",
@@ -39,7 +39,7 @@ const RecipeForm = () => {
     malts: [],
     hops: [],
     others: [],
-    yeast: "Yeast Strain",
+    yeast: "",
     mashLength: 0,
     mashTemp: 0,
     mashDirections: "",

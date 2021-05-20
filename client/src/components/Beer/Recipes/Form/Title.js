@@ -11,9 +11,7 @@ import {
   InputGroup,
   HStack,
   Flex,
-  Editable,
-  EditableInput,
-  EditablePreview,
+  Input,
   Textarea,
   Spacer,
 } from "@chakra-ui/react";
@@ -21,14 +19,17 @@ import {
 const Title = ({ recipeData, setRecipeData }) => {
   return (
     <VStack className="center-card">
-      <Editable textStyle="heading" value={recipeData.title}>
-        <EditablePreview />
-        <EditableInput
-          onChange={(e) =>
-            setRecipeData({ ...recipeData, title: e.target.value })
-          }
-        />
-      </Editable>
+      <Input
+        w="50%"
+        textAlign="center"
+        textStyle="heading"
+        placeholder="Title"
+        value={recipeData.title}
+        onChange={(e) =>
+          setRecipeData({ ...recipeData, title: e.target.value })
+        }
+      />
+
       <Flex
         direction={{ base: "column", md: "row" }}
         w="97%"

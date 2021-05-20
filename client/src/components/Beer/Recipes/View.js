@@ -260,13 +260,14 @@ const Ingredients = ({ recipe }) => {
   return (
     <VStack className="center-card">
       <Text textStyle="heading">Ingredients</Text>
-      <Flex
-        direction={{ base: "column", md: "row" }}
-        w="100%"
+      <VStack
+        w="90%"
+        textAlign="center"
         justify="space-between"
-        align="flex-start"
+        align="center"
+        spacing={6}
       >
-        <VStack w={{ base: "100%", md: "33%" }}>
+        <VStack>
           <Text textStyle="headingSmall">Hops</Text>
           {recipe.hops.map((item, index) => (
             <HStack key={index}>
@@ -277,7 +278,7 @@ const Ingredients = ({ recipe }) => {
           ))}
         </VStack>
 
-        <VStack my={{ base: "20px", md: 0 }} w={{ base: "100%", md: "33%" }}>
+        <VStack>
           <Text textStyle="headingSmall">Malts / Grains</Text>
           {recipe.malts.map((item, index) => (
             <HStack key={index}>
@@ -288,7 +289,7 @@ const Ingredients = ({ recipe }) => {
           ))}
         </VStack>
 
-        <VStack w={{ base: "100%", md: "33%" }}>
+        <VStack>
           <Text textStyle="headingSmall">Others</Text>
           <Text textStyle="descriptive">{recipe.yeast}</Text>
           {recipe.others.map((item, index) => (
@@ -297,7 +298,7 @@ const Ingredients = ({ recipe }) => {
             </Text>
           ))}
         </VStack>
-      </Flex>
+      </VStack>
     </VStack>
   );
 };
@@ -318,7 +319,9 @@ const Mash = ({ recipe }) => {
         </VStack>
       </HStack>
       <Text textStyle="headingSmall">Mash Directions</Text>
-      <Text>{recipe.mashDirections}</Text>
+      <Text maxW="90%" textAlign="center">
+        {recipe.mashDirections}
+      </Text>
     </VStack>
   );
 };
@@ -335,7 +338,9 @@ const Boil = ({ recipe }) => {
         </VStack>
       </HStack>
       <Text textStyle="headingSmall">Boil Directions</Text>
-      <Text>{recipe.boilDirections}</Text>
+      <Text maxW="90%" textAlign="center">
+        {recipe.boilDirections}
+      </Text>
     </VStack>
   );
 };
@@ -356,7 +361,9 @@ const Ferment = ({ recipe }) => {
         </VStack>
       </HStack>
       <Text textStyle="headingSmall">Fermenting Directions</Text>
-      <Text>{recipe.fermentDirections}</Text>
+      <Text maxW="90%" textAlign="center">
+        {recipe.fermentDirections}
+      </Text>
     </VStack>
   );
 };
@@ -365,7 +372,9 @@ const Other = ({ recipe }) => {
   return (
     <VStack className="center-card">
       <Text textStyle="heading">Other Directions</Text>
-      <Text>{recipe.otherDirections}</Text>
+      <Text maxW="90%" textAlign="center">
+        {recipe.otherDirections}
+      </Text>
     </VStack>
   );
 };

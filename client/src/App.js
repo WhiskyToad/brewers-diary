@@ -17,8 +17,6 @@ import theme from "./theme/theme";
 import Fonts from "./theme/font-face";
 import "./styles.css";
 
-import { Box } from "@chakra-ui/react";
-
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {

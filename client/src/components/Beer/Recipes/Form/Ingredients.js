@@ -9,12 +9,8 @@ import {
   InputRightAddon,
   InputGroup,
   HStack,
-  Flex,
   Button,
   Text,
-  Editable,
-  EditableInput,
-  EditablePreview,
 } from "@chakra-ui/react";
 
 const Ingredients = ({ recipeData, setRecipeData }) => {
@@ -105,13 +101,14 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
     <VStack className="center-card">
       <Text textStyle="heading">Ingredients</Text>
 
-      <Flex
-        direction={{ base: "column", md: "row" }}
-        w="100%"
+      <VStack
+        w="90%"
+        textAlign="center"
         justify="space-between"
-        align="flex-start"
+        align="center"
+        spacing={6}
       >
-        <VStack w={{ base: "100%", md: "32%" }}>
+        <VStack>
           <Text textStyle="headingSmall">Hops</Text>
           {recipeData.hops.map((item, index) => (
             <HStack key={index}>
@@ -145,7 +142,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
           </Button>
         </VStack>
 
-        <VStack w={{ base: "100%", md: "32%" }} my={{ base: "20px", md: 0 }}>
+        <VStack>
           <Text textStyle="headingSmall">Malts / Grains</Text>
           {recipeData.malts.map((item, index) => (
             <HStack key={index}>
@@ -179,12 +176,17 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
           </Button>
         </VStack>
 
-        <VStack w={{ base: "100%", md: "32%" }}>
+        <VStack>
           <Text textStyle="headingSmall">Others</Text>
-          <Editable textStyle="descriptive" value={recipeData.yeast}>
-            <EditableInput />
-            <EditablePreview />
-          </Editable>
+
+          <Input
+            placeholder="Yeast Strain"
+            value={recipeData.yeast}
+            onChange={(e) =>
+              setRecipeData({ ...recipeData, yeast: e.target.value })
+            }
+          />
+
           {recipeData.others.map((item, index) => (
             <HStack key={index}>
               <Text textStyle="descriptive">{item}</Text>
@@ -204,7 +206,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
             Add
           </Button>
         </VStack>
-      </Flex>
+      </VStack>
     </VStack>
   );
 };
