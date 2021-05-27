@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link as Router } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import {
-  Link,
   Spinner,
   HStack,
   VStack,
@@ -20,10 +19,13 @@ import { RiFireLine, RiTrophyLine } from "react-icons/ri";
 import { MdFiberNew } from "react-icons/md";
 
 import RecipeCard from "./Card";
+import { getOneRecipe } from "../../../actions/beer/recipes";
 
 const Recipes = () => {
   const recipes = useSelector((state) => state.recipes);
   const [sort, setSort] = useState("new");
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   return (
     <>
@@ -31,7 +33,12 @@ const Recipes = () => {
       <Box textAlign="center" display={!recipes.length ? "block" : "none"}>
         <Spinner size="xl" />
       </Box>
-      <RecipeList recipes={recipes} />
+      <RecipeList
+        recipes={recipes}
+        getOneRecipe={getOneRecipe}
+        dispatch={dispatch}
+        history={history}
+      />
     </>
   );
 };
@@ -196,18 +203,29 @@ const SortSegment = ({ sort, setSort }) => {
   );
 };
 
-const RecipeList = ({ recipes }) => {
+const RecipeList = ({ recipes, getOneRecipe, dispatch, history }) => {
+  //fetches full recipe data
+  const getRecipe = (id) => {
+    dispatch(getOneRecipe(id, history));
+  };
+
   return (
     <VStack display={!recipes.length ? "none" : "flex"}>
       {recipes.map((recipe) => (
-        <Link
-          as={Router}
-          key={recipe._id}
-          to={`/recipes/view#${recipe._id}`}
-          id="card-link"
+        // <Link
+        //   as={Router}
+        //   key={recipe.id}
+        //   to={`/recipes/view#${recipe.id}`}
+        //   id="card-link"
+        // >
+        <Box
+          key={recipe.id}
+          cursor="pointer"
+          onClick={() => getRecipe(recipe.id)}
         >
           <RecipeCard recipe={recipe} />
-        </Link>
+        </Box>
+        // </Link>
       ))}
     </VStack>
   );

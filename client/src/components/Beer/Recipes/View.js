@@ -48,7 +48,7 @@ const RecipeView = () => {
   //get recipe id from url and load recipe
   const recipeId = window.location.hash.substr(1);
   const recipe = useSelector((state) =>
-    state.recipes.find((r) => r._id === recipeId)
+    state.recipes.find((r) => r.id === recipeId)
   );
 
   //ensure recipe is found

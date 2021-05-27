@@ -11,18 +11,26 @@ import * as api from "../../api/beer/recipes";
 
 export const getRecipes = () => async (dispatch) => {
   try {
-    const { data } = await api.fetchRecipes();
+    const data = await api.fetchRecipes();
     dispatch({ type: FETCH_ALL_RECIPES, payload: data });
   } catch (error) {
     console.log(error.message);
   }
 };
 
+export const getOneRecipe = (id, router) => async (dispatch) => {
+  try {
+    const data = await api.fetchOneRecipe(id);
+    dispatch({ type: UPDATE_RECIPE, payload: data });
+    router.push(`/recipes/view#${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createRecipe = (recipe, router) => async (dispatch) => {
   try {
-    console.log(`recipe is ${recipe}`);
     const { data } = await api.createRecipe(recipe);
-    console.log(`data is ${data}`);
     dispatch({ type: CREATE_RECIPE, payload: data });
     router.push(`/recipes/view#${data._id}`);
   } catch (error) {
