@@ -48,6 +48,15 @@ var schema = buildSchema(`
     beerRecipeList: [recipe]
     oneRecipe(recipeId: ID!): recipe
   }
+  type Mutation {
+    createRecipe
+    (title: String,
+      description: String,
+      selectedFile: String,
+      method: String,
+      style: String,
+      targetABV: Float): recipe!
+  }
 `);
 
 const resolvers = {
@@ -63,6 +72,19 @@ const resolvers = {
     try {
       const recipe = await recipeSheet.findById(args.recipeId);
       return recipe;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  createRecipe: async (args) => {
+    const newRecipe = new recipeSheet({
+      ...args,
+      rating: 0,
+      createdAt: new Date().toISOString(),
+    });
+    try {
+      await newRecipe.save();
+      console.log(newRecipe);
     } catch (error) {
       console.log(error);
     }

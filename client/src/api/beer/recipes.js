@@ -109,52 +109,49 @@ export const createRecipe = async (newRecipe) => {
       method: "post",
       data: {
         query: `
-       mutation recipe($id: ID!){
-          oneRecipe(recipeId: $id){
+       mutation 
+          ($title: String,
+          $description: String,
+          $selectedFile: String,
+          $method: String,
+          $style: String,
+          $targetABV: Float)
+          {
+          createRecipe
+            (title: $title,
+            description: $description,
+            selectedFile: $selectedFile,
+            method: $method,
+            style: $style,
+            targetABV: $targetABV)
+            {
             id
-            selectedFile
             title
-            style
-            method
-            description
-            efficiency
-            batchSize
-            targetOG
-            targetFG
-            IBUs
-            targetABV
-            malts {
-              name
-              grams
-            }
-            hops {
-              name
-              grams
-            }
-            others
-            yeast
-            mashLength
-            mashTemp
-            mashDirections
-            boilLength
-            boilDirections
-            fermentTemp
-            fermentLength
-            fermentDirections
-            otherDirections
-            rating
-            votes
-            createdAt
             name
+            description
+            createdAt
+            selectedFile
+            method
+            style
+            targetABV
       }
      }
      
      `,
-        variables: {},
+        variables: {
+          title: newRecipe.title,
+          description: newRecipe.description,
+          selectedFile: newRecipe.selectedFile,
+          method: newRecipe.method,
+          style: newRecipe.style,
+          targetABV: newRecipe.targetABV,
+        },
       },
     });
-    return res.data.data.oneRecipe;
-  } catch (error) {}
+    return res.data.data.createRecipe;
+  } catch (error) {
+    console.log(error);
+  }
 };
 export const updateRecipe = (id, updatedRecipe) =>
   API.patch(`/recipes/${id}`, updatedRecipe);

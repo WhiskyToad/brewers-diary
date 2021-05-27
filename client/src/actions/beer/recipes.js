@@ -30,7 +30,7 @@ export const getOneRecipe = (id, router) => async (dispatch) => {
 
 export const createRecipe = (recipe, router) => async (dispatch) => {
   try {
-    const { data } = await api.createRecipe(recipe);
+    const data = await api.createRecipe(recipe);
     dispatch({ type: CREATE_RECIPE, payload: data });
     router.push(`/recipes/view#${data._id}`);
   } catch (error) {
