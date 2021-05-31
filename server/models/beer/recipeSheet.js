@@ -37,7 +37,10 @@ const recipeSchema = mongoose.Schema({
   otherDirections: String,
   rating: { type: Number, default: 0 },
   votes: { type: [String], default: [] },
+  comments: { type: [String], default: [] },
+  diaries: { type: [String], default: [] },
   name: String,
+  creatorId: String,
   createdAt: {
     type: Date,
     default: new Date(),
