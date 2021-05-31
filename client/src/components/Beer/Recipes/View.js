@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useQuery, gql } from "@apollo/client";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Link as Router } from "react-router-dom";
 import moment from "moment";
@@ -7,7 +8,6 @@ import moment from "moment";
 import ReactStars from "react-rating-stars-component";
 import {
   Link,
-  Box,
   Image,
   Text,
   HStack,
@@ -37,52 +37,83 @@ import {
 } from "react-icons/fa";
 import { HiDotsHorizontal } from "react-icons/hi";
 
-import {
-  deleteRecipe,
-  likeRecipe,
-  getOneRecipe,
-} from "../../../actions/beer/recipes";
+import { deleteRecipe, likeRecipe } from "../../../actions/beer/recipes";
 
 const RecipeView = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem("profile"));
 
-  //get recipe id from url and load recipe
-  const recipeId = window.location.hash.substr(1);
-  const recipe = useSelector((state) =>
-    state.recipes.find((r) => r.id === recipeId)
-  );
-
-  // scroll to top on page load and gets full data set
+  // Scrolls to top on page load
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch(getOneRecipe(recipeId, history));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //ensure recipe is found - recipe.hops ensures its the fully loaded data set
-  return recipe.hops === undefined && recipe !== undefined ? (
-    <>
-      <Box mt="50%" textAlign="center">
-        <Spinner size="xl" />
-      </Box>
-    </>
-  ) : (
+  const RECIPE = gql`
+    query recipe($id: ID!) {
+      oneRecipe(recipeId: $id) {
+        id
+        selectedFile
+        title
+        style
+        method
+        description
+        efficiency
+        batchSize
+        targetOG
+        targetFG
+        IBUs
+        targetABV
+        malts {
+          name
+          grams
+        }
+        hops {
+          name
+          grams
+        }
+        others
+        yeast
+        mashLength
+        mashTemp
+        mashDirections
+        boilLength
+        boilDirections
+        fermentTemp
+        fermentLength
+        fermentDirections
+        otherDirections
+        rating
+        votes
+        createdAt
+        name
+      }
+    }
+  `;
+  //get recipe id from url and load recipe
+  const recipeId = window.location.hash.substr(1);
+  const { loading, error, data } = useQuery(RECIPE, {
+    variables: { id: recipeId },
+  });
+
+  if (loading) return <Spinner size="xl" />;
+  if (error) return <p>Error :(</p>;
+
+  return (
     <>
       <Title
-        recipe={recipe}
+        recipe={data.oneRecipe}
         dispatch={dispatch}
         user={user}
         history={history}
       />
-      <Stats recipe={recipe} />
-      <Ingredients recipe={recipe} />
-      <Mash recipe={recipe} />
-      <Boil recipe={recipe} />
-      <Ferment recipe={recipe} />
-      <Other recipe={recipe} />
-      <Rating recipe={recipe} dispatch={dispatch} user={user} />
+      <Stats recipe={data.oneRecipe} />
+      <Ingredients recipe={data.oneRecipe} />
+      <Mash recipe={data.oneRecipe} />
+      <Boil recipe={data.oneRecipe} />
+      <Ferment recipe={data.oneRecipe} />
+      <Other recipe={data.oneRecipe} />
+      <Rating recipe={data.oneRecipe} dispatch={dispatch} user={user} />
       <Comments />
     </>
   );
