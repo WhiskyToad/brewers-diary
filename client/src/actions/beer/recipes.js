@@ -30,7 +30,7 @@ export const getOneRecipe = (id, router) => async (dispatch) => {
 
 export const createRecipe = (recipe, router) => async (dispatch) => {
   try {
-    const data = await api.createRecipe(recipe);
+    const { data } = await api.createRecipe(recipe);
     dispatch({ type: CREATE_RECIPE, payload: data });
     router.push(`/recipes/view#${data._id}`);
   } catch (error) {
@@ -48,11 +48,12 @@ export const updateRecipe = (id, recipe, router) => async (dispatch) => {
   }
 };
 
-export const deleteRecipe = (id) => async (dispatch) => {
+export const deleteRecipe = (id, router) => async (dispatch) => {
   try {
+    console.log("delete");
     await api.deleteRecipe(id);
     dispatch({ type: DELETE_RECIPE, payload: id });
-    window.location.href = `../../recipes`;
+    router.push("/recipes");
   } catch (error) {
     console.log(error);
   }

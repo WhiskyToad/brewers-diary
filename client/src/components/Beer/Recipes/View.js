@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Link as Router } from "react-router-dom";
 import moment from "moment";
 
@@ -20,6 +21,8 @@ import {
   MenuList,
   MenuItem,
   Tooltip,
+  Textarea,
+  Button,
 } from "@chakra-ui/react";
 
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -34,16 +37,16 @@ import {
 } from "react-icons/fa";
 import { HiDotsHorizontal } from "react-icons/hi";
 
-import { deleteRecipe, likeRecipe } from "../../../actions/beer/recipes";
+import {
+  deleteRecipe,
+  likeRecipe,
+  getOneRecipe,
+} from "../../../actions/beer/recipes";
 
 const RecipeView = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = JSON.parse(localStorage.getItem("profile"));
-
-  // scroll to top on page load
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   //get recipe id from url and load recipe
   const recipeId = window.location.hash.substr(1);
@@ -51,8 +54,15 @@ const RecipeView = () => {
     state.recipes.find((r) => r.id === recipeId)
   );
 
-  //ensure recipe is found
-  return recipe === undefined ? (
+  // scroll to top on page load and gets full data set
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(getOneRecipe(recipeId, history));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  //ensure recipe is found - recipe.hops ensures its the fully loaded data set
+  return recipe.hops === undefined && recipe !== undefined ? (
     <>
       <Box mt="50%" textAlign="center">
         <Spinner size="xl" />
@@ -60,7 +70,12 @@ const RecipeView = () => {
     </>
   ) : (
     <>
-      <Title recipe={recipe} dispatch={dispatch} user={user} />
+      <Title
+        recipe={recipe}
+        dispatch={dispatch}
+        user={user}
+        history={history}
+      />
       <Stats recipe={recipe} />
       <Ingredients recipe={recipe} />
       <Mash recipe={recipe} />
@@ -68,11 +83,12 @@ const RecipeView = () => {
       <Ferment recipe={recipe} />
       <Other recipe={recipe} />
       <Rating recipe={recipe} dispatch={dispatch} user={user} />
+      <Comments />
     </>
   );
 };
 
-const Title = ({ recipe, dispatch, user }) => {
+const Title = ({ recipe, dispatch, user, history }) => {
   // creates the stars rating display
   const rating = (recipe) => {
     let value = (recipe.rating / recipe.votes.length).toFixed(1);
@@ -119,12 +135,11 @@ const Title = ({ recipe, dispatch, user }) => {
                     </HStack>
                   </Link>
                 </MenuItem>
-                <MenuItem>
+                <MenuItem
+                  onClick={() => dispatch(deleteRecipe(recipe._id, history))}
+                >
                   <HStack>
-                    <DeleteIcon
-                      cursor="pointer"
-                      onClick={() => dispatch(deleteRecipe(recipe._id))}
-                    />
+                    <DeleteIcon />
                     <Text>Delete</Text>
                   </HStack>
                 </MenuItem>
@@ -401,6 +416,26 @@ const Rating = ({ recipe, dispatch, user }) => {
       ) : (
         <Text>You must be signed in to rate recipes</Text>
       )}
+    </VStack>
+  );
+};
+
+const Comments = () => {
+  const [comment, setComment] = useState("");
+  const addComment = () => {
+    console.log(comment);
+  };
+  return (
+    <VStack className="center-card">
+      <Text textStyle="heading">Add a Comment</Text>
+      <Textarea
+        placeholder="Write a comment..."
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+      />
+      <Button borderRadius="10px" onClick={addComment}>
+        Comment
+      </Button>
     </VStack>
   );
 };

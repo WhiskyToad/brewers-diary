@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link as Router } from "react-router-dom";
 
 import {
   Spinner,
@@ -8,6 +8,7 @@ import {
   VStack,
   Box,
   Text,
+  Link,
   Spacer,
   Select,
   Popover,
@@ -25,7 +26,6 @@ const Recipes = () => {
   const recipes = useSelector((state) => state.recipes);
   const [sort, setSort] = useState("new");
   const dispatch = useDispatch();
-  const history = useHistory();
 
   return (
     <>
@@ -37,7 +37,6 @@ const Recipes = () => {
         recipes={recipes}
         getOneRecipe={getOneRecipe}
         dispatch={dispatch}
-        history={history}
       />
     </>
   );
@@ -205,27 +204,18 @@ const SortSegment = ({ sort, setSort }) => {
 
 const RecipeList = ({ recipes, getOneRecipe, dispatch, history }) => {
   //fetches full recipe data
-  const getRecipe = (id) => {
-    dispatch(getOneRecipe(id, history));
-  };
 
   return (
     <VStack display={!recipes.length ? "none" : "flex"}>
       {recipes.map((recipe) => (
-        // <Link
-        //   as={Router}
-        //   key={recipe.id}
-        //   to={`/recipes/view#${recipe.id}`}
-        //   id="card-link"
-        // >
-        <Box
+        <Link
+          as={Router}
           key={recipe.id}
-          cursor="pointer"
-          onClick={() => getRecipe(recipe.id)}
+          to={`/recipes/view#${recipe.id}`}
+          id="card-link"
         >
           <RecipeCard recipe={recipe} />
-        </Box>
-        // </Link>
+        </Link>
       ))}
     </VStack>
   );

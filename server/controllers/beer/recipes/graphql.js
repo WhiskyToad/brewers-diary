@@ -1,6 +1,6 @@
 import { graphqlHTTP } from "express-graphql";
-import { buildSchema, FragmentsOnCompositeTypesRule } from "graphql";
-import recipeSheet from "../../models/beer/recipeSheet.js";
+import { buildSchema } from "graphql";
+import recipeSheet from "../../../models/beer/recipeSheet.js";
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
@@ -43,19 +43,9 @@ var schema = buildSchema(`
     name: String
     grams: Int
   }
- 
   type Query {
     beerRecipeList: [recipe]
     oneRecipe(recipeId: ID!): recipe
-  }
-  type Mutation {
-    createRecipe
-    (title: String,
-      description: String,
-      selectedFile: String,
-      method: String,
-      style: String,
-      targetABV: Float): recipe!
   }
 `);
 
@@ -72,19 +62,6 @@ const resolvers = {
     try {
       const recipe = await recipeSheet.findById(args.recipeId);
       return recipe;
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  createRecipe: async (args) => {
-    const newRecipe = new recipeSheet({
-      ...args,
-      rating: 0,
-      createdAt: new Date().toISOString(),
-    });
-    try {
-      await newRecipe.save();
-      console.log(newRecipe);
     } catch (error) {
       console.log(error);
     }

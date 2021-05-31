@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import recipeSheet from "../../models/beer/recipeSheet.js";
+import recipeSheet from "../../../models/beer/recipeSheet.js";
 
 export const recipeList = async (req, res) => {
   try {
