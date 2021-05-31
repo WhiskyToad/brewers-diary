@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Link as Router } from "react-router-dom";
+import { useQuery, gql } from "@apollo/client";
 
 import {
   Spinner,
@@ -20,24 +20,14 @@ import { RiFireLine, RiTrophyLine } from "react-icons/ri";
 import { MdFiberNew } from "react-icons/md";
 
 import RecipeCard from "./Card";
-import { getOneRecipe } from "../../../actions/beer/recipes";
 
 const Recipes = () => {
-  const recipes = useSelector((state) => state.recipes);
   const [sort, setSort] = useState("new");
-  const dispatch = useDispatch();
 
   return (
     <>
-      <SortSegment recipes={recipes} sort={sort} setSort={setSort} />
-      <Box textAlign="center" display={!recipes.length ? "block" : "none"}>
-        <Spinner size="xl" />
-      </Box>
-      <RecipeList
-        recipes={recipes}
-        getOneRecipe={getOneRecipe}
-        dispatch={dispatch}
-      />
+      <SortSegment sort={sort} setSort={setSort} />
+      <RecipeList />
     </>
   );
 };
@@ -202,12 +192,34 @@ const SortSegment = ({ sort, setSort }) => {
   );
 };
 
-const RecipeList = ({ recipes, getOneRecipe, dispatch, history }) => {
-  //fetches full recipe data
+const RecipeList = () => {
+  //fetches recipe data
+  const RECIPE_LIST = gql`
+    query {
+      beerRecipeList {
+        id
+        title
+        name
+        description
+        createdAt
+        selectedFile
+        method
+        style
+        targetABV
+        rating
+        votes
+      }
+    }
+  `;
+
+  const { loading, error, data } = useQuery(RECIPE_LIST);
+
+  if (loading) return <Spinner size="xl" />;
+  if (error) return <p>Error :(</p>;
 
   return (
-    <VStack display={!recipes.length ? "none" : "flex"}>
-      {recipes.map((recipe) => (
+    <VStack display={!data.beerRecipeList.length ? "none" : "flex"}>
+      {data.beerRecipeList.map((recipe) => (
         <Link
           as={Router}
           key={recipe.id}
