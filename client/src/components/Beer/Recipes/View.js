@@ -49,6 +49,7 @@ const RecipeView = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  //recipe query
   const RECIPE = gql`
     query recipe($id: ID!) {
       oneRecipe(recipeId: $id) {
@@ -159,7 +160,7 @@ const Title = ({ recipe, dispatch, user, history }) => {
               />
               <MenuList>
                 <MenuItem>
-                  <Link as={Router} to={`/recipe/create?update#${recipe._id}`}>
+                  <Link as={Router} to={`/recipe/create?update#${recipe.id}`}>
                     <HStack>
                       <EditIcon />
                       <Text>Edit</Text>
@@ -167,7 +168,7 @@ const Title = ({ recipe, dispatch, user, history }) => {
                   </Link>
                 </MenuItem>
                 <MenuItem
-                  onClick={() => dispatch(deleteRecipe(recipe._id, history))}
+                  onClick={() => dispatch(deleteRecipe(recipe.id, history))}
                 >
                   <HStack>
                     <DeleteIcon />

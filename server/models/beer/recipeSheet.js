@@ -12,18 +12,24 @@ const recipeSchema = mongoose.Schema({
   targetFG: Number,
   IBUs: Number,
   targetABV: Number,
-  malts: [
-    {
-      name: String,
-      grams: Number,
-    },
-  ],
-  hops: [
-    {
-      name: String,
-      grams: Number,
-    },
-  ],
+  malts: {
+    type: [
+      {
+        name: String,
+        grams: Number,
+      },
+    ],
+    default: [],
+  },
+  hops: {
+    type: [
+      {
+        name: String,
+        grams: Number,
+      },
+    ],
+    default: [],
+  },
   others: [String],
   yeast: String,
   mashLength: Number,

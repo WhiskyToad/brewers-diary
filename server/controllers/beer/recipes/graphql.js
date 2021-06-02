@@ -47,6 +47,43 @@ var schema = buildSchema(`
     beerRecipeList: [recipe]
     oneRecipe(recipeId: ID!): recipe
   }
+  input HopsInput{
+    name: String
+    grams: String
+  }
+  input MaltsInput{
+    name: String
+    grams: String
+  }
+  type Mutation {
+    createRecipe
+    (
+      selectedFile: String
+      title: String
+      style: String
+      method: String
+      description: String
+      efficiency: Int
+      batchSize: Int
+      targetOG: Float
+      targetFG: Float
+      IBUs: Int
+      targetABV: Float
+      malts: [MaltsInput]
+      hops: [HopsInput]
+      others: [String]
+      yeast: String
+      mashLength: Int
+      mashTemp: Int
+      mashDirections: String
+      boilLength: Int
+      boilDirections: String
+      fermentTemp: Int
+      fermentLength: Int
+      fermentDirections: String
+      otherDirections: String
+    ): recipe!
+  }
 `);
 
 const resolvers = {
@@ -62,6 +99,18 @@ const resolvers = {
     try {
       const recipe = await recipeSheet.findById(args.recipeId);
       return recipe;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  createRecipe: async (args) => {
+    const newRecipe = new recipeSheet({
+      ...args,
+      createdAt: new Date().toISOString(),
+    });
+    try {
+      await newRecipe.save();
+      return newRecipe;
     } catch (error) {
       console.log(error);
     }

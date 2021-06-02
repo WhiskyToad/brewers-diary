@@ -20,9 +20,6 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
   const [hop, setHop] = useState({
     name: "",
     grams: 0,
-    minutes: 0,
-    alphaAcids: 0,
-    additionalInfo: "",
   });
 
   //adds malt to schema and clears the input
@@ -53,18 +50,12 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
         {
           name: hop.name,
           grams: hop.grams,
-          minutes: hop.minutes,
-          alphaAcids: hop.alphaAcids,
-          additionalInfo: hop.additionalInfo,
         },
       ],
     });
     setHop({
       name: "",
       grams: 0,
-      minutes: 0,
-      alphaAcids: 0,
-      additionalInfo: "",
     });
   };
 
