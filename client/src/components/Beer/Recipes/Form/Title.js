@@ -24,6 +24,7 @@ const Title = ({ recipeData, setRecipeData }) => {
         textAlign="center"
         textStyle="heading"
         placeholder="Title"
+        required="required"
         value={recipeData.title}
         onChange={(e) =>
           setRecipeData({ ...recipeData, title: e.target.value })
@@ -67,19 +68,22 @@ const Title = ({ recipeData, setRecipeData }) => {
           >
             <VStack>
               <Text>ABV</Text>
-              <NumberInput value={recipeData.targetABV}>
-                <InputGroup>
-                  <NumberInputField
-                    w="50px"
-                    value={recipeData.targetABV}
-                    onChange={(e) =>
-                      setRecipeData({
-                        ...recipeData,
-                        targetABV: e.target.value,
-                      })
-                    }
-                  />
-                </InputGroup>
+              <NumberInput
+                precision={1}
+                value={recipeData.targetABV}
+                required="required"
+              >
+                <NumberInputField
+                  w="50px"
+                  placeholder="0"
+                  value={recipeData.targetABV}
+                  onChange={(e) =>
+                    setRecipeData({
+                      ...recipeData,
+                      targetABV: e.target.value,
+                    })
+                  }
+                />
               </NumberInput>
             </VStack>
 
@@ -118,6 +122,7 @@ const Title = ({ recipeData, setRecipeData }) => {
             textAlign="center"
             h="150px"
             w="90%"
+            required="required"
             value={recipeData.description}
             onChange={(e) =>
               setRecipeData({ ...recipeData, description: e.target.value })

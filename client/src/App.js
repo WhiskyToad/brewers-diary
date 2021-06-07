@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
-import { getRecipes } from "./actions/beer/recipes";
+
 // import Home from "./components/Home";
 import Recipes from "./components/Beer/Recipes/List";
 import RecipeForm from "./components/Beer/Recipes/Form/Index";
@@ -18,10 +17,6 @@ import Fonts from "./theme/font-face";
 import "./styles.css";
 
 const App = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getRecipes());
-  }, [dispatch]);
   return (
     <>
       <BrowserRouter>

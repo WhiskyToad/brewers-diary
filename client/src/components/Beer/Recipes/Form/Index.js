@@ -23,23 +23,23 @@ const RecipeForm = () => {
     method: "All Grain",
     style: "IPA",
     description: "",
-    efficiency: 0,
-    batchSize: 0,
-    targetOG: 1.23,
-    targetFG: 1.23,
-    IBUs: 0,
-    targetABV: 0,
+    efficiency: "",
+    batchSize: "",
+    targetOG: "",
+    targetFG: "",
+    IBUs: "",
+    targetABV: "",
     malts: [],
     hops: [],
     others: [],
     yeast: "",
-    mashLength: 0,
-    mashTemp: 0,
+    mashLength: "",
+    mashTemp: "",
     mashDirections: "",
-    boilLength: 0,
+    boilLength: "",
     boilDirections: "",
-    fermentTemp: 0,
-    fermentLength: 0,
+    fermentTemp: "",
+    fermentLength: "",
     fermentDirections: "",
     otherDirections: "",
   });
@@ -194,115 +194,28 @@ const RecipeForm = () => {
         style: recipeData.style,
         method: recipeData.method,
         description: recipeData.description,
-        efficiency: recipeData.efficiency,
-        batchSize: recipeData.batchSize,
-        targetOG: recipeData.targetOG,
-        targetFG: recipeData.targetFG,
-        IBUs: recipeData.IBUs,
-        targetABV: recipeData.targetABV,
+        efficiency: parseInt(recipeData.efficiency),
+        batchSize: parseInt(recipeData.batchSize),
+        targetOG: parseFloat(recipeData.targetOG),
+        targetFG: parseFloat(recipeData.targetFG),
+        IBUs: parseInt(recipeData.IBUs),
+        targetABV: parseFloat(recipeData.targetABV),
         malts: recipeData.malts,
         hops: recipeData.hops,
         others: recipeData.others,
         yeast: recipeData.yeast,
-        mashLength: recipeData.mashLength,
-        mashTemp: recipeData.mashTemp,
+        mashLength: parseInt(recipeData.mashLength),
+        mashTemp: parseInt(recipeData.mashTemp),
         mashDirections: recipeData.mashDirections,
-        boilLength: recipeData.boilLength,
+        boilLength: parseInt(recipeData.boilLength),
         boilDirections: recipeData.boilDirections,
-        fermentTemp: recipeData.fermentTemp,
-        fermentLength: recipeData.fermentLength,
+        fermentTemp: parseInt(recipeData.fermentTemp),
+        fermentLength: parseInt(recipeData.fermentLength),
         fermentDirections: recipeData.fermentDirections,
         otherDirections: recipeData.otherDirections,
       },
     });
   };
-
-  // const RECIPE_MUTATION = gql`
-  //   mutation (
-  //     $selectedFile: String
-  //     $title: String
-  //     $style: String
-  //     $method: String
-  //     $description: String
-  //     $efficiency: Int
-  //     $batchSize: Int
-  //     $targetOG: Float
-  //     $targetFG: Float
-  //     $IBUs: Int
-  //     $targetABV: Float
-  //     $malts: [MaltsInput]
-  //     $hops: [HopsInput]
-  //     $others: [String]
-  //     $yeast: String
-  //     $mashLength: Int
-  //     $mashTemp: Int
-  //     $mashDirections: String
-  //     $boilLength: Int
-  //     $boilDirections: String
-  //     $fermentTemp: Int
-  //     $fermentLength: Int
-  //     $fermentDirections: String
-  //     $otherDirections: String
-  //   ) {
-  //     createRecipe(
-  //       selectedFile: ${recipeData.selectedFile},
-  //       title: ${recipeData.title},
-  //       style: ${recipeData.style},
-  //       method: ${recipeData.method},
-  //       description: ${recipeData.description},
-  //       efficiency: ${recipeData.efficiency},
-  //       batchSize: ${recipeData.batchSize},
-  //       targetOG: ${recipeData.targetOG},
-  //       targetFG: ${recipeData.targetFG},
-  //       IBUs: ${recipeData.IBUs},
-  //       targetABV: ${recipeData.targetABV},
-  //       malts: ${recipeData.malts},
-  //       hops: ${recipeData.hops},
-  //       others: ${recipeData.others},
-  //       yeast: ${recipeData.yeast},
-  //       mashLength: ${recipeData.mashLength},
-  //       mashTemp: ${recipeData.mashTemp},
-  //       mashDirections: ${recipeData.mashDirections},
-  //       boilLength: ${recipeData.boilLength},
-  //       boilDirections: ${recipeData.boilDirections},
-  //       fermentTemp: ${recipeData.fermentTemp},
-  //       fermentLength: ${recipeData.fermentLength},
-  //       fermentDirections: ${recipeData.fermentDirections},
-  //       otherDirections: ${recipeData.otherDirections},
-  //     ) {
-  //       selectedFile
-  //       title
-  //       style
-  //       method
-  //       description
-  //       efficiency
-  //       batchSize
-  //       targetOG
-  //       targetFG
-  //       IBUs
-  //       targetABV
-  //       malts {
-  //         name
-  //         grams
-  //       }
-  //       hops {
-  //         name
-  //         grams
-  //       }
-  //       others
-  //       yeast
-  //       mashLength
-  //       mashTemp
-  //       mashDirections
-  //       boilLength
-  //       boilDirections
-  //       fermentTemp
-  //       fermentLength
-  //       fermentDirections
-  //       otherDirections
-  //     }
-  //   }
-  // `;
 
   return (
     <>

@@ -33,6 +33,7 @@ const Mash = ({ recipeData, setRecipeData }) => {
           <NumberInput value={recipeData.mashTemp}>
             <InputGroup>
               <NumberInputField
+                placeholder="0"
                 value={recipeData.mashTemp}
                 onChange={(e) =>
                   setRecipeData({ ...recipeData, mashTemp: e.target.value })
@@ -47,6 +48,7 @@ const Mash = ({ recipeData, setRecipeData }) => {
           <NumberInput value={recipeData.mashLength}>
             <InputGroup>
               <NumberInputField
+                placeholder="0"
                 value={recipeData.mashLength}
                 onChange={(e) =>
                   setRecipeData({ ...recipeData, mashLength: e.target.value })
@@ -82,6 +84,7 @@ const Boil = ({ recipeData, setRecipeData }) => {
         <NumberInput value={recipeData.boilLength}>
           <InputGroup>
             <NumberInputField
+              placeholder="0"
               w="100px"
               value={recipeData.boilLength}
               onChange={(e) =>
@@ -118,6 +121,7 @@ const Ferment = ({ recipeData, setRecipeData }) => {
           <NumberInput value={recipeData.fermentTemp}>
             <InputGroup>
               <NumberInputField
+                placeholder="0"
                 value={recipeData.fermentTemp}
                 onChange={(e) =>
                   setRecipeData({
@@ -135,6 +139,7 @@ const Ferment = ({ recipeData, setRecipeData }) => {
           <NumberInput value={recipeData.fermentLength}>
             <InputGroup>
               <NumberInputField
+                placeholder="0"
                 value={recipeData.fermentLength}
                 onChange={(e) =>
                   setRecipeData({

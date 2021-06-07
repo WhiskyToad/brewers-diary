@@ -16,10 +16,10 @@ import {
 const Ingredients = ({ recipeData, setRecipeData }) => {
   //saving inputs to push to recipeData
   const [others, setOthers] = useState("");
-  const [malt, setMalt] = useState({ name: "", grams: 0 });
+  const [malt, setMalt] = useState({ name: "", grams: "" });
   const [hop, setHop] = useState({
     name: "",
-    grams: 0,
+    grams: "",
   });
 
   //adds malt to schema and clears the input
@@ -28,7 +28,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
       ...recipeData,
       malts: [...recipeData.malts, { name: malt.name, grams: malt.grams }],
     });
-    setMalt({ name: "", grams: 0 });
+    setMalt({ name: "", grams: "" });
   };
 
   const deleteMalt = (index) => {
@@ -55,7 +55,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
     });
     setHop({
       name: "",
-      grams: 0,
+      grams: "",
     });
   };
 

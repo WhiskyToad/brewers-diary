@@ -25,6 +25,7 @@ const Stats = ({ recipeData, setRecipeData }) => {
           <NumberInput value={recipeData.efficiency}>
             <InputGroup>
               <NumberInputField
+                placeholder="0"
                 w="70px"
                 value={recipeData.efficiency}
                 onChange={(e) =>
@@ -41,62 +42,62 @@ const Stats = ({ recipeData, setRecipeData }) => {
 
         <VStack>
           <Text textStyle="headingSmall">Batch Size</Text>
-          <NumberInput value={recipeData.batchSize}>
+          <NumberInput value={recipeData.batchSize} required="required">
             <InputGroup>
               <NumberInputField
+                placeholder="0"
                 w="60px"
                 value={recipeData.batchSize}
                 onChange={(e) =>
                   setRecipeData({ ...recipeData, batchSize: e.target.value })
                 }
-                placeholder="Batch Size"
               />
-              <InputRightAddon children="Litres" />
+              <InputRightAddon children="L" />
             </InputGroup>
           </NumberInput>
         </VStack>
 
         <VStack>
           <Text textStyle="headingSmall">OG</Text>
-          <NumberInput w="70px" precision={2} value={recipeData.targetOG}>
-            <InputGroup>
-              <NumberInputField
-                value={recipeData.targetOG}
-                onChange={(e) =>
-                  setRecipeData({ ...recipeData, targetOG: e.target.value })
-                }
-              />
-            </InputGroup>
+          <NumberInput
+            w="70px"
+            precision={2}
+            value={recipeData.targetOG}
+            required="required"
+          >
+            <NumberInputField
+              placeholder="0.00"
+              value={recipeData.targetOG}
+              onChange={(e) =>
+                setRecipeData({ ...recipeData, targetOG: e.target.value })
+              }
+            />
           </NumberInput>
         </VStack>
 
         <VStack>
           <Text textStyle="headingSmall">FG</Text>
-          <NumberInput w="70px" precision={2} value={recipeData.targetFG}>
-            <InputGroup>
-              <NumberInputField
-                precision={2}
-                value={recipeData.targetFG}
-                onChange={(e) =>
-                  setRecipeData({ ...recipeData, targetFG: e.target.value })
-                }
-              />
-            </InputGroup>
+          <NumberInput w="70px" value={recipeData.targetFG} required="required">
+            <NumberInputField
+              placeholder="0.00"
+              value={recipeData.targetFG}
+              onChange={(e) =>
+                setRecipeData({ ...recipeData, targetFG: e.target.value })
+              }
+            />
           </NumberInput>
         </VStack>
 
         <VStack>
           <Text textStyle="headingSmall">IBUs</Text>
           <NumberInput w="70px" value={recipeData.IBUs}>
-            <InputGroup>
-              <NumberInputField
-                value={recipeData.IBUs}
-                onChange={(e) =>
-                  setRecipeData({ ...recipeData, IBUs: e.target.value })
-                }
-                placeholder="0"
-              />
-            </InputGroup>
+            <NumberInputField
+              placeholder="0"
+              value={recipeData.IBUs}
+              onChange={(e) =>
+                setRecipeData({ ...recipeData, IBUs: e.target.value })
+              }
+            />
           </NumberInput>
         </VStack>
       </Flex>
