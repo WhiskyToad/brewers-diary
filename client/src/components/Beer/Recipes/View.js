@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useMutation } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Link as Router } from "react-router-dom";
@@ -37,7 +37,7 @@ import {
 } from "react-icons/fa";
 import { HiDotsHorizontal } from "react-icons/hi";
 
-import { deleteRecipe, likeRecipe } from "../../../actions/beer/recipes";
+import { likeRecipe } from "../../../actions/beer/recipes";
 
 const RecipeView = () => {
   const dispatch = useDispatch();
@@ -120,7 +120,7 @@ const RecipeView = () => {
   );
 };
 
-const Title = ({ recipe, dispatch, user, history }) => {
+const Title = ({ recipe, user, history }) => {
   // creates the stars rating display
   const rating = (recipe) => {
     let value = (recipe.rating / recipe.votes.length).toFixed(1);
@@ -145,6 +145,19 @@ const Title = ({ recipe, dispatch, user, history }) => {
 
     return stars;
   };
+
+  const DELETE_RECIPE = gql`
+    mutation deleteRecipe($recipeId: ID!) {
+      deleteRecipe(recipeId: $recipeId)
+    }
+  `;
+  const [deleteRecipe] = useMutation(DELETE_RECIPE);
+  const handleClick = () => {
+    deleteRecipe({
+      variables: { recipeId: recipe.id },
+    });
+    history.push("/");
+  };
   return (
     <VStack className="center-card">
       <HStack w="97%" justify="space-between">
@@ -167,9 +180,7 @@ const Title = ({ recipe, dispatch, user, history }) => {
                     </HStack>
                   </Link>
                 </MenuItem>
-                <MenuItem
-                  onClick={() => dispatch(deleteRecipe(recipe.id, history))}
-                >
+                <MenuItem onClick={() => handleClick()}>
                   <HStack>
                     <DeleteIcon />
                     <Text>Delete</Text>

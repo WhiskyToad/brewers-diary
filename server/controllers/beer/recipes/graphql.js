@@ -1,5 +1,6 @@
 import { graphqlHTTP } from "express-graphql";
 import { buildSchema } from "graphql";
+import mongoose from "mongoose";
 import recipeSheet from "../../../models/beer/recipeSheet.js";
 
 // Construct a schema, using GraphQL schema language
@@ -83,6 +84,7 @@ var schema = buildSchema(`
       fermentDirections: String
       otherDirections: String
     ): recipe!
+    deleteRecipe(recipeId: ID!): String!
   }
 `);
 
@@ -114,6 +116,14 @@ const resolvers = {
     } catch (error) {
       console.log(error);
     }
+  },
+
+  deleteRecipe: async (args) => {
+    if (!mongoose.Types.ObjectId.isValid(args.recipeId)) {
+      return "No recipe with that ID found";
+    }
+    await recipeSheet.findByIdAndRemove(args.recipeId);
+    return "Recipe deleted succesfully";
   },
 };
 

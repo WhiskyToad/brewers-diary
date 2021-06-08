@@ -8,7 +8,6 @@ import {
   Select,
   NumberInput,
   NumberInputField,
-  InputGroup,
   HStack,
   Flex,
   Input,

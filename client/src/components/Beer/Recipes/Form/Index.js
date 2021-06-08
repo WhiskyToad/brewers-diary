@@ -14,7 +14,7 @@ import Directions from "./Directions";
 
 const RecipeForm = () => {
   const history = useHistory();
-  const user = JSON.parse(localStorage.getItem("profile"));
+  // const user = JSON.parse(localStorage.getItem("profile"));
 
   // full recipe data
   const [recipeData, setRecipeData] = useState({
@@ -45,47 +45,47 @@ const RecipeForm = () => {
   });
 
   //recipe query
-  const RECIPE = gql`
-    query recipe($id: ID!) {
-      oneRecipe(recipeId: $id) {
-        id
-        selectedFile
-        title
-        style
-        method
-        description
-        efficiency
-        batchSize
-        targetOG
-        targetFG
-        IBUs
-        targetABV
-        malts {
-          name
-          grams
-        }
-        hops {
-          name
-          grams
-        }
-        others
-        yeast
-        mashLength
-        mashTemp
-        mashDirections
-        boilLength
-        boilDirections
-        fermentTemp
-        fermentLength
-        fermentDirections
-        otherDirections
-        rating
-        votes
-        createdAt
-        name
-      }
-    }
-  `;
+  // const RECIPE = gql`
+  //   query recipe($id: ID!) {
+  //     oneRecipe(recipeId: $id) {
+  //       id
+  //       selectedFile
+  //       title
+  //       style
+  //       method
+  //       description
+  //       efficiency
+  //       batchSize
+  //       targetOG
+  //       targetFG
+  //       IBUs
+  //       targetABV
+  //       malts {
+  //         name
+  //         grams
+  //       }
+  //       hops {
+  //         name
+  //         grams
+  //       }
+  //       others
+  //       yeast
+  //       mashLength
+  //       mashTemp
+  //       mashDirections
+  //       boilLength
+  //       boilDirections
+  //       fermentTemp
+  //       fermentLength
+  //       fermentDirections
+  //       otherDirections
+  //       rating
+  //       votes
+  //       createdAt
+  //       name
+  //     }
+  //   }
+  // `;
 
   const RECIPE_MUTATION = gql`
     mutation (
@@ -141,42 +141,12 @@ const RecipeForm = () => {
         otherDirections: $otherDirections
       ) {
         id
-        selectedFile
-        title
-        style
-        method
-        description
-        efficiency
-        batchSize
-        targetOG
-        targetFG
-        IBUs
-        targetABV
-        malts {
-          name
-          grams
-        }
-        hops {
-          name
-          grams
-        }
-        others
-        yeast
-        mashLength
-        mashTemp
-        mashDirections
-        boilLength
-        boilDirections
-        fermentTemp
-        fermentLength
-        fermentDirections
-        otherDirections
       }
     }
   `;
 
   //get recipe id from url and load recipe
-  const recipeId = window.location.hash.substr(1);
+  // const recipeId = window.location.hash.substr(1);
   // const { loading, error, data } = useQuery(RECIPE, {
   //   variables: { id: recipeId },
   // });
