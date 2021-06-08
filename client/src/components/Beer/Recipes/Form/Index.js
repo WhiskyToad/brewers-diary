@@ -140,6 +140,7 @@ const RecipeForm = () => {
         fermentDirections: $fermentDirections
         otherDirections: $otherDirections
       ) {
+        id
         selectedFile
         title
         style
@@ -180,14 +181,14 @@ const RecipeForm = () => {
   //   variables: { id: recipeId },
   // });
 
-  const [createRecipe, { data }] = useMutation(RECIPE_MUTATION);
+  const [createRecipe] = useMutation(RECIPE_MUTATION);
   //submits the form
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (recipeData.title.length > 30) {
       return alert("Title can only be 30 chars max");
     }
-    createRecipe({
+    const data = await createRecipe({
       variables: {
         selectedFile: recipeData.selectedFile,
         title: recipeData.title,
@@ -215,6 +216,7 @@ const RecipeForm = () => {
         otherDirections: recipeData.otherDirections,
       },
     });
+    history.push(`/recipes/view/#${data.data.createRecipe.id}`);
   };
 
   return (
