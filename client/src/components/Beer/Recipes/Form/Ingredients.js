@@ -26,7 +26,10 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
   const addMalt = (e) => {
     setRecipeData({
       ...recipeData,
-      malts: [...recipeData.malts, { name: malt.name, grams: malt.grams }],
+      malts: [
+        ...recipeData.malts,
+        { name: malt.name, grams: parseInt(malt.grams) },
+      ],
     });
     setMalt({ name: "", grams: "" });
   };
@@ -49,7 +52,7 @@ const Ingredients = ({ recipeData, setRecipeData }) => {
         ...recipeData.hops,
         {
           name: hop.name,
-          grams: hop.grams,
+          grams: parseInt(hop.grams),
         },
       ],
     });

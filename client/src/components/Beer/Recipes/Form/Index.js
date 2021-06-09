@@ -58,6 +58,7 @@ const RecipeForm = ({ edit }) => {
     }
     const data = await createRecipe({
       variables: {
+        id: recipeData.id,
         selectedFile: recipeData.selectedFile,
         title: recipeData.title,
         style: recipeData.style,
@@ -112,6 +113,7 @@ const RecipeForm = ({ edit }) => {
 
 const RECIPE_MUTATION = gql`
   mutation (
+    $id: ID
     $selectedFile: String
     $title: String
     $style: String
@@ -138,6 +140,7 @@ const RECIPE_MUTATION = gql`
     $otherDirections: String
   ) {
     createRecipe(
+      id: $id
       selectedFile: $selectedFile
       title: $title
       style: $style

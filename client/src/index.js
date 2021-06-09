@@ -10,7 +10,9 @@ import App from "./App";
 
 const client = new ApolloClient({
   uri: "http://localhost:5000/recipes/beer/graphql",
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    addTypename: false,
+  }),
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

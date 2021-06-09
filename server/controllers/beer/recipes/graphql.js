@@ -50,15 +50,16 @@ var schema = buildSchema(`
   }
   input HopsInput{
     name: String
-    grams: String
+    grams: Int
   }
   input MaltsInput{
     name: String
-    grams: String
+    grams: Int
   }
   type Mutation {
     createRecipe
     (
+      id: ID
       selectedFile: String
       title: String
       style: String
@@ -106,13 +107,22 @@ const resolvers = {
     }
   },
   createRecipe: async (args) => {
-    const newRecipe = new recipeSheet({
-      ...args,
-      createdAt: new Date().toISOString(),
-    });
+    let creating = mongoose.Types.ObjectId.isValid(args.id);
     try {
-      await newRecipe.save();
-      return newRecipe;
+      //if creating
+      if (!creating) {
+        const newRecipe = new recipeSheet({
+          ...args,
+          createdAt: new Date().toISOString(),
+        });
+        await newRecipe.save();
+        return newRecipe;
+      }
+      //editing
+      const updatedRecipe = await recipeSheet.findByIdAndUpdate(args.id, args, {
+        new: true,
+      });
+      return updatedRecipe;
     } catch (error) {
       console.log(error);
     }
