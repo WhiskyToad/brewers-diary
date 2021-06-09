@@ -173,7 +173,7 @@ const Title = ({ recipe, user, history }) => {
               />
               <MenuList>
                 <MenuItem>
-                  <Link as={Router} to={`/recipe/create?update#${recipe.id}`}>
+                  <Link as={Router} to={`/recipe/edit#${recipe.id}`}>
                     <HStack>
                       <EditIcon />
                       <Text>Edit</Text>

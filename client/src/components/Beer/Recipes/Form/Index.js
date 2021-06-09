@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useQuery, useMutation, gql } from "@apollo/client";
+import React, { useState, useEffect } from "react";
+import { useMutation, gql } from "@apollo/client";
 
 import { useHistory } from "react-router-dom";
 
@@ -12,9 +12,10 @@ import Ingredients from "./Ingredients";
 import Stats from "./Stats";
 import Directions from "./Directions";
 
-const RecipeForm = () => {
+const RecipeForm = ({ edit }) => {
   const history = useHistory();
   // const user = JSON.parse(localStorage.getItem("profile"));
+  const [createRecipe] = useMutation(RECIPE_MUTATION);
 
   // full recipe data
   const [recipeData, setRecipeData] = useState({
@@ -43,115 +44,12 @@ const RecipeForm = () => {
     fermentDirections: "",
     otherDirections: "",
   });
-
-  //recipe query
-  // const RECIPE = gql`
-  //   query recipe($id: ID!) {
-  //     oneRecipe(recipeId: $id) {
-  //       id
-  //       selectedFile
-  //       title
-  //       style
-  //       method
-  //       description
-  //       efficiency
-  //       batchSize
-  //       targetOG
-  //       targetFG
-  //       IBUs
-  //       targetABV
-  //       malts {
-  //         name
-  //         grams
-  //       }
-  //       hops {
-  //         name
-  //         grams
-  //       }
-  //       others
-  //       yeast
-  //       mashLength
-  //       mashTemp
-  //       mashDirections
-  //       boilLength
-  //       boilDirections
-  //       fermentTemp
-  //       fermentLength
-  //       fermentDirections
-  //       otherDirections
-  //       rating
-  //       votes
-  //       createdAt
-  //       name
-  //     }
-  //   }
-  // `;
-
-  const RECIPE_MUTATION = gql`
-    mutation (
-      $selectedFile: String
-      $title: String
-      $style: String
-      $method: String
-      $description: String
-      $efficiency: Int
-      $batchSize: Int
-      $targetOG: Float
-      $targetFG: Float
-      $IBUs: Int
-      $targetABV: Float
-      $malts: [MaltsInput]
-      $hops: [HopsInput]
-      $others: [String]
-      $yeast: String
-      $mashLength: Int
-      $mashTemp: Int
-      $mashDirections: String
-      $boilLength: Int
-      $boilDirections: String
-      $fermentTemp: Int
-      $fermentLength: Int
-      $fermentDirections: String
-      $otherDirections: String
-    ) {
-      createRecipe(
-        selectedFile: $selectedFile
-        title: $title
-        style: $style
-        method: $method
-        description: $description
-        efficiency: $efficiency
-        batchSize: $batchSize
-        targetOG: $targetOG
-        targetFG: $targetFG
-        IBUs: $IBUs
-        targetABV: $targetABV
-        malts: $malts
-        hops: $hops
-        others: $others
-        yeast: $yeast
-        mashLength: $mashLength
-        mashTemp: $mashTemp
-        mashDirections: $mashDirections
-        boilLength: $boilLength
-        boilDirections: $boilDirections
-        fermentTemp: $fermentTemp
-        fermentLength: $fermentLength
-        fermentDirections: $fermentDirections
-        otherDirections: $otherDirections
-      ) {
-        id
-      }
+  //populates for editing
+  useEffect(() => {
+    if (edit) {
+      setRecipeData(edit);
     }
-  `;
-
-  //get recipe id from url and load recipe
-  // const recipeId = window.location.hash.substr(1);
-  // const { loading, error, data } = useQuery(RECIPE, {
-  //   variables: { id: recipeId },
-  // });
-
-  const [createRecipe] = useMutation(RECIPE_MUTATION);
+  }, [edit]);
   //submits the form
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -211,5 +109,63 @@ const RecipeForm = () => {
     </>
   );
 };
+
+const RECIPE_MUTATION = gql`
+  mutation (
+    $selectedFile: String
+    $title: String
+    $style: String
+    $method: String
+    $description: String
+    $efficiency: Int
+    $batchSize: Int
+    $targetOG: Float
+    $targetFG: Float
+    $IBUs: Int
+    $targetABV: Float
+    $malts: [MaltsInput]
+    $hops: [HopsInput]
+    $others: [String]
+    $yeast: String
+    $mashLength: Int
+    $mashTemp: Int
+    $mashDirections: String
+    $boilLength: Int
+    $boilDirections: String
+    $fermentTemp: Int
+    $fermentLength: Int
+    $fermentDirections: String
+    $otherDirections: String
+  ) {
+    createRecipe(
+      selectedFile: $selectedFile
+      title: $title
+      style: $style
+      method: $method
+      description: $description
+      efficiency: $efficiency
+      batchSize: $batchSize
+      targetOG: $targetOG
+      targetFG: $targetFG
+      IBUs: $IBUs
+      targetABV: $targetABV
+      malts: $malts
+      hops: $hops
+      others: $others
+      yeast: $yeast
+      mashLength: $mashLength
+      mashTemp: $mashTemp
+      mashDirections: $mashDirections
+      boilLength: $boilLength
+      boilDirections: $boilDirections
+      fermentTemp: $fermentTemp
+      fermentLength: $fermentLength
+      fermentDirections: $fermentDirections
+      otherDirections: $otherDirections
+    ) {
+      id
+    }
+  }
+`;
 
 export default RecipeForm;
