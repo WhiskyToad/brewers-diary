@@ -5,12 +5,10 @@ is full stack React and Node, using axios and redux in the front end and express
 
 So far it has full CRUD functionality for adding recipes, the priority todo list currently looks like:
 
-Add login /google auth to site<br>
-switch from REST API to GraphQL<br>
-base64 converting and compressing of user uploaded images.<br>
-study about switching from Redux to React Query<br>
-clean up my Chakra UI styling, and improve my UI in general<br>
-build out more features<br>
+Finish doing graphql refactor: <br>
+rate recipe <br>
+auth checking <br>
+tidy it up <br>
 
 ---
 

@@ -30,7 +30,7 @@ const Mash = ({ recipeData, setRecipeData }) => {
       <HStack w={{ base: "80%", md: "40%" }} justify="space-evenly" mb="20px">
         <VStack>
           <Text textStyle="headingSmall">Temp</Text>
-          <NumberInput value={recipeData.mashTemp}>
+          <NumberInput value={recipeData.mashTemp} required="required">
             <InputGroup>
               <NumberInputField
                 placeholder="0"
@@ -45,7 +45,7 @@ const Mash = ({ recipeData, setRecipeData }) => {
         </VStack>
         <VStack>
           <Text textStyle="headingSmall">Length</Text>
-          <NumberInput value={recipeData.mashLength}>
+          <NumberInput value={recipeData.mashLength} required="required">
             <InputGroup>
               <NumberInputField
                 placeholder="0"
@@ -81,7 +81,7 @@ const Boil = ({ recipeData, setRecipeData }) => {
 
       <VStack w={{ base: "60%", md: "40%" }} justify="space-evenly" mb="20px">
         <Text textStyle="headingSmall">Length</Text>
-        <NumberInput value={recipeData.boilLength}>
+        <NumberInput value={recipeData.boilLength} required="required">
           <InputGroup>
             <NumberInputField
               placeholder="0"
@@ -118,7 +118,7 @@ const Ferment = ({ recipeData, setRecipeData }) => {
       <HStack w={{ base: "80%", md: "40%" }} justify="space-evenly" mb="20px">
         <VStack>
           <Text textStyle="headingSmall">Temp</Text>
-          <NumberInput value={recipeData.fermentTemp}>
+          <NumberInput value={recipeData.fermentTemp} required="required">
             <InputGroup>
               <NumberInputField
                 placeholder="0"
@@ -136,7 +136,7 @@ const Ferment = ({ recipeData, setRecipeData }) => {
         </VStack>
         <VStack>
           <Text textStyle="headingSmall">Length</Text>
-          <NumberInput value={recipeData.fermentLength}>
+          <NumberInput value={recipeData.fermentLength} required="required">
             <InputGroup>
               <NumberInputField
                 placeholder="0"

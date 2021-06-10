@@ -22,7 +22,7 @@ const Stats = ({ recipeData, setRecipeData }) => {
       >
         <VStack>
           <Text textStyle="headingSmall">Efficiency</Text>
-          <NumberInput value={recipeData.efficiency}>
+          <NumberInput value={recipeData.efficiency} required="required">
             <InputGroup>
               <NumberInputField
                 placeholder="0"
@@ -90,7 +90,7 @@ const Stats = ({ recipeData, setRecipeData }) => {
 
         <VStack>
           <Text textStyle="headingSmall">IBUs</Text>
-          <NumberInput w="70px" value={recipeData.IBUs}>
+          <NumberInput w="70px" value={recipeData.IBUs} required="required">
             <NumberInputField
               placeholder="0"
               value={recipeData.IBUs}
