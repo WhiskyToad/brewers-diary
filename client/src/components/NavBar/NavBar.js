@@ -138,7 +138,7 @@ const MenuLinks = ({ isOpen, toggle, user, logout }) => {
           </MenuList>
         </Menu>
 
-        <InputGroup>
+        {/* <InputGroup>
           <Input
             h="30px"
             type="search"
@@ -151,7 +151,7 @@ const MenuLinks = ({ isOpen, toggle, user, logout }) => {
             children={<Search2Icon size="sm" />}
             cursor="pointer"
           />
-        </InputGroup>
+        </InputGroup> */}
         {user?.result ? (
           <Menu>
             <MenuButton as={Button} textStyle="heading" variant="ghost">
